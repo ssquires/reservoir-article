@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>California Reservoirs</title>
+<link rel='stylesheet' href='style/scrolly.css' />
+<link href="https://fonts.googleapis.com/css?family=Raleway:200|Open+Sans|Lato|Nova+Mono" rel="stylesheet">
+</head>
+    
+<body>
+<div id="title" class="panel fader">
+    <div class="opacity-screen-2"></div>
+    <div id="title-div">
+        <h1>Fighting Drought with Mathematical Models</h1>
+        <p>During a drought, the reservoirs that provide California's water can reach critically low levels. Caltech researchers have developed a statistical model that might help us better manage our water.</p>
+    </div>
+</div>
+<div id="drought-happens" class="panel fader">
+    <h1>Drought happens.</h1>
+    <p>California has experienced a couple of major droughts recently. When we're in a drought, there are a bunch of negative effects.</p>
+</div>
+<div id="pdsi" class="panel fader">
+    <h1>PDSI measures drought.</h1>
+    <p>We measure dryness with the Palmer Drought Severity Index (PDSI). Positive values indicate wet spells and negative values indicate dry spells. Here are a couple of examples of PDSI values we hit in 2008, 2012, etc.</p>
+</div>
+<div id="reservoirs-matter" class="panel fader">
+    <h1>Reservoirs matter.</h1>
+    <p>Reservoir levels are affected by drought. Reservoirs are used for drinking water, agriculture, etc. so it's important to not let them run dry.</p>
+</div>
+<div id="reservoir-management" class="panel fader">
+    <h1>People control reservoirs.</h1>
+    <p>People make decisions about when to let water out of a reservoir, etc. They do their best to manage the water level so that the reservoir doesn't empty, but sometimes this happens anyway-- and there are consequences for communities when it does.</p>
+</div>
+<div id="montague" class="panel fader">
+    <h1>People managing reservoirs can make mistakes... like in Montague</h1>
+    <p>Montague's reservoir ran out and each family had to ration water a LOT.</p>
+</div>
+<div id="seasonality" class="panel fader">
+    <h1>Reservoir levels are variable and hard to predict.</h1>
+    <p>How could Montague not have seen this coming? Well, turns out that the water level in a reservoir varies a lot-- for example, it's highly seasonal. Check out this reservoir. It's pretty hard to predict what will happen to the water level. We need help.</p>
+</div>    
+<div id="dependencies" class="panel fader">
+    <h1>Reservoir levels depend on PDSI.</h1>
+    <p>If you're trying to predict how much water you'll have in your reservoir in a couple of months, you might look at rainfall, temperature, snowpack, etc.-- all of these are factored into PDSI. So knowing the current PDSI (are we in a drought? A wet spell?) could help us figure out if our reservoir is in danger.</p>
+</div>    
+<div id="connectivity" class="panel fader">
+    <h1>Reservoirs depend on other reservoirs.</h1>
+    <p>It turns out that reservoirs are "connected"-- that is, there's a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (like they're physically connected), but not always. So it could also help us to look at how other reservoirs are doing, in addition to looking at PDSI.</p>
+</div>  
+<div id="statistical-model" class="panel fader">
+    <h1>Mathematical models can help us predict what will happen to a reservoir.</h1>
+    <p>Researchers at Caltech have developed a statistical model that incorporates reservoirs' dependency on PDSI and on each other. This model can help us predict when a reservoir is in trouble.</p>
+</div> 
+<div id="risk" class="panel fader">
+    <h1>What we're measuring is risk.</h1>
+    <p>This model measures risk-- in other words, how likely it is that a particular reservoir will drop below x% capacity, given a PDSI of y. If a water manager can tell that a reservoir is at high risk of exhaustion, they can make different decisions and conserve water.</p>
+</div>
+<div id="final-viz" class="panel fader">
+    <h1>The visualization...</h1>
+    <p>Try changing the PDSI slider and see how the PDSI affects each reservoir's risk of going below x%.</p>
+</div>
+<div id="conclusion" class="panel fader">
+    <h1>Conclusion</h1>
+    <p>There's currently no standardized system for how a water manager should respond to a certain PDSI. This model could help water managers identify when a reservoir is at risk and take different actions to avoid situations like Montague's.</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="js/scrolly.js"></script>
+<script src='//d3js.org/d3.v3.min.js' charset='utf-8'></script>
+<script src="js/liquidFillGauge.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/slide1.js"></script>
+<script src="js/slide2.js"></script>
+<script src="js/slide3.js"></script>
+<script src="js/slide4.js"></script>
+<script src="js/slide5.js"></script>
+<script src="js/slide6.js"></script>
+    
+    
+</body>
+</html>

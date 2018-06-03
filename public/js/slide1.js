@@ -1,10 +1,15 @@
 var waterBuckets = false;
-function slide1() {
-    console.log("Displaying Slide 1.1");
+
+function createSlide1Viz() {
     if (!waterBuckets) {
         waterBuckets = true;
         makeWaterBuckets("#slide1-graphic", 25, 10, 20, 600, 300, 50);
     }
+}
+
+function slide1() {
+    console.log("Displaying Slide 1.1");
+    updateWaterBuckets(5000, 25, 10, 10);
 }
 
 function slide1_2() {

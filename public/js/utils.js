@@ -352,6 +352,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         
         var pauseDateXCoord = x(parseDate(pauseDate));
         var stopDateXCoord = x(parseDate(stopDate));
+        
 
         var totalLength;
         for (var i = 0; i < resNames.length; i++) {
@@ -373,8 +374,6 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
             .attr("width", width + margin.right)
             .attr("height", height)
             .attr("x", 0);
-    
-        curtain.transition().duration(6000).ease("linear").attr("x", pauseDateXCoord);
         
         
 
@@ -404,7 +403,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
                 .attr("class", "label")
         }
         
-        callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord});
+        callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
         
         
     });

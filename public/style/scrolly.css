@@ -9,8 +9,11 @@ body {
 
 .panel {
     height: 100vh;
-    opacity: 0;
     background-color: white;
+}
+
+.fader {
+    opacity: 0;
 }
 
 #title {
@@ -59,31 +62,42 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-#panel-2 {
-    background-color: white;
-    opacity: 1;
-    height: 600vh;
-}
-
-.fixer {
-    position: fixed;
-    top: 30vh;
-    opacity: 0;
-}
-
-#panel2-wrapper {
-    height: 100vh;
-    position: relative;
-}
-
-#panel-3 {
-    background-image: url("../slide2_1.jpg");
+#montague {
+    background-image: url("https://www.homeadvisor.com/r/wp-content/uploads/2016/07/background-1239348_640.jpg");
     background-size: cover;
     position: relative;
 }
 
-#panel-4 {
-    background-image: url("https://images.pexels.com/photos/761040/pexels-photo-761040.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+#montague-viz {
+    height: 700vh;
+    opacity: 1;
+    position: relative;
+}
+
+#slide1-inner, #seasonality-inner {
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+}
+
+.relative-600 {
+    position: relative;
+    top: 600vh;
+}
+
+.relative-200 {
+    position: relative;
+    top: 200vh;
+}
+
+.relative {
+    position: relative;
+    top: 0;
 }
 
 h1 {
@@ -97,19 +111,16 @@ p {
     font-size: 18px;
 }
 
-#article {
-    background-color: #FFF;
-    width: 50%;
-    text-align: center;
-    font-family: sans-serif;
-    padding-left: 25%;
-    padding-right: 25%;
-    height: 80vh;
-    padding-top: 20vh;
+text {
+    font-family: Nova Mono, monospace;
+}
+
+.label {
+    font-family: Lato, sans-serif;
 }
 
 .slide-text {
-    position: fixed;
+    position: absolute;
     top: 20vh;
     width: 75%;
     left: 50%;
@@ -117,18 +128,11 @@ p {
     transition: opacity 0.2s;
 }
 
-#slide1-graphic-container {
-    display: flex;
-    align-items: center;
-    height: 420px;
-    position: fixed;
+#slide1-graphic, #seasonality-graphic {
+    position: relative;
     top: 40vh;
-    margin: auto;
-}
-
-#slide1-graphic {
-    width: 650px;
-    text-align: center;
+    height: 25vh;
+    width: 600px;
     margin: auto;
 }
 
@@ -137,11 +141,32 @@ p {
     transition: fill 1s ease;
 }
 
-#slide-2 {
-    position: absolute;
-    top: 30vh;
-    width: 700px;
-    left: 50%;
-    margin-left: -350px;
-    color: white;
+/* Line Graph Styling */
+
+#line-graph {
+    margin-top: 50px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.x text {
+    transform: translate(0px, 5px);
+}
+
+.y text {
+    transform: translate(-5px, 0px);
+}
+
+#line-graph {
+    display: block;
+    margin: auto;
+}
+
+#seasonality {
+    height: 300vh;
 }

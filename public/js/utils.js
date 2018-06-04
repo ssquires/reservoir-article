@@ -78,6 +78,116 @@ function updateWaterBuckets(newVolume, countX, countY, amountPerBucket) {
 
 }
 
+function makePDSISlider(id, textId, sliderId, sliderVal, disabled) {
+    if (!sliderVal) sliderVal = 0;
+    var pdsi_label = $("<h2 id='" + textId + "'>Mid-Range</h2>");
+    $("#" + id).append(pdsi_label);
+    
+    var inputString = "<input type='range' id='" + sliderId + "' min='-5' max='5' value='" + sliderVal + "' class='slider pdsi-slider' oninput='updatePDSILabel(this.value, \"" + textId + "\")'";
+    if (disabled) {
+        inputString += "disabled";
+    }
+    inputString += ">";
+    var s = $(inputString);
+    $("#" + id).append(s);
+    
+    var labels = $("<div id='slider-labels'><p id='label-neg5'>-5</p><p id='label-neg4'>-4</p><p id='label-neg3'>-3</p><p id='label-neg2'>-2</p><p id='label-neg1'>-1</p><p id='label-0'>0</p><p id='label-1'>1</p><p id='label-2'>2</p><p id='label-3'>3</p><p id='label-4'>4</p><p id='label-5'>5</p></div>");
+    $("#" + id).append(labels);
+}
+
+function updatePDSILabel(v, textId) {
+    if (v == -5) {
+            $('#' + textId).text("Extreme Drought");
+    } else if (v == -4) {
+            $('#' + textId).text("Extreme Drought");
+    } else if (v == -3) {
+            $('#' + textId).text("Severe Drought");
+    } else if (v == -2) {
+            $('#' + textId).text("Moderate Drought");
+    } else if (v == -1) {
+            $('#' + textId).text("Mid-Range");
+    } else if (v == 0) {
+            $('#' + textId).text("Mid-Range");
+    } else if (v == 1) {
+            $('#' + textId).text("Mid-Range");
+    } else if (v == 2) {
+            $('#' + textId).text("Moderately Moist");
+    } else if (v == 3) {
+            $('#' + textId).text("Very Moist");
+    } else if (v == 4) {
+            $('#' + textId).text("Extremely Moist");
+    } else {
+        $('#' + textId).text("Extremely Moist");
+    }
+}
+
+function makeFillGaugeForPDSISlider() {
+    
+     var d = $("<svg class='gaugeSVG' id='dependency-gauge' width='150' height='150'></svg>");
+     $("#dependency-viz").append(d);
+    
+    
+    var config = liquidFillGaugeDefaultSettings();
+    config.circleThickness = 0.05;
+    config.circleColor = "#0D7AC4";
+    config.textColor = "#000";
+    config.waveTextColor = "#000";
+    config.waveColor = "#0D7AC4";
+    config.textVertPosition = 0.8;
+    config.waveAnimateTime = 2000;
+    config.waveHeight = 0.05;
+    config.waveAnimate = true;
+    config.waveRise = false;
+    config.waveHeightScaling = false;
+    config.waveOffset = 0.25;
+    config.textSize = 0.9;
+    config.waveCount = 2;
+    var gauge = loadLiquidFillGauge("dependency-gauge", 80, config);
+    $("dependency-label").text("Very Moist");
+    setInterval(function() {
+        gauge.update(20);
+        document.getElementById("dependency-slider").stepDown(6);
+        $("#dependency-label").text("Severe Drought");
+    }, 5000);
+    setTimeout(function() { setInterval(function () {
+        gauge.update(80);
+        document.getElementById("dependency-slider").stepUp(6);
+        $("#dependency-label").text("Very Moist");
+        }, 5000)}, 2500);
+}
+
+function makeMultipleFillGauge() {
+    var gaugeA = $("<svg class='gaugeSVG' id='gauge-A' width='300' height='300'></svg>");
+    $("#connectivity-viz").append(gaugeA);
+    var gaugeB = $("<svg class='gaugeSVG' id='gauge-B' width='300' height='300'></svg>");
+    $("#connectivity-viz").append(gaugeB);
+    var gaugeC = $("<svg class='gaugeSVG' id='gauge-C' width='300' height='300'></svg>");
+    $("#connectivity-viz").append(gaugeC);
+    
+    var config = liquidFillGaugeDefaultSettings();
+    config.circleThickness = 0.05;
+    config.circleColor = "#0D7AC4";
+    config.textColor = "#000";
+    config.waveTextColor = "#000";
+    config.waveColor = "#0D7AC4";
+    config.textVertPosition = 0.8;
+    config.waveAnimateTime = 2000;
+    config.waveHeight = 0.05;
+    config.waveAnimate = true;
+    config.waveRise = false;
+    config.waveHeightScaling = false;
+    config.waveOffset = 0.25;
+    config.textSize = 0.9;
+    config.waveCount = 2;
+    
+    var gaugeA = loadLiquidFillGauge("gauge-A", 90, config);
+    var gaugeB = loadLiquidFillGauge("gauge-B", 90, config);
+    var gaugeC = loadLiquidFillGauge("gauge-C", 90, config);
+    setInterval(function() {gaugeA.update(10)}, 5000);
+    setTimeout(function() { setInterval(function () {gaugeA.update(90)}, 5000)}, 2500);
+    
+}
+
 function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDivID) {
     // Read in data from file
     d3.json(dataFile, function(err, resData) {

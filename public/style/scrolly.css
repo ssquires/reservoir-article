@@ -12,6 +12,16 @@ body {
     background-color: white;
 }
 
+.panel h1 {
+    text-align: center;
+    padding-top: 100px;
+}
+
+.panel-p {
+    width: 75%;
+    margin: auto;
+}
+
 .fader {
     opacity: 0;
 }
@@ -35,7 +45,7 @@ body {
 
 #title-div h1 {
     color: white;
-    
+    text-align: left;
 }
 
 #title-div p {
@@ -62,16 +72,112 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+#PDSI-viz {
+    width: 650px;
+    padding-top: 100px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+#slider-labels {
+    padding-top: 10px;
+}
+
+#slider-labels p {
+    display: inline-block;
+    position: absolute;
+}
+
+#label-neg5 {
+    left: 0;
+    margin-left: -1ch;
+}
+
+#label-neg4 {
+    left: 10%;
+    margin-left: -1ch;
+}
+
+#label-neg3 {
+    left: 20%;
+    margin-left: -1ch;
+}
+
+#label-neg2 {
+    left: 30%;
+    margin-left: -1ch;
+} 
+
+#label-neg1 {
+    left: 40%;
+    margin-left: -1ch;
+}
+
+#label-0 {
+    left: 50%;
+    margin-left: -.5ch;
+}
+
+#label-1 {
+    left: 60%;
+    margin-left: -.5ch;
+}
+
+#label-2 {
+    left: 70%;
+    margin-left: -.5ch;
+}
+
+#label-3 {
+    left: 80%;
+    margin-left: -.5ch;
+}
+
+#label-4 {
+    left: 90%;
+    margin-left: -.5ch;
+}
+
+#label-5 {
+    left: 100%;
+    margin-left: -.5ch;
+}
+
 #montague {
     background-image: url("https://www.homeadvisor.com/r/wp-content/uploads/2016/07/background-1239348_640.jpg");
     background-size: cover;
     position: relative;
+    color: white;
+    z-index: -2;
+}
+
+.big-picture-text-left {
+    text-align: left;
+    margin-left: 50px;
+    padding-top: 40vh;
+    max-width: 700px;
+}
+
+.big-picture-text-right {
+    text-align: left;
+    right: 50px;
+    padding-top: 40vh;
+    max-width: 700px;
 }
 
 #montague-viz {
     height: 700vh;
     opacity: 1;
     position: relative;
+}
+
+#predictions {
+    background-image: url("https://www.farmwater.org/wp-content/uploads/2017/10/DSC00460.jpg");
+    background-size: cover;
+    color: white;
+    position: relative;
+    z-index: -2;
 }
 
 #slide1-inner, #seasonality-inner {
@@ -104,6 +210,15 @@ h1 {
     font-size: 50px;
     font-family: Lato;
     padding-bottom: 20px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-family: Lato;
+    font-weight: 300;
+    text-align: center;
 }
 
 p {
@@ -169,4 +284,188 @@ text {
 
 #seasonality {
     height: 300vh;
+}
+
+.chart {
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+input {
+    display: block;
+    margin: auto;
+}
+
+#sliderContainer {
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+}
+
+#slider {
+    padding: 25px;
+    margin-left: 35px;
+    margin-right: 35px;
+    position: relative;
+}
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 60px;
+    border-radius: 1px;   
+    background: #DDDDDD;
+    outline: none;
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-top: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 70px;
+    border-radius: none; 
+    background: black;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+}
+
+.pdsi-slider {
+    background: linear-gradient(to right, #5C0012 0%, #5C0012 5%, #D90900 15%, #F49B00 25%, #eee 35%, #eee 65%, #B0FF55 75%, #12C900 85%, #005C01 95%, #005C01 100%);
+}
+
+#start-label {
+    position: absolute;
+}
+
+#end-label {
+    position: absolute;
+    right: 23px;
+}
+
+#marker-div-08 {
+    left: 237px;
+}
+
+#marker-div-14 {
+    left: 466px;
+}
+
+#drought-label-08 {
+    position: absolute;
+    top: 115px;
+    left: 190px;
+}
+
+#drought-label-14 {
+    position: absolute;
+    top: 115px;
+    left: 415px;
+}
+
+.marker-div {
+    background: none;
+    border: 1px dashed black;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 57px;
+    width: 0px;
+    height: 55px;
+    pointer-events: none;
+}
+
+.tooltip {
+    position: absolute;
+}
+
+.chart circle, .chart path {
+    transition: fill .5s, stroke .5s;
+}
+
+.chartSVG * {
+    pointer-events: none;
+}
+
+.res {
+    transition: fill .5s, stroke .5s;
+}
+
+.res-name {
+    font-family: Nova Mono;
+    font-size: 16px;
+}
+
+#gauges {
+    width: 300px;
+    height: 275px;
+    text-align: center;
+    margin: 0;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#vizContainer {
+    display: flex;
+    width: 580px;
+    margin: auto;
+    padding-top: 20px;
+}
+
+#map {
+    width: 250px;
+    height: 275px;
+/*    background-color: #0D7AC4;*/
+    margin: 0;
+    display: inline-block;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+.button-div {
+    flex: 1;
+}
+
+button {
+    margin-top: 50px;
+}
+
+#reservoirs-matter-viz {
+    width: 650px;
+    text-align: center;
+    margin: auto;
+}
+
+#dependencies {
+    position: relative;
+}
+
+#dependency-viz {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: auto;
+    padding-top: 50px;
+}
+
+#dependency-slider-viz {
+    width: 650px;
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    position: relative;
 }

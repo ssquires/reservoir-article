@@ -1,7 +1,12 @@
 $(document).ready(function() {
     
+    slide3();
+    makePDSISlider("PDSI-viz", "pdsi-label", "pdsi-slider");
+    makePDSISlider("dependency-slider-viz", "dependency-label", "dependency-slider", 3, true);
     createSlide1Viz();
     slide2();
+    makeFillGaugeForPDSISlider();
+    makeMultipleFillGauge();
     handleScrolling();
     
     /* Every time the window is scrolled ... */
@@ -59,41 +64,59 @@ function handleScrolling() {
             hideSlides();
             showSlide('1');
             $('#slide1-inner').removeClass('fixed');
+            $('#slide1-inner').removeClass('relative-bottom');
             $('#slide1-inner').addClass('relative');
             slide1();
         } else if (w_pos >= top && w_pos < pos_1_2) {
             hideSlides();
             showSlide('1');
             $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
             $('#slide1-inner').addClass('fixed');
             slide1();
         } else if (w_pos >= pos_1_2 && w_pos < pos_1_3) {
             hideSlides();
             showSlide('1-2');
+            $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
+            $('#slide1-inner').addClass('fixed');
             slide1_2()
         } else if (w_pos >= pos_1_3 && w_pos < pos_1_4) {
             hideSlides();
             showSlide('1-3');
+            $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
+            $('#slide1-inner').addClass('fixed');
             slide1_3();
         } else if (w_pos >= pos_1_4 && w_pos < pos_1_5) {
             hideSlides();
             showSlide('1-4');
+            $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
+            $('#slide1-inner').addClass('fixed');
             slide1_4();
         } else if (w_pos >= pos_1_5 && w_pos < pos_1_6) {
             hideSlides();
             showSlide('1-5');
+            $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
+            $('#slide1-inner').addClass('fixed');
             slide1_5();
         } else if (w_pos >= pos_1_6 && w_pos < pos_1_7) {
             hideSlides();
             showSlide('1-6');
-            $('#slide1-inner').removeClass('relative-bottom');
+            $('#slide1-inner').removeClass('relative');
+            $('#slide1-inner').removeClass('relative-600');
             $('#slide1-inner').addClass('fixed');
+            slide1_5();
             slide1_6();
-        } else if (w_pos >= pos_1_7 && w_pos < bottom) {
+        } else if (w_pos >= pos_1_7) {
             $('#slide1-inner').removeClass('fixed');
+            $('#slide1-inner').removeClass('relative');
             $('#slide1-inner').addClass('relative-600');
+            slide1_5();
             slide1_6();
-        } 
+        }
 
         // Line Graph Visualization
         

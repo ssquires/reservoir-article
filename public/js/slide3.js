@@ -16,10 +16,10 @@ function slide3() {
     sliderDiv.append(markerDiv2);
     sliderDiv.append(droughtLabel1);
     sliderDiv.append(droughtLabel2);
-    $("#graphic").append(vizContainer);
+    $("#reservoirs-matter-viz").append(vizContainer);
     vizContainer.append(mapDiv);
     vizContainer.append(gaugesDiv);
-    $("#graphic").append(sliderDiv);
+    $("#reservoirs-matter-viz").append(sliderDiv);
     makeFillGauges("historical_data.json", 70, 70, 12, gaugesDiv, "#map");
     makeSlider("historical_data.json", sliderDiv);
 }

@@ -15,18 +15,18 @@
     </div>
 </div>
 <div id="drought-happens" class="panel fader">
-    <h1>Drought in California</h1>
+    <h1 class="title-text">Drought in California</h1>
     <p class="panel-p">In 2015 California experienced one of the worst droughts it has seen in the last 1200 years. Agriculture suffered, snowpack in the Seirra Nevada Mountains shrank significantly, and water use restrictions were put into place across the state.</p>
 </div>
 <div id="pdsi" class="panel fader">
-    <h1>PDSI: Measuring Drought Severity</h1>
+    <h1 class="title-text">PDSI: Measuring Drought Severity</h1>
     <p class="panel-p">We measure dryness with the Palmer Drought Severity Index (PDSI). Positive values indicate wet spells and negative values indicate dry spells. In 2015, we were at a PDSI value of {-4}. California's governor declared a state of emergency, {1-2 other big actions that occurred}. Currently in 2018 we are at a PSDI value of {3}.</p>
     <div id="PDSI-viz">
         
     </div>
 </div>
 <div id="reservoirs-matter" class="panel fader">
-    <h1>Droughts Drain Reservoirs</h1>
+    <h1 class="title-text">Droughts Drain Reservoirs</h1>
     <p class="panel-p">{ Something about how reservoir water is used in California-- to get across why we care about reservoir water levels. }</p>
     <p class="panel-p">Historical water level data shows that reservoirs are dramatically affected by drought.</p>
     <div id="reservoirs-matter-viz">
@@ -34,13 +34,13 @@
     </div>
 </div>
 <div id="reservoir-management" class="panel fader">
-    <h1>Reservoir Management</h1>
+    <h1 class="title-text">Reservoir Management</h1>
     <p class="panel-p">{ This needs writing-- we need to explain the fact that PEOPLE (water managers) have some control over reservoir levels (by deciding when to let water out of a reservoir-- is this the only decision people make about reservoirs? When is water usually let out?). They do their best to manage the water level so that the reservoir doesn't empty, but sometimes this happens anyway-- and there are consequences for communities when it does. }</p>
 </div>
 <div id="montague" class="panel fader">
     <div class="opacity-screen-3"></div>
     <div class="big-picture-text-left">
-        <h1>When the Water Runs Out</h1>
+        <h1 class="left">When the Water Runs Out</h1>
         <p>In August 2014, the water level in Northern California's Lake Shastina Reservoir dropped critically low.</p> 
         <p>This resulted in serious water restrictions in the nearby town of Montague, CA.</p>
     </div>
@@ -66,20 +66,20 @@
 <div id="predictions" class="panel fader">
     <div class="opacity-screen-3"></div>
     <div class="big-picture-text-right">
-        <h1>Predicting Reservoir Levels</h1>
+        <h1 class="left">Predicting Reservoir Levels</h1>
         <p>The story of Montague demonstrates that communitites face consequences when a reservoir reaches critically low levels. If we could predict the reservoir's water level a couple of months in advance, we could potentially prevent this. But predicting future water levels is more difficult than it sounds...</p>
     </div>
 </div>
 <div id="seasonality" class="panel">
     <div id="seasonality-inner" class="relative">
-            <p>Why can't water managers always tell when a reservoir is at risk? It turns out that reservoir water levels are highly variable, both seasonally and from year to year. Consider the behavior of California's Buchanan Reservoir, shown below.</p>
+            <p class="slide-text">Why can't water managers always tell when a reservoir is at risk? It turns out that reservoir water levels are highly variable, both seasonally and from year to year. Consider the behavior of California's Buchanan Reservoir, shown below.</p>
         <div id="seasonality-graphic">
 
         </div>
     </div>
 </div>
 <div id="dependencies" class="panel fader">
-    <h1>Reservoir levels depend on PDSI.</h1>
+    <h1 class="title-text">Reservoir levels depend on PDSI.</h1>
     <p class="panel-p">If you're trying to predict how much water you'll have in your reservoir in a couple of months, you might look at rainfall, temperature, snowpack, etc.-- all of these are factored into PDSI. So knowing the current PDSI (are we in a drought? A wet spell?) could help us figure out if our reservoir is in danger.</p>
     <div id="dependency-viz">
     
@@ -89,27 +89,27 @@
     </div>
 </div>    
 <div id="connectivity" class="panel fader">
-    <h1>Reservoirs depend on other reservoirs.</h1>
+    <h1 class="title-text">Reservoirs depend on other reservoirs.</h1>
     <p class="panel-p">It turns out that reservoirs are "connected"-- that is, there's a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (like they're physically connected), but not always. So it could also help us to look at how other reservoirs are doing, in addition to looking at PDSI.</p>
     <div id="connectivity-viz">
     
     </div>
 </div>  
 <div id="statistical-model" class="panel fader">
-    <h1>Mathematical models can help us predict what will happen to a reservoir.</h1>
+    <h1 class="title-text">Mathematical models can help us predict what will happen to a reservoir.</h1>
     <p class="panel-p">Researchers at Caltech have developed a statistical model that incorporates reservoirs' dependency on PDSI and on each other. This model can help us predict when a reservoir is in trouble.</p>
     <img src="connectedResMap.png" height="400px" style="display: block; margin: auto;">
 </div> 
 <div id="risk" class="panel fader">
-    <h1>What we're measuring is risk.</h1>
+    <h1 class="title-text">What we're measuring is risk.</h1>
     <p class="panel-p">This model measures risk-- in other words, how likely it is that a particular reservoir will drop below x% capacity, given a PDSI of y. If a water manager can tell that a reservoir is at high risk of exhaustion, they can make different decisions and conserve water.</p>
 </div>
 <div id="final-viz" class="panel fader">
-    <h1>The visualization...</h1>
+    <h1 class="title-text">The visualization...</h1>
     <p class="panel-p">Try changing the PDSI slider and see how the PDSI affects each reservoir's risk of going below x%.</p>
 </div>
 <div id="conclusion" class="panel fader">
-    <h1>Conclusion</h1>
+    <h1 class="title-text">Conclusion</h1>
     <p class="panel-p">There's currently no standardized system for how a water manager should respond to a certain PDSI. This model could help water managers identify when a reservoir is at risk and take different actions to avoid situations like Montague's.</p>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

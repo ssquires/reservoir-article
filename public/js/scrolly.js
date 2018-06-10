@@ -22,21 +22,13 @@ function handleScrolling() {
             var bottom_of_object = $(this).position().top + $(this).outerHeight();
             var bottom_of_window = $(window).scrollTop() + $(window).height();
             
-            var top_covered = 0;
-            var bottom_covered = 0;
-            
-            
-            
-            if ($(window).scrollTop() > $(this).position().top) {
-                top_covered = ($(window).scrollTop() - $(this).position().top) / $(this).outerHeight();
+            if (w_pos >= $(this).position().top && bottom_of_window <= bottom_of_object) {
+                fraction_visible = 1;
+            } else if (bottom_of_window > bottom_of_object) {
+                fraction_visible = 1 - (bottom_of_window - bottom_of_object) / $(window).height();
+            } else {
+                fraction_visible = 1 - ($(this).position().top - w_pos) / $(window).height();
             }
-            
-            if (bottom_of_object > bottom_of_window) {
-                bottom_covered = (bottom_of_object - bottom_of_window) / $(this).outerHeight();
-            }
-            
-            var fraction_visible = 1 - top_covered - bottom_covered;
-            
             
             /* If the object is completely visible in the window, fade it in */
             if( bottom_of_window > $(this).position().top ){
@@ -56,9 +48,6 @@ function handleScrolling() {
         var pos_1_6 = $('#montague-viz').position().top + 5 * $('#montague-viz').outerHeight() / 7;
         var pos_1_7 = $('#montague-viz').position().top + 6 * $('#montague-viz').outerHeight() / 7;
         var bottom = $('#montague-viz').position().top + $('#montague-viz').outerHeight();
-        
-        console.log("Scroll top is " + w_pos);
-            console.log("Monty top is " + top);
     
         if (w_pos < top) { // Slide 1.1
             hideSlides();
@@ -136,7 +125,7 @@ function handleScrolling() {
             $('#seasonality-inner').removeClass('relative-200');
             $('#seasonality-inner').addClass('fixed');
             slide2_2();
-        }else if (w_pos < line_bottom) {
+        } else if (w_pos < line_bottom) {
             $('#seasonality-inner').removeClass('fixed');
             $('#seasonality-inner').addClass('relative-200');
         }

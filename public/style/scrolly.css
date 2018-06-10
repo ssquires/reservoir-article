@@ -8,8 +8,10 @@ body {
 }
 
 .panel {
-    height: 100vh;
+    height: 90vh;
+    min-height: 700px;
     background-color: white;
+    padding-bottom: 10vh;
 }
 
 .title-text {
@@ -29,6 +31,7 @@ body {
 #title {
     height: 100vh;
     min-height: 200px;
+    padding: 0;
     background-image: url("https://images.pexels.com/photos/1097016/pexels-photo-1097016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-size: cover;
     opacity: 1;
@@ -336,6 +339,8 @@ input {
     border-radius: none; 
     background: black;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .slider::-moz-range-thumb {
@@ -473,4 +478,15 @@ button {
     margin: auto;
     padding-top: 20px;
     position: relative;
+}
+
+.connected-res-container {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.connected-res-container svg {
+    margin: 0;
+    padding: 30px;
 }

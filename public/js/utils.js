@@ -157,12 +157,12 @@ function makeFillGaugeForPDSISlider() {
 }
 
 function makeMultipleFillGauge() {
-    var gaugeA = $("<svg class='gaugeSVG' id='gauge-A' width='300' height='300'></svg>");
-    $("#connectivity-viz").append(gaugeA);
-    var gaugeB = $("<svg class='gaugeSVG' id='gauge-B' width='300' height='300'></svg>");
-    $("#connectivity-viz").append(gaugeB);
-    var gaugeC = $("<svg class='gaugeSVG' id='gauge-C' width='300' height='300'></svg>");
-    $("#connectivity-viz").append(gaugeC);
+    var gaugeA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
+    $("#connected-res-a").append(gaugeA);
+    var gaugeB = $("<svg class='gaugeSVG' id='gauge-B' width='100' height='100'></svg>");
+    $("#connected-res-b-c").append(gaugeB);
+    var gaugeC = $("<svg class='gaugeSVG' id='gauge-C' width='100' height='100'></svg>");
+    $("#connected-res-b-c").append(gaugeC);
     
     var config = liquidFillGaugeDefaultSettings();
     config.circleThickness = 0.05;
@@ -179,12 +179,27 @@ function makeMultipleFillGauge() {
     config.waveOffset = 0.25;
     config.textSize = 0.9;
     config.waveCount = 2;
+    config.valueCountUp = false;
     
     var gaugeA = loadLiquidFillGauge("gauge-A", 90, config);
-    var gaugeB = loadLiquidFillGauge("gauge-B", 90, config);
-    var gaugeC = loadLiquidFillGauge("gauge-C", 90, config);
-    setInterval(function() {gaugeA.update(10)}, 5000);
-    setTimeout(function() { setInterval(function () {gaugeA.update(90)}, 5000)}, 2500);
+    var gaugeB = loadLiquidFillGauge("gauge-B", 56, config);
+    var gaugeC = loadLiquidFillGauge("gauge-C", 45, config);
+    setInterval(function() { 
+            gaugeA.update(10);
+            setTimeout(function () {
+                gaugeB.update(37);
+                gaugeC.update(22);
+            }, 500);
+        }, 5000);
+    setInterval(function() { 
+        setTimeout(function() {
+            gaugeA.update(90)}, 2500);
+        setTimeout(function() {
+            gaugeB.update(56)}, 3000);
+        setTimeout(function() {
+            gaugeC.update(45)}, 3000);
+    }, 5000);
+    
     
 }
 
@@ -258,17 +273,75 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
     });
 }
 
-function makeSlider(dataFile, containerDiv) {
+function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
     var dateLabel = $("<h2 id='date'>January 2003</h2>");
+    dateLabel.css("margin-top", "5px");
     // Create date range slider
     d3.json(dataFile, function(err, resData) {
         var sliderMax = resData.length - 1;
         var s = $("<input type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value)' list='drought-markers'>");
         var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
-        containerDiv.append(dateLabel);
+        $("#slider").append(dateLabel);
         containerDiv.append(s);
         containerDiv.append(list);
+        if (colorCode) {
+            makeColorCodeDivs(dataFile, sliderId);
+        }
     });
+    
+}
+
+function makeColorCodeDivs(dataFile, sliderId) {
+    var slider = $("#" + sliderId);
+    slider.css("position", "relative");
+    var sliderWidth = slider.width();
+    var sliderHeight = slider.height();
+    console.log("Width: " + sliderWidth);
+    d3.json(dataFile, function(err, data) {
+        console.log("Number of dates: " + data.length);
+        var divWidth = sliderWidth / data.length;
+        var divX = 0;
+        for (var dataPoint of data) {
+            var date = dataPoint.date;
+            var pdsi = dataPoint.PDSI;
+            var color = getPDSIColor(pdsi);
+            var div = $("<div></div>");
+            div.css("width", divWidth);
+            div.css("height", sliderHeight);
+            div.css("position", "absolute");
+            div.css("background-color", color);
+            div.css("left", divX);
+            div.css("top", 0);
+            div.css("z-index", 0);
+            slider.append(div);
+            divX += divWidth;
+        }
+    });
+}
+
+function getPDSIColor(pdsi) {
+    if (pdsi <= -4) {
+        // Extreme drought
+        return "#5C0012";
+    } else if (pdsi <= -3) {
+        // Severe drought
+        return "#D90900";
+    } else if (pdsi <= -2) {
+        // Moderate drought
+        return "#F49B00";
+    } else if (pdsi < 2) {
+        // Near normal 
+        return "#EEE";
+    } else if (pdsi < 3) {
+        // Unusual moist
+        return "#B0FF55";
+    } else if (pdsi < 4) {
+        // Very moist
+        return "#12C900";
+    } else {
+        // Extremely moist
+        return "#005C01";
+    }
 }
 
 function updateData(index) {

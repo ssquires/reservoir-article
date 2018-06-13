@@ -110,8 +110,10 @@ function handleScrolling() {
         // Line Graph Visualization
         
         var line_top = $('#seasonality').position().top;
-        var line_slide1 = $('#seasonality').position().top + 1 * $('#seasonality').outerHeight() / 3;
-        var line_slide2 = $('#seasonality').position().top + 2 * $('#seasonality').outerHeight() / 3;
+        var line_slide1 = $('#seasonality').position().top + 1 * $('#seasonality').outerHeight() / 5;
+        var line_slide2 = $('#seasonality').position().top + 2 * $('#seasonality').outerHeight() / 5;
+        var line_slide3 = $('#seasonality').position().top + 3 * $('#seasonality').outerHeight() / 5;
+        var line_slide4 = $('#seasonality').position().top + 4 * $('#seasonality').outerHeight() / 5;
         var line_bottom = $('#seasonality').position().top + $('#seasonality').outerHeight();
         
         if (w_pos < line_top) {
@@ -120,14 +122,32 @@ function handleScrolling() {
         } else if (w_pos < line_slide1) {
             $('#seasonality-inner').removeClass('relative');
             $('#seasonality-inner').addClass('fixed');
+            $('#buchanan-1').css('opacity', 1);
+            $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 0);
+            $('#buchanan-4').css('opacity', 0);
             slide2_1();
         } else if (w_pos < line_slide2) {
             $('#seasonality-inner').removeClass('relative-200');
             $('#seasonality-inner').addClass('fixed');
+            $('#buchanan-1').css('opacity', 0);
+            $('#buchanan-2').css('opacity', 1);            $('#buchanan-3').css('opacity', 0);
+            $('#buchanan-4').css('opacity', 0);
+        } else if (w_pos < line_slide3) {
+            $('#buchanan-1').css('opacity', 0);
+            $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 1);
+            $('#buchanan-4').css('opacity', 0);
             slide2_2();
+        } else if (w_pos < line_slide4) {
+            $('#buchanan-1').css('opacity', 0);
+            $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 0);
+            $('#buchanan-4').css('opacity', 1);
         } else if (w_pos < line_bottom) {
+            $('#buchanan-1').css('opacity', 0);
+            $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 0);
+            $('#buchanan-4').css('opacity', 1);
+            slide2_2();
             $('#seasonality-inner').removeClass('fixed');
-            $('#seasonality-inner').addClass('relative-200');
+            $('#seasonality-inner').addClass('relative-400');
         }
 }
     

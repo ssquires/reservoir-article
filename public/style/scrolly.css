@@ -9,9 +9,12 @@ body {
 
 .panel {
     height: 90vh;
-    min-height: 900px;
     background-color: white;
     padding-bottom: 10vh;
+}
+
+.viz-panel {
+    min-height: 900px;
 }
 
 .title-text {

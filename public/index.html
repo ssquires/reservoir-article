@@ -37,7 +37,7 @@
         
     </div>
 </div>
-<div id="reservoirs-matter" class="panel fader">
+<div id="reservoirs-matter" class="panel fader viz-panel">
     <h1 class="title-text">Droughts Drain Reservoirs</h1>
     <p class="panel-p">Reservoirs are a key part of the world’s water infrastructure. Their roles include:</p>
     <ul>
@@ -64,7 +64,7 @@
         <p>This resulted in serious water restrictions in the nearby town of Montague, CA.</p>
     </div>
 </div>
-<div id="montague-viz" class="panel">
+<div id="montague-viz" class="panel viz-panel">
     <div id="slide1-inner" class="relative">
         <div id="slide-1" class="slide-text" style="opacity: 0;">
             <p>&emsp;&emsp;Because of the water shortage, each household in Montague was limited to 5,000 gallons of water a month. Families using more than this amount faced fines.</p>
@@ -89,7 +89,7 @@
         <p>The story of Montague demonstrates that communitites face consequences when a reservoir reaches critically low levels. If we could predict the reservoir's water level a couple of months in advance, we could potentially prevent this. But predicting future water levels is more difficult than it sounds...</p>
     </div>
 </div>
-<div id="seasonality" class="panel">
+<div id="seasonality" class="panel viz-panel">
     <div id="seasonality-inner" class="relative">
             <p class="slide-text" id="buchanan-1">Why can't water managers always tell when a reservoir is at risk? It turns out that reservoir water levels are highly variable, both seasonally and from year to year. Consider the behavior of California's Buchanan Reservoir, shown below.</p>
             <p class="slide-text" style="opacity: 0" id="buchanan-2">In May 2013, the Buchanan reservoir managers had a critical decision to make. California was in the middle of a historical drought and the fill season was over. The managers had to make a decision based on the likelihood of water depletion within a given number of years, and has to guess the likelihood of depletion just by looking at his reservoir’s history. Looking at the historical graph, it seems that their previous management techniques have been sufficient to keep the buchanan reservoir running and satisfying the local demands. So the managers chose to act “business as usual” and the let the water go.</p>
@@ -104,7 +104,7 @@
         </div>
     </div>
 </div>
-<div id="dependencies" class="panel fader">
+<div id="dependencies" class="panel fader viz-panel">
     <h1 class="title-text">Reservoir levels depend on External Factors</h1>
     <p class="panel-p">If you're trying to predict how much water you'll have in your reservoir in a couple of months, factors such as precipitation, snowpack, PDSI, and temperature must be considered. As an example, knowing future PDSI (are we in a drought? A wet spell?) could help us figure out if our reservoir is in danger.</p>
     <div id="dependency-viz">
@@ -114,7 +114,7 @@
     
     </div>
 </div>    
-<div id="connectivity" class="panel fader">
+<div id="connectivity" class="panel fader viz-panel">
     <h1 class="title-text">Reservoirs depend on other reservoirs.</h1>
     <p class="panel-p">It turns out that reservoirs are "connected"-- that is, there's a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (like they're physically connected), but not always. So it could also help us to look at how other reservoirs are doing, in addition to looking at PDSI.</p>
     <div id="connectivity-viz">
@@ -124,7 +124,7 @@
         </div>
     </div>
 </div>  
-<div id="statistical-model" class="panel fader">
+<div id="statistical-model" class="panel fader viz-panel">
     <h1 class="title-text">Mathematical models can help us predict what will happen to a reservoir.</h1>
     <p class="panel-p">Researchers at Caltech have developed a statistical model that incorporates reservoir dependency and the influence of external factors. The model is based on thinking of reservoirs as nodes in a graph and edges between nodes representing dependencies between reservoirs. The external factors are characterized as other nodes sitting in this graph impacting each reservoirs. Using historical data, Caltech researchers are able to precisely characterize dependencies of reservoirs and quantify the influence of external factor on reservoirs.</p>
     <p class="panel-p">One of these external factors is PDSI. Let’s see what this model tells us about the influence of PDSI on the reservoirs...

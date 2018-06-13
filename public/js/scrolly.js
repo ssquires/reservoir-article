@@ -141,6 +141,9 @@ function handleScrolling() {
             $('#buchanan-1').css('opacity', 0);
             $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 0);
             $('#buchanan-4').css('opacity', 1);
+            $('#seasonality-inner').removeClass('relative');
+            $('#seasonality-inner').removeClass('relative-400');
+            $('#seasonality-inner').addClass('fixed');
         } else if (w_pos < line_bottom) {
             $('#buchanan-1').css('opacity', 0);
             $('#buchanan-2').css('opacity', 0);            $('#buchanan-3').css('opacity', 0);

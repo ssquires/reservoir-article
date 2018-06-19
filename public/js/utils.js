@@ -78,21 +78,28 @@ function updateWaterBuckets(newVolume, countX, countY, amountPerBucket) {
 
 }
 
-function makePDSISlider(id, textId, sliderId, sliderVal, disabled) {
+function PDSIText(textId, text) {
+    return $("<h2 id='" + textId + "'>" + text + "</h2>");
+}
+
+function PDSILabels() {
+    return $("<div id='slider-labels'><p id='label-neg5'>-5</p><p id='label-neg4'>-4</p><p id='label-neg3'>-3</p><p id='label-neg2'>-2</p><p id='label-neg1'>-1</p><p id='label-0'>0</p><p id='label-1'>1</p><p id='label-2'>2</p><p id='label-3'>3</p><p id='label-4'>4</p><p id='label-5'>5</p></div>");
+}
+
+function makePDSISlider(id, textId, text, sliderId, sliderVal, disabled, indicatorId) {
     if (!sliderVal) sliderVal = 0;
-    var pdsi_label = $("<h2 id='" + textId + "'>Mid-Range</h2>");
-    $("#" + id).append(pdsi_label);
+    $("#" + id).append(PDSIText(textId, text));
     
-    var inputString = "<input type='range' id='" + sliderId + "' min='-5' max='5' value='" + sliderVal + "' class='slider pdsi-slider' oninput='updatePDSILabel(this.value, \"" + textId + "\")'";
+    var slider;
     if (disabled) {
-        inputString += "disabled";
+        slider = $("<div id='" + sliderId + "' class='slider pdsi-slider'></div>");
+        slider.append($("<div id='" + indicatorId + "' class='slider-indicator'></div>"))
+    } else {
+        slider = $("<input type='range' id='" + sliderId + "' min='-5' max='5' value='" + sliderVal + "' class='slider pdsi-slider' oninput='updatePDSILabel(this.value, \"" + textId + "\")'>");
     }
-    inputString += ">";
-    var s = $(inputString);
-    $("#" + id).append(s);
     
-    var labels = $("<div id='slider-labels'><p id='label-neg5'>-5</p><p id='label-neg4'>-4</p><p id='label-neg3'>-3</p><p id='label-neg2'>-2</p><p id='label-neg1'>-1</p><p id='label-0'>0</p><p id='label-1'>1</p><p id='label-2'>2</p><p id='label-3'>3</p><p id='label-4'>4</p><p id='label-5'>5</p></div>");
-    $("#" + id).append(labels);
+    $("#" + id).append(slider);
+    $("#" + id).append(PDSILabels());
 }
 
 function updatePDSILabel(v, textId) {
@@ -127,79 +134,65 @@ function makeFillGaugeForPDSISlider() {
      $("#dependency-viz").append(d);
     
     
-    var config = liquidFillGaugeDefaultSettings();
-    config.circleThickness = 0.05;
-    config.circleColor = "#0D7AC4";
-    config.textColor = "#000";
-    config.waveTextColor = "#000";
-    config.waveColor = "#0D7AC4";
-    config.textVertPosition = 0.8;
-    config.waveAnimateTime = 2000;
-    config.waveHeight = 0.05;
-    config.waveAnimate = true;
-    config.waveRise = false;
-    config.waveHeightScaling = false;
-    config.waveOffset = 0.25;
-    config.textSize = 0.9;
-    config.waveCount = 2;
-    var gauge = loadLiquidFillGauge("dependency-gauge", 80, config);
-    $("dependency-label").text("Very Moist");
-    setInterval(function() {
-        gauge.update(20);
-        document.getElementById("dependency-slider").stepDown(6);
-        $("#dependency-label").text("Severe Drought");
-    }, 5000);
-    setTimeout(function() { setInterval(function () {
-        gauge.update(80);
-        document.getElementById("dependency-slider").stepUp(6);
-        $("#dependency-label").text("Very Moist");
-        }, 5000)}, 2500);
+    var gauge = makeFillGauge("dependency-gauge", 80);
+    setTimeout(function sliderDown() {
+        $("#pdsi-indicator").animate({left: "20%"}, 2000, function() {
+            gauge.update(20);
+            setTimeout(function sliderUp() {
+                $("#pdsi-indicator").animate({left: "80%"}, 2000, function() {
+                    gauge.update(80);
+                    setTimeout(sliderDown, 2500);
+                });}, 2500);
+        });
+    }, 1000);
 }
 
 function makeMultipleFillGauge() {
-    var gaugeA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
-    $("#connected-res-a").append(gaugeA);
-    var gaugeB = $("<svg class='gaugeSVG' id='gauge-B' width='100' height='100'></svg>");
-    $("#connected-res-b-c").append(gaugeB);
-    var gaugeC = $("<svg class='gaugeSVG' id='gauge-C' width='100' height='100'></svg>");
-    $("#connected-res-b-c").append(gaugeC);
+    var svgA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
+    $("#connected-res-a").append(svgA);
+    var svgB = $("<svg class='gaugeSVG' id='gauge-B' width='100' height='100'></svg>");
+    $("#connected-res-b-c").append(svgB);
+    var svgC = $("<svg class='gaugeSVG' id='gauge-C' width='100' height='100'></svg>");
+    $("#connected-res-b-c").append(svgC);
     
-    var config = liquidFillGaugeDefaultSettings();
-    config.circleThickness = 0.05;
-    config.circleColor = "#0D7AC4";
-    config.textColor = "#000";
-    config.waveTextColor = "#000";
-    config.waveColor = "#0D7AC4";
-    config.textVertPosition = 0.8;
-    config.waveAnimateTime = 2000;
-    config.waveHeight = 0.05;
-    config.waveAnimate = true;
-    config.waveRise = false;
-    config.waveHeightScaling = false;
-    config.waveOffset = 0.25;
-    config.textSize = 0.9;
-    config.waveCount = 2;
-    config.valueCountUp = false;
+    var gaugeA = makeFillGauge("gauge-A", 10);
+    var gaugeB = makeFillGauge("gauge-B", 37);
+    var gaugeC = makeFillGauge("gauge-C", 22);
     
-    var gaugeA = loadLiquidFillGauge("gauge-A", 90, config);
-    var gaugeB = loadLiquidFillGauge("gauge-B", 56, config);
-    var gaugeC = loadLiquidFillGauge("gauge-C", 45, config);
-    setInterval(function() { 
-            gaugeA.update(10);
-            setTimeout(function () {
+    var waterColor = "orange";
+    setTimeout(function updateFillGauges() {
+        $("#connect-line-1").css("stroke-dashoffset", "0");
+        $("#connect-line-2").css("stroke-dashoffset", "0");
+        $("#connect-line-3").css("stroke-dashoffset", "0");
+        gaugeA.update(90);
+        d3.select("#connect-line-1").transition().duration(500).style("stroke", waterColor);
+        $("#connect-line-1").animate({strokeDashoffset: "-100",
+                                      stroke: waterColor}, 1500, function() {
+            d3.select("#connect-line-1").transition().duration(500).style("stroke", "black");
+            setTimeout(function() {
+                gaugeA.update(10);
+                d3.select("#connect-line-2").transition().duration(500).style("stroke", waterColor);
+                d3.select("#connect-line-3").transition().duration(500).style("stroke", waterColor);
+                $("#connect-line-2").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#connect-line-2").transition().duration(500).style("stroke", "black");
+                });
+                $("#connect-line-3").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#connect-line-3").transition().duration(500).style("stroke", "black");
+                });
+                gaugeB.update(76);
+                gaugeC.update(55);
+            }, 1000);
+            
+            setTimeout(function() {
                 gaugeB.update(37);
                 gaugeC.update(22);
-            }, 500);
-        }, 5000);
-    setInterval(function() { 
-        setTimeout(function() {
-            gaugeA.update(90)}, 2500);
-        setTimeout(function() {
-            gaugeB.update(56)}, 3000);
-        setTimeout(function() {
-            gaugeC.update(45)}, 3000);
-    }, 5000);
-    
+                setTimeout(updateFillGauges, 3000);
+            }, 3000);
+        });
+        
+        
+        
+    }, 1000)
     
 }
 
@@ -246,22 +239,7 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
                 $("#" + e.target.id + " path").attr("style", "fill: #0D7AC4;");
             });
             
-            var config = liquidFillGaugeDefaultSettings();
-            config.circleThickness = 0.05;
-            config.circleColor = "#0D7AC4";
-            config.textColor = "#000";
-            config.waveTextColor = "#000";
-            config.waveColor = "#0D7AC4";
-            config.textVertPosition = 0.8;
-            config.waveAnimateTime = 2000;
-            config.waveHeight = 0.05;
-            config.waveAnimate = true;
-            config.waveRise = false;
-            config.waveHeightScaling = false;
-            config.waveOffset = 0.25;
-            config.textSize = 0.9;
-            config.waveCount = 2;
-            var gauge = loadLiquidFillGauge(chartID, resData[0][key][0]["percent"], config);
+            var gauge = makeFillGauge(chartID, resData[0][key][0]["percent"]);
             
             gauges[key] = gauge;
 
@@ -279,7 +257,7 @@ function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
     // Create date range slider
     d3.json(dataFile, function(err, resData) {
         var sliderMax = resData.length - 1;
-        var s = $("<input type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value)' list='drought-markers'>");
+        var s = $("<input type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value)' onchange='console.log(this.value);updateData(this.value)' list='drought-markers'>");
         var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
         $("#slider").append(dateLabel);
         containerDiv.append(s);
@@ -296,9 +274,7 @@ function makeColorCodeDivs(dataFile, sliderId) {
     slider.css("position", "relative");
     var sliderWidth = slider.width();
     var sliderHeight = slider.height();
-    console.log("Width: " + sliderWidth);
     d3.json(dataFile, function(err, data) {
-        console.log("Number of dates: " + data.length);
         var divWidth = sliderWidth / data.length;
         var divX = 0;
         for (var dataPoint of data) {
@@ -313,6 +289,7 @@ function makeColorCodeDivs(dataFile, sliderId) {
             div.css("left", divX);
             div.css("top", 0);
             div.css("z-index", 0);
+            div.css("pointer-events", "none");
             slider.append(div);
             divX += divWidth;
         }
@@ -322,25 +299,25 @@ function makeColorCodeDivs(dataFile, sliderId) {
 function getPDSIColor(pdsi) {
     if (pdsi <= -4) {
         // Extreme drought
-        return "#5C0012";
+        return "#D17D00";
     } else if (pdsi <= -3) {
         // Severe drought
-        return "#D90900";
+        return "#FFA620";
     } else if (pdsi <= -2) {
         // Moderate drought
-        return "#F49B00";
+        return "#FFD496";
     } else if (pdsi < 2) {
         // Near normal 
         return "#EEE";
     } else if (pdsi < 3) {
         // Unusual moist
-        return "#B0FF55";
+        return "#A4DAFF";
     } else if (pdsi < 4) {
         // Very moist
-        return "#12C900";
+        return "#4C9BD1";
     } else {
         // Extremely moist
-        return "#005C01";
+        return "#095385";
     }
 }
 
@@ -367,6 +344,7 @@ function arcTween(a) {
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////// DATA READING AND MAP DRAWING /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
 function makeMap(containerDivID) {
     d3.json("ca_counties.geojson", function(err, data) {
         if (err) return console.error(err);
@@ -433,11 +411,11 @@ function makeTooltipHTML(d) {
             
 function reservoirMouseover(d) {
    tooltip.transition().duration(200).style("opacity", 0.9);
-    tooltip.html(makeTooltipHTML(d))  
+    tooltip.html(makeTooltipHTML(d)) 
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY) - 30 + "px")
-            .style("color","white")
-            .style("background-color", "rgba(0, 0, 0, 0.5)")
+            .transition().duration(500)
+            .style("opacity", 1)
             .style("pointer-events", "auto");
     
     $("#chart-" + d.Name + " circle").attr("style", "fill: orange;");
@@ -446,14 +424,17 @@ function reservoirMouseover(d) {
 } 
 
 function reservoirMouseout(d) {
-    tooltip.transition().duration(500).style("opacity", 0).style("pointer-events", "none");
+    tooltip.transition().duration(500)
+            .style("opacity", 0)
+            .style("pointer-events", "none");
+    
     $("#chart-" + d.Name + " circle").attr("style", "fill: #0D7AC4;");
     $("#chart-" + d.Name + " path").attr("style", "fill: #0D7AC4;");
     $("#" + d.Name).attr("style", "fill: #FFF; stroke: #FFF;");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//////////////////////// LINE CHARTS /////////////////////////
+// LINE CHARTS ////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 function defaultLineChartConfig() {
@@ -476,7 +457,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         pauseDate = config.pauseDate,
         stopDate = config.stopDate;
     
-    var margin = {top: 45, right:60, bottom: 75, left: 80};
+    var margin = {top: 45, right: 60, bottom: 75, left: 80};
     
     var width = 500, height = 200;
     var svg = d3.select(containerDivID)
@@ -516,11 +497,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
       .style("font-size", 18)
       .text("Percent Full");
     
-    
-    
     var parseDate = d3.time.format("%B %Y").parse
-    
-    
     
     d3.json(dataFile, function(err, data) {
         if (err) return console.error(err);
@@ -536,7 +513,6 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         var pauseDateXCoord = x(parseDate(pauseDate));
         var stopDateXCoord = x(parseDate(stopDate));
         
-
         var totalLength;
         for (var i = 0; i < resNames.length; i++) {
             var resName = resNames[i];
@@ -547,7 +523,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
             var path = svg.append("path").attr("class", "line")
                 .attr("fill", "none")
                 .attr("stroke", resColor)
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 3)
                 .attr("d", line(data));
         }
         
@@ -558,8 +534,6 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
             .attr("height", height)
             .attr("x", 0);
         
-        
-
         svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
         
         svg.append("g").attr("class", "y axis").call(yAxis);
@@ -588,7 +562,37 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         
         callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
         
-        
     });
     
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// UTILITY FUNCTIONS //////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+function makeFillGauge(containerId, initialValue, customConfig) {
+    var config;
+    if (customConfig) {
+        config = customConfig;
+    } else {
+        config = liquidFillGaugeDefaultSettings();
+        config.circleThickness = 0.05;
+        config.circleColor = "#0D7AC4";
+        config.textColor = "#000";
+        config.waveTextColor = "#000";
+        config.waveColor = "#0D7AC4";
+        config.textVertPosition = 0.8;
+        config.waveAnimateTime = 2000;
+        config.waveRiseTime = 1500;
+        config.waveHeight = 0.05;
+        config.waveAnimate = true;
+        config.waveRise = false;
+        config.waveHeightScaling = false;
+        config.waveOffset = 0.25;
+        config.textSize = 0.9;
+        config.waveCount = 2;
+        config.valueCountUp = false;
+    }
+    return loadLiquidFillGauge(containerId, initialValue, config);
+}
+

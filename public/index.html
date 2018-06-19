@@ -3,6 +3,7 @@
 <head>
 <title>California Reservoirs</title>
 <link rel='stylesheet' href='style/scrolly.css' />
+    <link rel='stylesheet' href='style/map.css' />
 <link href="https://fonts.googleapis.com/css?family=Raleway:200|Open+Sans|Lato|Nova+Mono" rel="stylesheet">
 </head>
     
@@ -122,6 +123,11 @@
         </div>
         <div id="connected-res-b-c" class="connected-res-container">
         </div>
+        <svg id="connectivity-overlay">
+            <line class="connect-line" id="connect-line-1" x1="250" y1="20" x2="250" y2="80"/>
+            <line class="connect-line" id="connect-line-2" x1="220" y1="180" x2="170" y2="240"/>
+            <line class="connect-line" id="connect-line-3" x1="280" y1="180" x2="330" y2="240"/>
+        </svg>
     </div>
 </div>  
 <div id="statistical-model" class="panel fader viz-panel">

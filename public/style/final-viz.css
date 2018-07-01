@@ -1,0 +1,82 @@
+#final-viz {
+    width: 580px;
+    margin: auto;
+    position: relative;
+}
+
+#final-pie {
+    width: 300px;
+    height: 275px;
+    text-align: center;
+    margin: 0;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: pink;
+}
+
+#final-pdsi {
+    margin-top: 30px;
+}
+
+#final-pdsi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 30px;
+    border-radius: none; 
+    background: black;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+#final-pdsi-slider {
+    height: 25px;
+}
+
+#final-threshold {
+    margin-top: 40px;
+    position: relative;
+}
+
+#final-threshold-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 30px;
+    border-radius: none; 
+    background: black;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+#final-threshold-slider {
+    height: 25px;
+}
+
+#label-10 {
+    left: 0;
+    margin-left: -1.5ch;
+}
+
+#label-20 {
+    left: 25%;
+    margin-left: -1.5ch;
+}
+
+#label-30 {
+    left: 50%;
+    margin-left: -1.5ch;
+}
+
+#label-40 {
+    left: 75%;
+    margin-left: -1.5ch;
+}
+
+#label-50 {
+    left: 100%;
+    margin-left: -1.5ch;
+}
+

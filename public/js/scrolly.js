@@ -7,6 +7,7 @@ $(document).ready(function() {
     slide2();
     makeFillGaugeForPDSISlider();
     makeMultipleFillGauge();
+    makeFinalViz();
     handleScrolling();
     
     /* Every time the window is scrolled ... */

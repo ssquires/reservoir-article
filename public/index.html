@@ -3,7 +3,8 @@
 <head>
 <title>California Reservoirs</title>
 <link rel='stylesheet' href='style/scrolly.css' />
-    <link rel='stylesheet' href='style/map.css' />
+<link rel='stylesheet' href='style/map.css' />
+<link rel='stylesheet' href='style/final-viz.css' />
 <link href="https://fonts.googleapis.com/css?family=Raleway:200|Open+Sans|Lato|Nova+Mono" rel="stylesheet">
 </head>
     
@@ -141,9 +142,19 @@
     <h1 class="title-text">What we're measuring is risk.</h1>
     <p class="panel-p">This model measures risk-- in other words, how likely it is that a particular reservoir will drop below x% capacity, given a PDSI of y. If a water manager can tell that a reservoir is at high risk of exhaustion, they can make different decisions and conserve water.</p>
 </div>
-<div id="final-viz" class="panel fader">
+<div id="final-viz-panel" class="panel fader viz-panel">
     <h1 class="title-text">The visualization...</h1>
     <p class="panel-p">Try changing the PDSI slider and see how the PDSI affects each reservoir's risk of going below x%.</p>
+    <div id="final-viz">
+        <div id="final-map" class="map">
+        </div>
+        <div id="final-pie">
+        </div>
+        <div id="final-pdsi">
+        </div>
+        <div id="final-threshold">
+        </div>
+    </div>
 </div>
 <div id="conclusion" class="panel fader">
     <h1 class="title-text">Conclusion</h1>

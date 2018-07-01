@@ -88,11 +88,11 @@ body {
     position: relative;
 }
 
-#slider-labels {
+.slider-labels {
     padding-top: 10px;
 }
 
-#slider-labels p {
+.slider-labels p {
     display: inline-block;
     position: absolute;
 }
@@ -474,10 +474,9 @@ input {
     padding-top: 20px;
 }
 
-#map {
+.map {
     width: 250px;
     height: 275px;
-/*    background-color: #0D7AC4;*/
     margin: 0;
     display: inline-block;
 }

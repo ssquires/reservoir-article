@@ -784,13 +784,13 @@ function makePieCharts(containerId) {
 }
 
 function makeFinalViz() {
-    makeMap("#final-map");
-    makePieCharts("#final-pie");
-    makePDSISlider("final-pdsi", "final-pdsi-text", "PDSI", "final-pdsi-slider", 0);
-    var thresholdSlider = $("<input type='range' min='10' max='50' value='30' step='10' class='slider' id='final-threshold-slider'>");
-    $("#final-threshold").append($("<h2>Threshold</h2>"));
-    $("#final-threshold").append(thresholdSlider);
-    $("#final-threshold").append($("<div class='slider-labels'><p id='label-10'>10%</p><p id='label-20'>20%</p><p id='label-30'>30%</p><p id='label-40'>40%</p><p id='label-50'>50%</p></div>"));
+//    makeMap("#final-map");
+//    makePieCharts("#final-pie");
+//    makePDSISlider("final-pdsi", "final-pdsi-text", "PDSI", "final-pdsi-slider", 0);
+//    var thresholdSlider = $("<input type='range' min='10' max='50' value='30' step='10' class='slider' id='final-threshold-slider'>");
+//    $("#final-threshold").append($("<h2>Threshold</h2>"));
+//    $("#final-threshold").append(thresholdSlider);
+//    $("#final-threshold").append($("<div class='slider-labels'><p id='label-10'>10%</p><p id='label-20'>20%</p><p id='label-30'>30%</p><p id='label-40'>40%</p><p id='label-50'>50%</p></div>"));
     
 }
 

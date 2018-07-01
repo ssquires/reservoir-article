@@ -567,3 +567,8 @@ button {
     margin-left: 50px;
     margin-right: 50px;
 }
+
+#connected-res-viz svg {
+    display: block;
+    margin: auto;
+}

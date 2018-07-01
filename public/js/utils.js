@@ -432,6 +432,179 @@ function reservoirMouseout(d) {
     $("#chart-" + d.Name + " path").attr("style", "fill: #0D7AC4;");
     $("#" + d.Name).attr("style", "fill: #FFF; stroke: #FFF;");
 }
+//////////////////////////////////////////////////////////////////////////////////Reservoir Interconnectivity and Dependency Map/////////////
+
+function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFunc, mouseoutFunc, slidenum) {
+    d3.json("ca_counties.geojson", function(err, data) {
+        if (err) return console.error(err);
+
+        var width = 650, height = 450;
+        // SVG Canvas
+        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('width', '500px').attr('id', 'ca-map');
+                                                       
+        // Calculated Scale for Map Overlay
+        var scale = 1715;
+
+        // Map
+        var projection = d3.geo.mercator()
+                .center([-114.0, 37.5])
+                .scale(scale)
+                .translate([width/2, height/2]);
+
+        // Path Generator to draw regions on map
+        var path = d3.geo.path().projection(projection);
+
+        // Get features from JSON
+        var features = data.features;
+        // Create SVG paths to draw zip code boundaries
+        svg.selectAll('.ca')
+            .data(features)
+            .enter().append('path')
+            .attr('d', path)
+            .attr("stroke", "#0D7AC4")
+            .attr("fill", "#0D7AC4")
+            .attr("stroke-width", "1")
+            .attr("id", "ca-map");
+        
+        // Draw reservoirs on map
+        d3.json("reservoir_data.json", function(err, data) {
+            svg.selectAll('.res')
+            .data(data.filter(function(resObj) {
+                return resToShow.includes(resObj.Name);
+            }))
+            .enter().append('circle')
+            .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
+            .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
+            .attr('r', '5px')
+            .attr('fill', '#FFF')
+            .attr('stroke', '#FFF')
+            .attr('id', function(d) { return d.Name })
+            .attr('class', 'res')
+            .on("mouseover", mouseoverFunc)
+            .on("mouseout", mouseoutFunc);
+            
+            // Draw dashed lines and animate their appearance
+            resToShow.forEach(function(d) {
+                var resx = $("#" + d).attr("cx");
+                var resy = $("#" + d).attr("cy");
+                var line = svg.append("line")
+                    .style("stroke-width", 3)
+                    .style("stroke", "black")
+                    .attr("x1", resx)
+                    .attr("y1", resy)
+                    .attr("stroke-opacity",0.6)
+                    .attr("stroke-dasharray", "6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,5,600")
+                    .attr("stroke-dashoffset", -600)
+                    .attr("x2", 19/32*width)
+                    .attr("y2", 100)
+                 line.transition().duration(5000).style("stroke-dashoffset", 0);       
+            
+            // Fade in text
+            var dependenciesRes = svg.append("text")
+                .attr("x", 19/32*width+8)
+                .attr("y", 90)
+                .attr("class", "res-dependencies")
+                .text("Drought Index (PDSI)")
+            dependenciesRes.transition().duration(6000).style("fill", "black");
+                
+            var dependenciesRes = svg.append("text")
+                .attr("x", 19/32*width+8)
+                .attr("y", 90+25)
+                .attr("class", "res-dependencies")
+                .text("Snowpack")
+            dependenciesRes.transition().duration(6000).style("fill", "black");    
+                
+            var dependenciesRes = svg.append("text")
+                .attr("x", 19/32*width+8)
+                .attr("y", 90+25*2)
+                .attr("class", "res-dependencies")
+                .text("Agricultural demand")               
+            dependenciesRes.transition().duration(6000).style("fill", "black");    
+                
+            var dependenciesRes = svg.append("text")
+                .attr("x", 19/32*width+8)
+                .attr("y", 90+25*3)
+                .attr("class", "res-dependencies")
+                .text("etc.")                
+           dependenciesRes.transition().duration(6000).style("fill", "black");    
+                   
+                })   
+            
+            // Draw reservoir connections and animate their appearance
+            for (var connectedRes in connections) {
+                console.log("The reservoir " + connectedRes + " is connected to " + connections[connectedRes]);
+                var resx = $("#" + connectedRes).attr("cx");
+                var resy = $("#" + connectedRes).attr("cy");
+                var lineResNames = svg.append("text")
+                    .attr("font-size", 14)
+                    .attr("x", resx)
+                    .attr("y", resy)
+                for (var connectedTo of connections[connectedRes]) {
+                    var res2x = $("#" + connectedTo).attr("cx");
+                    var res2y = $("#" + connectedTo).attr("cy"); 
+                    
+                    // Make curved connection line
+                    if (connectedRes == "ISB") {
+                        var curvedlineRES = svg.append('path')
+                        .attr('d','M'+resx+' '+resy+' C 180 235, 170 235, '+res2x+' '+res2y)
+                        .attr('stroke-width', 4)
+                        .attr('stroke',"white")
+                        .attr('fill','transparent')
+                        .attr("stroke-dasharray", 100)
+                        .attr("stroke-dashoffset", -100)
+                        .attr("class", connectedRes + " " + connectedTo);  
+                        curvedlineRES.transition().duration(1700).style("stroke-dashoffset", 0);
+ 
+                    }
+                    
+                    // Make curved connection line
+                    else if (connectedRes == "HID") {
+
+                        var curvedlineRES = svg.append('path')
+                        .attr('d','M'+resx+' '+resy+' C 135 232, 135 227, '+res2x+' '+res2y)
+                        .attr('stroke-width', 4)
+                        .attr('stroke',"white")
+                        .attr('fill','transparent')
+                        .attr("stroke-dasharray", 100)
+                        .attr("stroke-dashoffset", -100)
+                        .attr("class", connectedRes + " " + connectedTo) 
+                        curvedlineRES.transition().duration(1500).style("stroke-dashoffset", 0);
+                    }
+                   
+                    // Make straight connections
+                    else {
+                        var line = svg.append("line")
+                        .style("stroke-width", 4)
+                        .style("stroke", "white")
+                        .attr("x1", resx)
+                        .attr("y1", resy)
+                        .attr("x2", res2x)
+                        .attr("y2", res2y)
+                        .attr("stroke-dasharray", 100)
+                        .attr("stroke-dashoffset", 100)
+                        .attr("class", connectedRes + " " + connectedTo);
+                        line.transition().duration(2000).style("stroke-dashoffset", 0);
+                    }}                   
+            }
+            
+        });
+    });
+}
+
+// Show reservoir name on mouseover
+function connectedResMouseover(d) {
+    tooltip.transition().duration(100).style("opacity", 0.9);
+    tooltip.html(makeTooltipHTML(d))  
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY) - 30 + "px")
+            .style("color","white")
+            .style("background-color", "rgba(0, 0, 0, 0.5)")
+            .style("pointer-events", "auto");
+}
+
+function connectedResMouseout(d) {
+    tooltip.transition().duration(100).style("opacity", 0).style("pointer-events", "none");
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // LINE CHARTS ////////////////////////////////////////////////////////////////

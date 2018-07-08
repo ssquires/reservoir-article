@@ -2,7 +2,7 @@ function slide3() {
     console.log("Displaying Slide 3");
     var vizContainer = $("<div id='vizContainer'></div>");
     var gaugesDiv = $("<div id='gauges'></div>");
-    var mapDiv = $("<div id='map'></div>");
+    var mapDiv = $("<div id='map' class='map'></div>");
     var sliderDiv = $("<div id='slider'></div>");
     var sliderInnerDiv = $("<div id='slider-inner'></div>");
     sliderInnerDiv.css("position", "relative");

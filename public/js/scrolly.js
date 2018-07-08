@@ -7,6 +7,15 @@ $(document).ready(function() {
     slide2();
     makeFillGaugeForPDSISlider();
     makeMultipleFillGauge();
+    makeConnectivityMap("#connected-res-viz", ["INV", "SHA", "FOL","ORO","DNP","ISB","HID"], 
+            {"SHA": ["ORO", "INV"],
+             "ORO": ["INV"],
+             "INV": ["FOL"],
+             "FOL": ["DNP"],
+             "HID": ["DNP"],
+             "ISB": ["DNP"]
+              },connectedResMouseover,connectedResMouseout, "4.1");
+    makeFinalViz();
     handleScrolling();
     
     /* Every time the window is scrolled ... */

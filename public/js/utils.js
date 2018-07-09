@@ -147,6 +147,49 @@ function makeFillGaugeForPDSISlider() {
     }, 1000);
 }
 
+function makeReservoirFillGraphic() {
+    var gaugeSVG = $("<svg class='gaugeSVG' id='res-gauge' width='100' height='100'></svg>");
+    $("#reservoir-filling-div").append(gaugeSVG);
+    
+    var resGauge = makeFillGauge("res-gauge", 50);
+    var lineColor = "orange";
+    setTimeout(function updateResControl() {
+        $("#input-line-1").css("stroke-dashoffset", 0);
+        $("#input-line-2").css("stroke-dashoffset", 0);
+        $("#input-line-3").css("stroke-dashoffset", 0);
+        resGauge.update(80);
+        d3.select("#input-line-1").transition().duration(500).style("stroke", lineColor);
+        d3.select("#input-line-2").transition().duration(500).style("stroke", lineColor);
+        d3.select("#input-line-3").transition().duration(500).style("stroke", lineColor);
+        $(".input-line").animate({strokeDashoffset: "-100",
+                                  stroke: lineColor}, 1500, function() {
+            d3.select("#input-line-1").transition().duration(500).style("stroke", "black");
+            d3.select("#input-line-2").transition().duration(500).style("stroke", "black");
+            d3.select("#input-line-3").transition().duration(500).style("stroke", "black");
+        });
+        
+        setTimeout(function() {
+            $("#output-line-1").css("stroke-dashoffset", 0);
+            $("#output-line-2").css("stroke-dashoffset", 0);
+            $("#output-line-3").css("stroke-dashoffset", 0);
+            resGauge.update(20);
+            d3.select("#output-line-1").transition().duration(500).style("stroke", lineColor);
+            d3.select("#output-line-2").transition().duration(500).style("stroke", lineColor);
+            d3.select("#output-line-3").transition().duration(500).style("stroke", lineColor);
+            $(".output-line").animate({strokeDashoffset: "-100",
+                                  stroke: lineColor}, 1500, function() {
+                d3.select("#output-line-1").transition().duration(500).style("stroke", "black");
+                d3.select("#output-line-2").transition().duration(500).style("stroke", "black");
+                d3.select("#output-line-3").transition().duration(500).style("stroke", "black");
+            });
+            setTimeout(updateResControl, 3000);
+        }, 3000);
+        
+    }, 1000);
+    
+    
+}
+
 function makeMultipleFillGauge() {
     var svgA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
     $("#connected-res-a").append(svgA);
@@ -736,61 +779,6 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
         
     });
-    
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// FINAL VISUALIZATION ////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-function makePieCharts(containerId) {
-    var containerDiv = $(containerId);
-    
-    // TEMPORARY
-    var tempResNames = ["ORO", "CLE", "INV", "FOL", "HID", "DNP", "BUC", "ISB", "SHA"];
-    var arc = d3.svg.arc().outerRadius(25)
-                  .innerRadius(0);
-        var chartNum = 0;
-        for (var key in tempResNames) {
-            var chartDiv = $("<div class='chart' id='chart-div-" + chartNum + "'></div>");
-            containerDiv.append(chartDiv);
-            console.log(containerDiv);
-            resNames.push(key);
-            var label = $("<h2 class='res-name' id='label-" + key + "'>" + key + "</h2>");
-            chartDiv.append(label);
-            
-            var chartID = "pie-chart-" + key;
-
-            
-            var pie = d3.layout.pie().value(function(d) { return 67; });
-            
-            var svg = d3.select("#chart-div-" + chartNum)
-            .append("svg")
-            .attr("id", chartID)
-            .attr("width", 70)
-            .attr("height", 70).append("g").attr("transform", "translate(35, 35)");
-            
-            var g = d3.selectAll("arc").data(pie).enter().append("g").attr("class", "arc");
-            
-            g.append("path").attr("d", arc)
-                .style("fill", function(d) { return "orange";})
-                .each(function(d) { this._current = d; });
-            
-            var percentLabel = $("<h3 id='pie-label" + chartNum + "'>67%</h3>");
-            chartDiv.append(percentLabel);
-
-            chartNum++;
-        }
-}
-
-function makeFinalViz() {
-//    makeMap("#final-map");
-//    makePieCharts("#final-pie");
-//    makePDSISlider("final-pdsi", "final-pdsi-text", "PDSI", "final-pdsi-slider", 0);
-//    var thresholdSlider = $("<input type='range' min='10' max='50' value='30' step='10' class='slider' id='final-threshold-slider'>");
-//    $("#final-threshold").append($("<h2>Threshold</h2>"));
-//    $("#final-threshold").append(thresholdSlider);
-//    $("#final-threshold").append($("<div class='slider-labels'><p id='label-10'>10%</p><p id='label-20'>20%</p><p id='label-30'>30%</p><p id='label-40'>40%</p><p id='label-50'>50%</p></div>"));
     
 }
 

@@ -12,23 +12,24 @@
 <div id="title" class="panel fader">
     <div class="opacity-screen-2"></div>
     <div id="title-div">
-        <h1>Fighting Drought with Mathematical Models</h1>
-        <p>Recent droughts in California have exposed the vulnerability of our water resources, especially the California reservoir system. Historically, ineffective management of many of the large reservoirs during drought conditions have led to multiple cities running out of water. Could we do better in the future? Caltech researchers have developed a statistical model that may help us manage our water better.</p>
+        <h1>Mastering Drought using Statistical Models</h1>
+        <p>Recents droughts in California have exposed the vulnerability of our water resources, especially the California reservoir system. New research from scientists at Caltech could help us predict water levels and make our water management more resilient to future droughts.
+        </p>
     </div>
 </div>
 <div id="drought-happens" class="panel fader">
     <div class="opacity-screen-3"></div>
     <h1 class="title-text">Drought in California</h1>
-    <p class="panel-p">From 2012 to 2015, California was in a state of severe drought, on par with the worst 4-year periods in the past 1200 years. The catastrophic impact of drought include:</p>
+    <p class="panel-p">Drought in California:  From 2012 to 2015, California was in a state of severe drought, on par with the worst 4-year periods in the past 1200 years. The impact of this drought included:</p>
     <ul>
-        <li>Snowpack in the Sierra Nevada, which is the largest sources of runoff water in California was 5% of its normal amount </li>
-        <li>Reservoir levels were at an all time low. As an example, Lake Oroville, the second largest reservoir in California, held 66% less water than a normal year</li>
-        <li>The drought led to 9 million fewer acre feet of surface water for irrigation, fallowing a half million acre of land. This came at a staggering cost of $1.85 billion for the department of agriculture</li>
+        <li>Sierra Nevada, California’s largest source of water runoff, was 5% of its normal amount.</li>
+        <li>9 million fewer acre feet of surface water for irrigation, fallowing a half million acre of land and costing  $1.85 billion for the department of agriculture</li>
+        <li>A State of Emergency with over $3 billion dollars allocated to drought relief</li>
     </ul>
 </div>
 <div id="pdsi" class="panel fader">
     <h1 class="title-text">PDSI: Measuring Drought Severity</h1>
-    <p class="panel-p">Palmer Drought Severity Index (PDSI) is a hydrological measure that uses temperature and precipitation data to estimate relative dryness. The scale of PDSI is from -5 to 5, where positive values indicate wet spells and negative values indicate dry spells. In 2015, we were at a PDSI value of -4, leading the state to take the following actions:</p>
+    <p class="panel-p">Palmer Drought Severity Index (PDSI) is a hydrological measure that uses temperature and precipitation data to estimate relative dryness, without using water level data. The scale of PDSI is from -5 to 5, where positive values indicate wet spells and negative values indicate dry spells. PDSI is used as a tool in water management, aiding the decision-making processes for drought mitigation and response. In 2015, we were at a PDSI value of -4, leading the state to take the following actions:</p>
     <ul>
         <li>Governor declared state of emergency and created a task force</li>
         <li>Initiated implementation of Initiate of Emergency Action Plan</li>
@@ -41,29 +42,51 @@
 </div>
 <div id="reservoirs-matter" class="panel fader viz-panel">
     <h1 class="title-text">Droughts Drain Reservoirs</h1>
-    <p class="panel-p">Reservoirs are a key part of the world’s water infrastructure. Their roles include:</p>
-    <ul>
-        <li>Intercept water from 53 million km2 = 40% terrestrial environment</li>
-        <li>Store 1/6th of total river discharge (7,000–8,300 km3 stored)</li>
-        <li>Increase amount of standing available water by 7x</li>
-    </ul>
-    <p class="panel-p" style="margin-top: 10px;">The state of California has constructed 1,530 reservoirs having a collective storage capacity equivalent to a year of mean run-off from California rivers. The purpose of this system is to create water storage capacity and extend seasonal water availability to meet agricultural, residential, industrial, power generation, and recreational needs.</p>
+    <p class="panel-p">California’s water comes from two main sources:</p>
+    <p>1. Groundwater: water in soil & rocks -- Accounts for 60% of our water</p>
+    <p>2. Surface water: water above ground, stored in 1530 reservoirs -- Accounts for 40% of our water</p>
+    <p>Reservoirs are man-made water storage that provide for agriculture, industry, power generation, and recreational needs. Reservoirs increase amount of standing available water by 700%. While larger cities have diverse water resources such as multiple rivers and reservoirs, some smaller cities are limited to a single, local reservoir for water.</p>
     <p class="panel-p" style="margin-top: 10px;">The visualization below demonstrates the historical response of representative California reservoirs to range of drought conditions.</p>
     <div id="reservoirs-matter-viz">
     
     </div>
 </div>
 <div id="reservoir-management" class="panel fader">
-    <h1 class="title-text">Reservoir Management</h1>
-    <p class="panel-p">Unlike most of the components of the hydrological components which occur naturally,  humans play a significant role in the behavior of reservoirs. Specifically, water managers control inflow and outflow of water daily based on complex water demands such as hydropower generation, flood control, irrigation, consumption, and recreation. Water managers do their best to manage the water level so that the reservoirs don’t dry out, but sometimes this happens anyway-- and there are consequences for communities when it does.
+    <h1 class="title-text">Humans Control Reservoirs 
+</h1>
+    <p class="panel-p">Unlike most water systems which occur naturally (like lakes), humans play a significant role in the behavior of reservoirs. Every day, water managers decide how much water to release from reservoirs based on today’s demands and future needs. They do their best to manage water levels so that the reservoirs don’t dry out, but sometimes this happens anyway-- and there are consequences for communities when it does.
 </p>
+    <div id="reservoir-filling-graphic">
+        <div id="reservoir-filling-div">
+        </div>
+        <svg class="overlay-svg" id="res-fill-overlay">
+            <text class="label" x="75" y="20">Runoff</text>
+            <circle class="res-input-placeholder" cx="100" cy="50" r="25" fill="#0D7AC4"/> 
+            <text class="label" x="205" y="20">Precipitation</text>
+            <circle class="res-input-placeholder" cx="250" cy="50" r="25" fill="#0D7AC4"/> 
+            <text class="label" x="365" y="20">Snowpack</text>
+            <circle class="res-input-placeholder" cx="400" cy="50" r="25" fill="#0D7AC4"/> 
+            <line class="connect-line input-line" id="input-line-1" x1="250" y1="75" x2="250" y2="125"/>
+            <line class="connect-line input-line" id="input-line-2" x1="120" y1="70" x2="210" y2="135"/>
+            <line class="connect-line input-line" id="input-line-3" x1="380" y1="70" x2="290" y2="135"/>
+            <text class="label" x="55" y="340">Urban Runoff</text>
+            <circle class="res-output-placeholder" cx="100" cy="300" r="25" fill="#0D7AC4"/> 
+            <text class="label" x="205" y="340">Water Storage</text>
+            <circle class="res-output-placeholder" cx="250" cy="300" r="25" fill="#0D7AC4"/>
+            <text class="label" x="360" y="340">Agriculture</text>
+            <circle class="res-output-placeholder" cx="400" cy="300" r="25" fill="#0D7AC4"/> 
+            <line class="connect-line output-line" id="output-line-1" x1="250" y1="225" x2="250" y2="275"/>
+            <line class="connect-line output-line" id="output-line-2" x1="210" y1="215" x2="120" y2="280"/>
+            <line class="connect-line output-line" id="output-line-3" x1="290" y1="215" x2="380" y2="280"/>
+        </svg>
+    </div>
 </div>
 <div id="montague" class="panel fader">
     <div class="opacity-screen-3"></div>
     <div class="big-picture-text-left">
-        <h1 class="left">When the Water Runs Out</h1>
-        <p>In August 2014, the water level in Northern California's Lake Shastina Reservoir dropped critically low.</p> 
-        <p>This resulted in serious water restrictions in the nearby town of Montague, CA.</p>
+        <h1 class="left">Running out in a Drought</h1>
+        <p>In August 2014, the water level in Northern California's Lake Shastina Reservoir dropped critically low. This resulted in serious water restrictions in the nearby town of Montague, CA, affecting their 1300 residents. 
+        </p>
     </div>
 </div>
 <div id="montague-viz" class="panel viz-panel">
@@ -88,18 +111,17 @@
     <div class="opacity-screen-3"></div>
     <div class="big-picture-text-right">
         <h1 class="left">Predicting Reservoir Levels</h1>
-        <p>The story of Montague demonstrates that communitites face consequences when a reservoir reaches critically low levels. If we could predict the reservoir's water level a couple of months in advance, we could potentially prevent this. But predicting future water levels is more difficult than it sounds...</p>
+        <p>The story of Montague demonstrates that communities face consequences when a reservoir reaches critically low levels. If we could predict the reservoir’s water level a couple months in advance, we could prevent this. But predicting future water levels is more difficult than it sounds.</p>
     </div>
 </div>
 <div id="seasonality" class="panel viz-panel">
     <div id="seasonality-inner" class="relative">
-            <p class="slide-text" id="buchanan-1">Why can't water managers always tell when a reservoir is at risk? It turns out that reservoir water levels are highly variable, both seasonally and from year to year. Consider the behavior of California's Buchanan Reservoir, shown below.</p>
-            <p class="slide-text" style="opacity: 0" id="buchanan-2">In May 2013, the Buchanan reservoir managers had a critical decision to make. California was in the middle of a historical drought and the fill season was over. The managers had to make a decision based on the likelihood of water depletion within a given number of years, and has to guess the likelihood of depletion just by looking at his reservoir’s history. Looking at the historical graph, it seems that their previous management techniques have been sufficient to keep the buchanan reservoir running and satisfying the local demands. So the managers chose to act “business as usual” and the let the water go.</p>
-        <p class="slide-text" id="buchanan-3" style="opacity: 0">
-            Unfortunately, the drought worsened and the reservoir reached critical capacity and became practically out of operation in 2014-2015.
+            <p class="slide-text" id="buchanan-1">Why can't water managers always tell when a reservoir is at risk? Let’s look at the Buchanan Reservoir, shown below.</p>
+            <p class="slide-text" style="opacity: 0" id="buchanan-2">In May 2013, the managers of Buchanan Reservoir had a critical decision to make. California was in the middle of a historical drought, the fill season was over, and they had to guess the likelihood of depletion just by looking at the reservoir’s history. Looking at the historical graph, their previous management techniques appeared to be sufficient to keep the reservoir running and satisfy local demands. So the managers chose to conduct “business as usual” and they let the water go.</p>
+        <p class="slide-text" id="buchanan-3" style="opacity: 0">Unfortunately, the drought worsened and the reservoir reached critical capacity. The reservoir was practically out of operation between 2014-2015.
         </p>
         <p class="slide-text" id="buchanan-4" style="opacity: 0">
-            Could we develop better techniques than this naive approach? To develop a good model of the reservoir response to drought conditions, we have to keep a few things in mind...
+            Can we develop better techniques than this naive approach? To develop a good model of the reservoir response to drought conditions, we have to keep a few things in mind...
         </p>
         <div id="seasonality-graphic">
 
@@ -108,7 +130,7 @@
 </div>
 <div id="dependencies" class="panel fader viz-panel">
     <h1 class="title-text">Reservoir levels depend on External Factors</h1>
-    <p class="panel-p">If you're trying to predict how much water you'll have in your reservoir in a couple of months, factors such as precipitation, snowpack, PDSI, and temperature must be considered. As an example, knowing future PDSI (are we in a drought? A wet spell?) could help us figure out if our reservoir is in danger.</p>
+    <p class="panel-p">Several external factors influence reservoir levels. For instance, reservoir levels correlate with future PDSI,  temperature, precipitation and snowpack.</p>
     <div id="dependency-viz">
     
     </div>
@@ -118,13 +140,13 @@
 </div>    
 <div id="connectivity" class="panel fader viz-panel">
     <h1 class="title-text">Reservoirs depend on other reservoirs.</h1>
-    <p class="panel-p">It turns out that reservoirs are "connected"-- that is, there's a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (like they're physically connected), but not always. So it could also help us to look at how other reservoirs are doing, in addition to looking at PDSI.</p>
+    <p class="panel-p">It turns out that reservoirs are "connected"-- that is, there's a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (like they're physically connected), but sometimes there are statistical correlations (for example, from similar geography and water management). Taking into account these connections, as well as PDSI and other external factors, can help us predict how reservoirs will do. </p>
     <div id="connectivity-viz">
         <div id="connected-res-a" class="connected-res-container">
         </div>
         <div id="connected-res-b-c" class="connected-res-container">
         </div>
-        <svg id="connectivity-overlay">
+        <svg id="connectivity-overlay" class="overlay-svg">
             <line class="connect-line" id="connect-line-1" x1="250" y1="20" x2="250" y2="80"/>
             <line class="connect-line" id="connect-line-2" x1="220" y1="180" x2="170" y2="240"/>
             <line class="connect-line" id="connect-line-3" x1="280" y1="180" x2="330" y2="240"/>
@@ -132,16 +154,14 @@
     </div>
 </div>  
 <div id="statistical-model" class="panel fader viz-panel">
-    <h1 class="title-text">Mathematical models can help us predict what will happen to a reservoir.</h1>
-    <p class="panel-p">Researchers at Caltech have developed a statistical model that incorporates reservoir dependency and the influence of external factors. The model is based on thinking of reservoirs as nodes in a graph and edges between nodes representing dependencies between reservoirs. The external factors are characterized as other nodes sitting in this graph impacting each reservoirs. Using historical data, Caltech researchers are able to precisely characterize dependencies of reservoirs and quantify the influence of external factor on reservoirs.</p>
-    <p class="panel-p">One of these external factors is PDSI. Let’s see what this model tells us about the influence of PDSI on the reservoirs...
-    </p>
+    <h1 class="title-text">Statistical models can help us predict what will happen to a reservoir.</h1>
+    <p class="panel-p">Researchers at Caltech have developed a statistical model that incorporates reservoir dependency and the influence of external factors. The model is based on thinking of reservoirs as nodes in a graph and edges between nodes representing dependencies between reservoirs. The external factors are characterized as other nodes sitting in this graph impacting each reservoirs. Using historical data, Caltech researchers are able to precisely characterize dependencies of reservoirs and quantify the influence of external factor on reservoirs. One of these external factors is PDSI. Let’s see what this model tells us about the influence of PDSI on the reservoirs … </p>
     <div id="connected-res-viz">
     </div>
 </div> 
 <div id="risk" class="panel fader">
     <h1 class="title-text">What we're measuring is risk.</h1>
-    <p class="panel-p">This model measures risk-- in other words, how likely it is that a particular reservoir will drop below x% capacity, given a PDSI of y. If a water manager can tell that a reservoir is at high risk of exhaustion, they can make different decisions and conserve water.</p>
+    <p class="panel-p">This model measures the risk of reservoir exhaustion-- in other words, how likely it is that a particular reservoir will drop below x% capacity, given a PDSI of y. If a water manager were to use this model and see that the risk of their reservoir exhausting is high, they can make better informed decisions, and conserve water.</p>
 </div>
 <div id="final-viz-panel" class="panel fader viz-panel">
     <h1 class="title-text">The visualization...</h1>

@@ -1,0 +1,94 @@
+#reservoirs-matter-viz {
+    width: 650px;
+    text-align: center;
+    margin: auto;
+}
+
+.tooltip {
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 3px;
+    margin: 0px;
+    opacity: 1;
+}
+
+.tooltip p {
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.tooltip-invisible {
+    opacity: 0;
+}
+
+.chart circle, .chart path {
+    transition: fill .5s, stroke .5s;
+}
+
+.chartSVG * {
+    pointer-events: none;
+}
+
+.res {
+    transition: fill .5s, stroke .5s;
+}
+
+.res-name {
+    font-family: Nova Mono;
+    font-size: 16px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+#gauges {
+    width: 300px;
+    height: 275px;
+    text-align: center;
+    margin: 0;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#vizContainer {
+    display: flex;
+    width: 580px;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.map {
+    width: 250px;
+    height: 300px;
+    margin: 0;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.chart {
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#start-label {
+    position: absolute;
+}
+
+#end-label {
+    position: absolute;
+    right: 23px;
+}
+
+#slider {
+    padding: 25px;
+    margin-left: 35px;
+    margin-right: 35px;
+    position: relative;
+}
+
+#date {
+    margin-top: 18px;
+}

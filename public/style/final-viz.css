@@ -11,7 +11,6 @@
     margin: 0;
     margin-left: 10px;
     display: inline-block;
-    background-color: pink;
 }
 
 #final-pdsi {
@@ -78,5 +77,9 @@
 #label-50 {
     left: 100%;
     margin-left: -1.5ch;
+}
+
+.res-name-pie {
+    margin-top: 10px;
 }
 

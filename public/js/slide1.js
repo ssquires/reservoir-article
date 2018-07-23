@@ -1,6 +1,6 @@
 var waterBuckets = false;
 
-function createSlide1Viz() {
+function createMontagueViz() {
     if (!waterBuckets) {
         waterBuckets = true;
         makeWaterBuckets("#slide1-graphic", 25, 10, 20, 600, 300, 50);

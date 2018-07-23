@@ -295,8 +295,7 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
 }
 
 function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
-    var dateLabel = $("<h2 id='date'>January 2003</h2>");
-    dateLabel.css("margin-top", "5px");
+    var dateLabel = $("<h3 id='date'>January 2003</h3>");
     // Create date range slider
     d3.json(dataFile, function(err, resData) {
         var sliderMax = resData.length - 1;

@@ -1,0 +1,46 @@
+.slide-text {
+    position: absolute;
+    bottom: 0;
+    transition: opacity 0.2s;
+}
+
+#slide1-text {
+    position: relative;
+    height: 200px;
+}
+
+#montague-viz {
+    height: 700vh;
+    opacity: 1;
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+}
+
+.relative-600 {
+    position: relative;
+    top: 600vh;
+}
+
+.relative-200 {
+    position: relative;
+    top: 200vh;
+}
+
+.relative-400 {
+    position: relative;
+    top: 400vh;
+}
+
+.relative-500 {
+    position: relative;
+    top: 500vh;
+}
+
+.relative {
+    position: relative;
+    top: 0;
+}

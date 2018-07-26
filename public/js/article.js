@@ -1,7 +1,7 @@
 var waterBuckets = false;
 
 $(document).ready(function() {
-    makePDSISlider("PDSI-viz", "pdsi-label", "Mid-Range", "pdsi-slider");
+    makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
     makeReservoirFillGraphic();
     createMontagueViz();

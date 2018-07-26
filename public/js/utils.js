@@ -88,7 +88,9 @@ function PDSILabels() {
 
 function makePDSISlider(id, textId, text, sliderId, sliderVal, disabled, indicatorId) {
     if (!sliderVal) sliderVal = 0;
-    $("#" + id).append(PDSIText(textId, text));
+    if (textId != '') {
+        $("#" + id).append(PDSIText(textId, text));
+    }
     
     var slider;
     if (disabled) {
@@ -100,6 +102,12 @@ function makePDSISlider(id, textId, text, sliderId, sliderVal, disabled, indicat
     
     $("#" + id).append(slider);
     $("#" + id).append(PDSILabels());
+}
+
+function makePDSIGraphic(containerId) {
+    var slider = $("<div class='slider pdsi-slider'></div>");
+    $("#" + containerId).append(slider);
+    $("#" + containerId).append(PDSILabels());
 }
 
 function updatePDSILabel(v, textId) {

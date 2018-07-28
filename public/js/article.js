@@ -5,6 +5,7 @@ $(document).ready(function() {
     makeHistoricalReservoirViz();
     makeReservoirFillGraphic();
     createMontagueViz();
+    makeBuchananChart();
     makePDSISlider("dependency-slider-viz", "dependency-label", "PDSI", "dependency-slider", 3, true, "pdsi-indicator");
     makeFillGaugeForPDSISlider();
     makeMultipleFillGauge();
@@ -133,4 +134,22 @@ function makeHistoricalReservoirViz() {
     $("#reservoirs-matter-viz").append(clickHereDiv);
     makeFillGauges("historical_data.json", 70, 70, 12, gaugesDiv, "#map");
     makeSlider("historical_data.json", sliderInnerDiv, "slider-inner", true);
+}
+
+var stopXCoord;
+var pauseXCoord;
+var curtain;
+
+function makeBuchananChart() {
+    var config = {
+        resNames: ["BUC"],
+        resColors: ["#0DC1F2"],
+        beginDate: "January 2003",
+        endDate: "November 2016",
+        pauseDate: "November 2012",
+        stopDate: "November 2016"
+    };
+    makeLineChart("#seasonality-graphic", "historical_data.json", config, function (progress) { curtain = progress["curtain"];
+    stopXCoord = progress["stopDateXCoord"]; pauseXCoord = progress["pauseDateXCoord"]; 
+    curtain.transition().duration(3000).ease("linear").attr("x", stopXCoord);});
 }

@@ -159,7 +159,26 @@ function makeReservoirFillGraphic() {
     var gaugeSVG = $("<svg class='gaugeSVG' id='res-gauge' width='100' height='100'></svg>");
     $("#reservoir-filling-div").append(gaugeSVG);
     
-    var resGauge = makeFillGauge("res-gauge", 50);
+    var config = liquidFillGaugeDefaultSettings();
+    config.circleThickness = 0.05;
+    config.circleColor = "#0D7AC4";
+    config.textColor = "#0000";
+    config.waveTextColor = "#0000";
+    config.waveColor = "#0D7AC4";
+    config.textVertPosition = 0.8;
+    config.waveAnimateTime = 2000;
+    config.waveRiseTime = 1500;
+    config.waveHeight = 0.05;
+    config.waveAnimate = true;
+    config.waveRise = false;
+    config.waveHeightScaling = false;
+    config.waveOffset = 0.25;
+    config.textSize = 0.9;
+    config.waveCount = 2;
+    config.valueCountUp = false;
+    
+    var resGauge = makeFillGauge("res-gauge", 50, config);
+    console.log(resGauge);
     var lineColor = "orange";
     setTimeout(function updateResControl() {
         $("#input-line-1").css("stroke-dashoffset", 0);

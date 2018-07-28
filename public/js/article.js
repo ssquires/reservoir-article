@@ -118,7 +118,7 @@ function makeHistoricalReservoirViz() {
     var sliderDiv = $("<div id='slider'></div>");
     var sliderInnerDiv = $("<div id='slider-inner'></div>");
     var clickHereDiv = $("<div id='click-here-div'></div>");
-    clickHereDiv.append($("<text id='label'>Drag slider</text>"));
+    clickHereDiv.append($("<text class='label'>Drag slider</text>"));
     clickHereDiv.append($("<img src='down_arrow.png' height='100%'>"));
     sliderInnerDiv.css("position", "relative");
     sliderDiv.append(sliderInnerDiv);

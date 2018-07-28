@@ -25,6 +25,10 @@ text {
     font-family: Nova Mono, monospace;
 }
 
+.label {
+    font-family: Lato, sans-serif;
+}
+
 .opacity-screen-2 {
     position: absolute;
     z-index: -1;

@@ -61,6 +61,31 @@ text {
     max-width: 1000px;
 }
 
+/* Mini Title Card */
+
+.mini-title {
+    padding-top: 7vh;
+    padding-bottom: 37vh;
+    min-height: 200px;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    z-index: -2;
+}
+
+.mini-title-div {
+    display: block;
+    height: 33vh;
+    margin: auto;
+    color: white;
+    max-width: 500px;
+    text-align: center;
+}
+
+.mini-title-div h1 {
+    font-size: 40px;
+}
+
 /* Main Article */
 .article-main {
     padding-top: 100px;
@@ -80,7 +105,13 @@ text {
 
 /* Montague title */
 #montague-title {
-    background-image: url("https://www.homeadvisor.com/r/wp-content/uploads/2016/07/background-1239348_640.jpg");
+    background-image: url("https://images.unsplash.com/photo-1512337933795-8493e0417bf5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=53ca878a0d9822aebb4125226a54a787&auto=format&fit=crop&w=1650&q=80");
+    background-position: bottom;
+}
+
+#predicting-res-levels-title {
+    background-image: url("https://images.unsplash.com/photo-1464377075287-4c011c458f04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2c598e35aea0526baba4d3912ac7ccf6&auto=format&fit=crop&w=1650&q=80");
+    background-position: top;
 }
 
 

@@ -234,6 +234,8 @@ function makeMultipleFillGauge() {
         $("#connect-line-1").css("stroke-dashoffset", "0");
         $("#connect-line-2").css("stroke-dashoffset", "0");
         $("#connect-line-3").css("stroke-dashoffset", "0");
+        $("#output-line-b").css("stroke-dashoffset", "0");
+        $("#output-line-c").css("stroke-dashoffset", "0");
         gaugeA.update(90);
         d3.select("#connect-line-1").transition().duration(500).style("stroke", waterColor);
         $("#connect-line-1").animate({strokeDashoffset: "-100",
@@ -256,6 +258,14 @@ function makeMultipleFillGauge() {
             setTimeout(function() {
                 gaugeB.update(37);
                 gaugeC.update(22);
+                d3.select("#output-line-b").transition().duration(500).style("stroke", waterColor);
+                d3.select("#output-line-c").transition().duration(500).style("stroke", waterColor);
+                $("#output-line-b").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#output-line-b").transition().duration(500).style("stroke", "black");
+                });
+                $("#output-line-c").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#output-line-c").transition().duration(500).style("stroke", "black");
+                });
                 setTimeout(updateFillGauges, 3000);
             }, 3000);
         });

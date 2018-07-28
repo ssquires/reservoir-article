@@ -2,6 +2,7 @@
     width: 650px;
     text-align: center;
     margin: auto;
+    position: relative;
 }
 
 .tooltip {
@@ -91,4 +92,14 @@
 
 #date {
     margin-top: 18px;
+}
+
+#click-here-div {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    top: 260px;
+    left: 10px;
+    opacity: 1;
+    transition: opacity 0.5s;
 }

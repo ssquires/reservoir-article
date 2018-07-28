@@ -307,7 +307,7 @@ function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
     // Create date range slider
     d3.json(dataFile, function(err, resData) {
         var sliderMax = resData.length - 1;
-        var s = $("<input type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value)' onchange='console.log(this.value);updateData(this.value)' list='drought-markers'>");
+        var s = $("<input id='slidey' type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value);$(\"#click-here-div\").css(\"opacity\", 0);' onchange='console.log(this.value);updateData(this.value);' list='drought-markers'>");
         var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
         $("#slider").append(dateLabel);
         containerDiv.append(s);

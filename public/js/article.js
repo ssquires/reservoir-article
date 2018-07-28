@@ -117,6 +117,9 @@ function makeHistoricalReservoirViz() {
     var mapDiv = $("<div id='map' class='map'></div>");
     var sliderDiv = $("<div id='slider'></div>");
     var sliderInnerDiv = $("<div id='slider-inner'></div>");
+    var clickHereDiv = $("<div id='click-here-div'></div>");
+    clickHereDiv.append($("<text id='label'>Drag slider</text>"));
+    clickHereDiv.append($("<img src='down_arrow.png' height='100%'>"));
     sliderInnerDiv.css("position", "relative");
     sliderDiv.append(sliderInnerDiv);
     var startLabel = $("<p id='start-label'>2003</p>");
@@ -127,6 +130,7 @@ function makeHistoricalReservoirViz() {
     vizContainer.append(mapDiv);
     vizContainer.append(gaugesDiv);
     $("#reservoirs-matter-viz").append(sliderDiv);
+    $("#reservoirs-matter-viz").append(clickHereDiv);
     makeFillGauges("historical_data.json", 70, 70, 12, gaugesDiv, "#map");
     makeSlider("historical_data.json", sliderInnerDiv, "slider-inner", true);
 }

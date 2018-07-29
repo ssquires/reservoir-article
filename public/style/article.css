@@ -45,7 +45,7 @@ text {
     height: 100vh;
     min-height: 200px;
     padding: 0;
-    background-image: url("../dogSaveUs.jpg");
+    background-image: url("dogSaveUs.jpg");
     background-size: cover;
     opacity: 1;
     position: relative;

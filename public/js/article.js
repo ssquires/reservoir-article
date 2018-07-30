@@ -37,6 +37,13 @@ function handleScrolling() {
     
     var pos_last_frame = $('#montague-viz').position().top + 2 * $('#montague-viz').outerHeight() / 3;
     
+    var viz_pos = $('#slide1-graphic').position().top;
+    var pos_2 = $('#slide-1-2').position().top;
+    var pos_3 = $('#slide-1-3').position().top;
+    var pos_4 = $('#slide-1-4').position().top;
+    var pos_5 = $('#slide-1-5').position().top;
+    var pos_6 = $('#slide-1-6').position().top;
+    
     if (w_pos < top) {
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').removeClass('absolute-bottom');
@@ -49,62 +56,25 @@ function handleScrolling() {
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').addClass('absolute-bottom');
     }
+    
+    var visible_border = w_pos - top + $( window ).height() * 0.2;
+    
+    if (pos_5 < visible_border) {
+        updateWaterBuckets(16, 25, 10, 20);
+    } else if (pos_4 < visible_border) {
+        updateWaterBuckets(240, 25, 10, 20);
+    } else if (pos_4 < visible_border) {
+        console.log("4");
+        updateWaterBuckets(800, 25, 10, 20);
+    } else if (pos_3 < visible_border) {
+        updateWaterBuckets(800, 25, 10, 20);
+    } else if (pos_2 < visible_border) {
+        updateWaterBuckets(2200, 25, 10, 20);
+    } else {
+        updateWaterBuckets(5000, 25, 10, 10);
+    }
 
-//    if (w_pos < top) { // Slide 1.1
-//        hideSlides();
-//        showSlide('1');
-//        $('#slide1-inner').removeClass('fixed');
-//        $('#slide1-inner').removeClass('relative-bottom');
-//        $('#slide1-inner').addClass('relative');
-//        updateWaterBuckets(5000, 25, 10, 10);
-//    } else if (w_pos >= top && w_pos < pos_1_2) {
-//        hideSlides();
-//        showSlide('1');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(5000, 25, 10, 10);
-//    } else if (w_pos >= pos_1_2 && w_pos < pos_1_3) {
-//        hideSlides();
-//        showSlide('1-2');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(2200, 25, 10, 20);
-//    } else if (w_pos >= pos_1_3 && w_pos < pos_1_4) {
-//        hideSlides();
-//        showSlide('1-3');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(800, 25, 10, 20);
-//    } else if (w_pos >= pos_1_4 && w_pos < pos_1_5) {
-//        hideSlides();
-//        showSlide('1-4');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(240, 25, 10, 20);
-//    } else if (w_pos >= pos_1_5 && w_pos < pos_1_6) {
-//        hideSlides();
-//        showSlide('1-5');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(16, 25, 10, 20);
-//    } else if (w_pos >= pos_1_6 && w_pos < pos_1_7) {
-//        hideSlides();
-//        showSlide('1-6');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').removeClass('relative-600');
-//        $('#slide1-inner').addClass('fixed');
-//        updateWaterBuckets(16, 25, 10, 20);
-//    } else if (w_pos >= pos_1_7) {
-//        $('#slide1-inner').removeClass('fixed');
-//        $('#slide1-inner').removeClass('relative');
-//        $('#slide1-inner').addClass('relative-600');
-//        updateWaterBuckets(16, 25, 10, 20);
-//    }
+
 }
 
 function hideSlides() {

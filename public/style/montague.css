@@ -11,14 +11,16 @@
 }
 
 .slide1-info {
-    margin-top: 100px;
-    margin-bottom: 200px;
+    margin-top: 10vh;
+    margin-bottom: 25vh;
 }
 
 #slide1-graphic {
     z-index: 2;
     background-color: white;
     width: 700px;
+    height: 20vh;
+    min-height: 350px;
     padding-bottom: 20vh;
 }
 

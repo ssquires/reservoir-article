@@ -582,28 +582,28 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             var dependenciesRes = svg.append("text")
                 .attr("x", 19/32*width+8)
                 .attr("y", 90)
-                .attr("class", "res-dependencies")
+                .attr("class", "res-dependencies label")
                 .text("Drought Index (PDSI)")
             dependenciesRes.transition().duration(6000).style("fill", "black");
                 
             var dependenciesRes = svg.append("text")
                 .attr("x", 19/32*width+8)
                 .attr("y", 90+25)
-                .attr("class", "res-dependencies")
+                .attr("class", "res-dependencies label")
                 .text("Snowpack")
             dependenciesRes.transition().duration(6000).style("fill", "black");    
                 
             var dependenciesRes = svg.append("text")
                 .attr("x", 19/32*width+8)
                 .attr("y", 90+25*2)
-                .attr("class", "res-dependencies")
+                .attr("class", "res-dependencies label")
                 .text("Agricultural demand")               
             dependenciesRes.transition().duration(6000).style("fill", "black");    
                 
             var dependenciesRes = svg.append("text")
                 .attr("x", 19/32*width+8)
                 .attr("y", 90+25*3)
-                .attr("class", "res-dependencies")
+                .attr("class", "res-dependencies label")
                 .text("etc.")                
            dependenciesRes.transition().duration(6000).style("fill", "black");    
                    

@@ -53,6 +53,7 @@ function handleScrolling() {
         $('#slide1-graphic').removeClass('absolute-bottom');
         $('#slide1-graphic').addClass('fixed');
     } else {
+        $('#slide1-graphic').removeClass('absolute');
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').addClass('absolute-bottom');
     }
@@ -73,7 +74,30 @@ function handleScrolling() {
     } else {
         updateWaterBuckets(5000, 25, 10, 10);
     }
-
+    
+    var stat_top = $('#statistical-scrolly').position().top;
+    var pos_stat_2 = $("#stat-2").position().top;
+    var pos_stat_3 = $("#stat-3").position().top;
+    
+    if (w_pos < stat_top) {
+        $("#connected-res-viz").removeClass('fixed');
+        $("#connected-res-viz").removeClass('absolute-160');
+        $("#connected-res-viz").addClass('absolute');
+    } else if (w_pos < stat_top + $('#statistical-scrolly').height() - $(window).height()) {
+        $("#connected-res-viz").removeClass('absolute');
+        $("#connected-res-viz").removeClass('absolute-160');
+        $("#connected-res-viz").addClass('fixed');
+    } else {
+        $("#connected-res-viz").removeClass('fixed');
+        $("#connected-res-viz").addClass('absolute-160');
+    }
+    
+    var stat_visible_border = w_pos - stat_top + $( window ).height() * 0.2;
+    if (pos_stat_3 < stat_visible_border) {
+        clusterRed();
+    } else if (pos_stat_2 < stat_visible_border) {
+        oneResRed();
+    }
 
 }
 
@@ -152,5 +176,17 @@ function clusterRed() {
     d3.select("#ORO-INV").transition().duration(500).style("stroke", "red");
     d3.select("#INV-FOL").transition().duration(500).style("stroke", "red");
     d3.select("#SHA-INV").transition().duration(500).style("stroke", "red");
+    
+}
+
+function noneRed() {
+   $("#INV-stat").attr("style", "fill: white;");
+    $("#FOL-stat").attr("style", "fill: white;");
+    $("#SHA-stat").attr("style", "fill: white;");
+    $("#ORO-stat").attr("style", "fill: white;");
+    
+    d3.select("#ORO-INV").transition().duration(500).style("stroke", "white");
+    d3.select("#INV-FOL").transition().duration(500).style("stroke", "white");
+    d3.select("#SHA-INV").transition().duration(500).style("stroke", "white");
     
 }

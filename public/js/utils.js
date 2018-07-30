@@ -2,6 +2,7 @@ var historicalData;
 var resNames = [];
 var arc;
 var gauges = {};
+var statVizReady = false;
 
 
 function makeWaterBuckets(containerDivID, countX, countY, amountPerBucket, width, height, marginBottom) {
@@ -671,6 +672,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     }}                   
             }
             
+            statVizReady = true;
         });
     });
 }

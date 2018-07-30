@@ -97,6 +97,8 @@ function handleScrolling() {
         clusterRed();
     } else if (pos_stat_2 < stat_visible_border) {
         oneResRed();
+    } else {
+        noneRed();
     }
 
 }
@@ -164,29 +166,33 @@ function makeBuchananChart() {
 }
 
 function oneResRed() {
-    d3.select("#INV-stat").transition().duration(500).style("fill", "red").style("stroke", "red");
+    if (statVizReady) {
+        d3.select("#INV-stat").transition().duration(500).style("fill", "red").style("stroke", "red");
+    }
 }
 
 function clusterRed() {
-    $("#INV-stat").attr("style", "fill: red;");
-    $("#FOL-stat").attr("style", "fill: red;");
-    $("#SHA-stat").attr("style", "fill: red;");
-    $("#ORO-stat").attr("style", "fill: red;");
-    
-    d3.select("#ORO-INV").transition().duration(500).style("stroke", "red");
-    d3.select("#INV-FOL").transition().duration(500).style("stroke", "red");
-    d3.select("#SHA-INV").transition().duration(500).style("stroke", "red");
-    
+    if (statVizReady) {
+        $("#INV-stat").attr("style", "fill: red;");
+        $("#FOL-stat").attr("style", "fill: red;");
+        $("#SHA-stat").attr("style", "fill: red;");
+        $("#ORO-stat").attr("style", "fill: red;");
+
+        d3.select("#ORO-INV").transition().duration(500).style("stroke", "red");
+        d3.select("#INV-FOL").transition().duration(500).style("stroke", "red");
+        d3.select("#SHA-INV").transition().duration(500).style("stroke", "red");
+    }
 }
 
 function noneRed() {
-   $("#INV-stat").attr("style", "fill: white;");
-    $("#FOL-stat").attr("style", "fill: white;");
-    $("#SHA-stat").attr("style", "fill: white;");
-    $("#ORO-stat").attr("style", "fill: white;");
-    
-    d3.select("#ORO-INV").transition().duration(500).style("stroke", "white");
-    d3.select("#INV-FOL").transition().duration(500).style("stroke", "white");
-    d3.select("#SHA-INV").transition().duration(500).style("stroke", "white");
-    
+    if (statVizReady) {
+       $("#INV-stat").attr("style", "fill: white;");
+        $("#FOL-stat").attr("style", "fill: white;");
+        $("#SHA-stat").attr("style", "fill: white;");
+        $("#ORO-stat").attr("style", "fill: white;");
+
+        d3.select("#ORO-INV").transition().duration(500).style("stroke", "white");
+        d3.select("#INV-FOL").transition().duration(500).style("stroke", "white");
+        d3.select("#SHA-INV").transition().duration(500).style("stroke", "white");
+    }
 }

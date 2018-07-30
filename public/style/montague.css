@@ -7,17 +7,40 @@
 #slide1-text {
     position: relative;
     height: 200px;
+    z-index: 1;
+}
+
+.slide1-info {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+#slide1-graphic {
+    z-index: 2;
+    background-color: white;
+    width: 700px;
+    padding-bottom: 20vh;
 }
 
 #montague-viz {
-    height: 700vh;
+    height: 300vh;
     opacity: 1;
     position: relative;
 }
 
 .fixed {
     position: fixed;
-    top: 0;
+    top: 40vh;
+}
+
+.absolute {
+    position: absolute;
+    top: 40vh;
+}
+
+.absolute-bottom {
+    position: absolute;
+    top: 240vh;
 }
 
 .relative-600 {

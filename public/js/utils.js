@@ -511,6 +511,7 @@ function reservoirMouseout(d) {
     $("#chart-" + d.Name + " path").attr("style", "fill: #0D7AC4;");
     $("#" + d.Name).attr("style", "fill: #FFF; stroke: #FFF;");
 }
+
 //////////////////////////////////////////////////////////////////////////////////Reservoir Interconnectivity and Dependency Map/////////////
 
 function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFunc, mouseoutFunc, slidenum) {
@@ -556,16 +557,15 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
             .attr('r', '5px')
             .attr('fill', '#FFF')
-            .attr('stroke', '#FFF')
-            .attr('id', function(d) { return d.Name })
+            .attr('id', function(d) { return d.Name + "-stat" })
             .attr('class', 'res')
             .on("mouseover", mouseoverFunc)
             .on("mouseout", mouseoutFunc);
             
             // Draw dashed lines and animate their appearance
             resToShow.forEach(function(d) {
-                var resx = $("#" + d).attr("cx");
-                var resy = $("#" + d).attr("cy");
+                var resx = $("#" + d + "-stat").attr("cx");
+                var resy = $("#" + d + "-stat").attr("cy");
                 var line = svg.append("line")
                     .style("stroke-width", 3)
                     .style("stroke", "black")
@@ -612,15 +612,17 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             // Draw reservoir connections and animate their appearance
             for (var connectedRes in connections) {
                 console.log("The reservoir " + connectedRes + " is connected to " + connections[connectedRes]);
-                var resx = $("#" + connectedRes).attr("cx");
-                var resy = $("#" + connectedRes).attr("cy");
+                var resx = $("#" + connectedRes + "-stat").attr("cx");
+                var resy = $("#" + connectedRes + "-stat").attr("cy");
                 var lineResNames = svg.append("text")
                     .attr("font-size", 14)
                     .attr("x", resx)
                     .attr("y", resy)
                 for (var connectedTo of connections[connectedRes]) {
-                    var res2x = $("#" + connectedTo).attr("cx");
-                    var res2y = $("#" + connectedTo).attr("cy"); 
+                    var res2x = $("#" + connectedTo + "-stat").attr("cx");
+                    var res2y = $("#" + connectedTo + "-stat").attr("cy");
+                    
+                    var lineId = connectedRes + "-" + connectedTo;
                     
                     // Make curved connection line
                     if (connectedRes == "ISB") {
@@ -631,6 +633,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", -100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);  
                         curvedlineRES.transition().duration(1700).style("stroke-dashoffset", 0);
  
@@ -646,6 +649,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", -100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo) 
                         curvedlineRES.transition().duration(1500).style("stroke-dashoffset", 0);
                     }
@@ -661,6 +665,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr("y2", res2y)
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", 100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
                         line.transition().duration(2000).style("stroke-dashoffset", 0);
                     }}                   

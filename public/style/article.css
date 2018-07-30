@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+}
+
+h1 {
+    font-family: Lato;
+    font-size: 50px;
+}
+
+h2 {
+    font-family: Lato;
+    font-size: 25px;
+}
+
+h3 {
+    font-family: Lato;
+}
+
+p {
+    font-family: Open Sans;
+    font-size: 18px;
+}
+
+text {
+    font-family: Nova Mono, monospace;
+}
+
+.label {
+    font-family: Lato, sans-serif;
+}
+
+.opacity-screen-2 {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+/* Title Card */
+.title {
+    height: 100vh;
+    min-height: 200px;
+    padding: 0;
+    background-image: url("dogSaveUs.jpg");
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    z-index: -2;
+}
+
+.title-div {
+    position: absolute;
+    bottom: 5vh;
+    left: 50px;
+    color: black;
+    width: 75%;
+    max-width: 1000px;
+}
+
+/* Mini Title Card */
+
+.mini-title {
+    padding-top: 7vh;
+    padding-bottom: 37vh;
+    min-height: 200px;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    z-index: -2;
+}
+
+.mini-title-div {
+    display: block;
+    height: 33vh;
+    margin: auto;
+    color: white;
+    max-width: 500px;
+    text-align: center;
+}
+
+.mini-title-div h1 {
+    font-size: 40px;
+}
+
+/* Main Article */
+.article-main {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+}
+
+
+/* Visualizations */
+.viz {
+    width: 650px;
+    display: block;
+    margin: auto;
+}
+
+/* Montague title */
+#montague-title {
+    background-image: url("https://images.unsplash.com/photo-1512337933795-8493e0417bf5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=53ca878a0d9822aebb4125226a54a787&auto=format&fit=crop&w=1650&q=80");
+    background-position: bottom;
+}
+
+#predicting-res-levels-title {
+    background-image: url("https://images.unsplash.com/photo-1464377075287-4c011c458f04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2c598e35aea0526baba4d3912ac7ccf6&auto=format&fit=crop&w=1650&q=80");
+    background-position: top;
+}

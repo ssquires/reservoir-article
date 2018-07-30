@@ -88,7 +88,9 @@ function PDSILabels() {
 
 function makePDSISlider(id, textId, text, sliderId, sliderVal, disabled, indicatorId) {
     if (!sliderVal) sliderVal = 0;
-    $("#" + id).append(PDSIText(textId, text));
+    if (textId != '') {
+        $("#" + id).append(PDSIText(textId, text));
+    }
     
     var slider;
     if (disabled) {
@@ -100,6 +102,12 @@ function makePDSISlider(id, textId, text, sliderId, sliderVal, disabled, indicat
     
     $("#" + id).append(slider);
     $("#" + id).append(PDSILabels());
+}
+
+function makePDSIGraphic(containerId) {
+    var slider = $("<div class='slider pdsi-slider'></div>");
+    $("#" + containerId).append(slider);
+    $("#" + containerId).append(PDSILabels());
 }
 
 function updatePDSILabel(v, textId) {
@@ -147,6 +155,68 @@ function makeFillGaugeForPDSISlider() {
     }, 1000);
 }
 
+function makeReservoirFillGraphic() {
+    var gaugeSVG = $("<svg class='gaugeSVG' id='res-gauge' width='100' height='100'></svg>");
+    $("#reservoir-filling-div").append(gaugeSVG);
+    
+    var config = liquidFillGaugeDefaultSettings();
+    config.circleThickness = 0.05;
+    config.circleColor = "#0D7AC4";
+    config.textColor = "#0000";
+    config.waveTextColor = "#0000";
+    config.waveColor = "#0D7AC4";
+    config.textVertPosition = 0.8;
+    config.waveAnimateTime = 2000;
+    config.waveRiseTime = 1500;
+    config.waveHeight = 0.05;
+    config.waveAnimate = true;
+    config.waveRise = false;
+    config.waveHeightScaling = false;
+    config.waveOffset = 0.25;
+    config.textSize = 0.9;
+    config.waveCount = 2;
+    config.valueCountUp = false;
+    
+    var resGauge = makeFillGauge("res-gauge", 50, config);
+    console.log(resGauge);
+    var lineColor = "orange";
+    setTimeout(function updateResControl() {
+        $("#input-line-1").css("stroke-dashoffset", 0);
+        $("#input-line-2").css("stroke-dashoffset", 0);
+        $("#input-line-3").css("stroke-dashoffset", 0);
+        resGauge.update(80);
+        d3.select("#input-line-1").transition().duration(500).style("stroke", lineColor);
+        d3.select("#input-line-2").transition().duration(500).style("stroke", lineColor);
+        d3.select("#input-line-3").transition().duration(500).style("stroke", lineColor);
+        $(".input-line").animate({strokeDashoffset: "-100",
+                                  stroke: lineColor}, 1500, function() {
+            d3.select("#input-line-1").transition().duration(500).style("stroke", "black");
+            d3.select("#input-line-2").transition().duration(500).style("stroke", "black");
+            d3.select("#input-line-3").transition().duration(500).style("stroke", "black");
+        });
+        
+        setTimeout(function() {
+            $("#output-line-1").css("stroke-dashoffset", 0);
+            $("#output-line-2").css("stroke-dashoffset", 0);
+            $("#output-line-3").css("stroke-dashoffset", 0);
+            resGauge.update(20);
+            d3.select("#output-line-1").transition().duration(500).style("stroke", lineColor);
+            d3.select("#output-line-2").transition().duration(500).style("stroke", lineColor);
+            d3.select("#output-line-3").transition().duration(500).style("stroke", lineColor);
+            $(".output-line").animate({strokeDashoffset: "-100",
+                                  stroke: lineColor}, 1500, function() {
+                d3.select("#output-line-1").transition().duration(500).style("stroke", "black");
+                d3.select("#output-line-2").transition().duration(500).style("stroke", "black");
+                d3.select("#output-line-3").transition().duration(500).style("stroke", "black");
+            });
+            setTimeout(updateResControl, 3000);
+        }, 3000);
+        
+    }, 1000);
+    
+    
+}
+
 function makeMultipleFillGauge() {
     var svgA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
     $("#connected-res-a").append(svgA);
@@ -164,6 +234,8 @@ function makeMultipleFillGauge() {
         $("#connect-line-1").css("stroke-dashoffset", "0");
         $("#connect-line-2").css("stroke-dashoffset", "0");
         $("#connect-line-3").css("stroke-dashoffset", "0");
+        $("#output-line-b").css("stroke-dashoffset", "0");
+        $("#output-line-c").css("stroke-dashoffset", "0");
         gaugeA.update(90);
         d3.select("#connect-line-1").transition().duration(500).style("stroke", waterColor);
         $("#connect-line-1").animate({strokeDashoffset: "-100",
@@ -186,6 +258,14 @@ function makeMultipleFillGauge() {
             setTimeout(function() {
                 gaugeB.update(37);
                 gaugeC.update(22);
+                d3.select("#output-line-b").transition().duration(500).style("stroke", waterColor);
+                d3.select("#output-line-c").transition().duration(500).style("stroke", waterColor);
+                $("#output-line-b").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#output-line-b").transition().duration(500).style("stroke", "black");
+                });
+                $("#output-line-c").animate({strokeDashoffset: "-100"}, 1500, function() {
+                    d3.select("#output-line-c").transition().duration(500).style("stroke", "black");
+                });
                 setTimeout(updateFillGauges, 3000);
             }, 3000);
         });
@@ -252,12 +332,11 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
 }
 
 function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
-    var dateLabel = $("<h2 id='date'>January 2003</h2>");
-    dateLabel.css("margin-top", "5px");
+    var dateLabel = $("<h3 id='date'>January 2003</h3>");
     // Create date range slider
     d3.json(dataFile, function(err, resData) {
         var sliderMax = resData.length - 1;
-        var s = $("<input type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value)' onchange='console.log(this.value);updateData(this.value)' list='drought-markers'>");
+        var s = $("<input id='slidey' type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value);$(\"#click-here-div\").css(\"opacity\", 0);' onchange='console.log(this.value);updateData(this.value);' list='drought-markers'>");
         var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
         $("#slider").append(dateLabel);
         containerDiv.append(s);
@@ -432,6 +511,7 @@ function reservoirMouseout(d) {
     $("#chart-" + d.Name + " path").attr("style", "fill: #0D7AC4;");
     $("#" + d.Name).attr("style", "fill: #FFF; stroke: #FFF;");
 }
+
 //////////////////////////////////////////////////////////////////////////////////Reservoir Interconnectivity and Dependency Map/////////////
 
 function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFunc, mouseoutFunc, slidenum) {
@@ -477,16 +557,15 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
             .attr('r', '5px')
             .attr('fill', '#FFF')
-            .attr('stroke', '#FFF')
-            .attr('id', function(d) { return d.Name })
+            .attr('id', function(d) { return d.Name + "-stat" })
             .attr('class', 'res')
             .on("mouseover", mouseoverFunc)
             .on("mouseout", mouseoutFunc);
             
             // Draw dashed lines and animate their appearance
             resToShow.forEach(function(d) {
-                var resx = $("#" + d).attr("cx");
-                var resy = $("#" + d).attr("cy");
+                var resx = $("#" + d + "-stat").attr("cx");
+                var resy = $("#" + d + "-stat").attr("cy");
                 var line = svg.append("line")
                     .style("stroke-width", 3)
                     .style("stroke", "black")
@@ -533,15 +612,17 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             // Draw reservoir connections and animate their appearance
             for (var connectedRes in connections) {
                 console.log("The reservoir " + connectedRes + " is connected to " + connections[connectedRes]);
-                var resx = $("#" + connectedRes).attr("cx");
-                var resy = $("#" + connectedRes).attr("cy");
+                var resx = $("#" + connectedRes + "-stat").attr("cx");
+                var resy = $("#" + connectedRes + "-stat").attr("cy");
                 var lineResNames = svg.append("text")
                     .attr("font-size", 14)
                     .attr("x", resx)
                     .attr("y", resy)
                 for (var connectedTo of connections[connectedRes]) {
-                    var res2x = $("#" + connectedTo).attr("cx");
-                    var res2y = $("#" + connectedTo).attr("cy"); 
+                    var res2x = $("#" + connectedTo + "-stat").attr("cx");
+                    var res2y = $("#" + connectedTo + "-stat").attr("cy");
+                    
+                    var lineId = connectedRes + "-" + connectedTo;
                     
                     // Make curved connection line
                     if (connectedRes == "ISB") {
@@ -552,6 +633,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", -100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);  
                         curvedlineRES.transition().duration(1700).style("stroke-dashoffset", 0);
  
@@ -567,6 +649,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", -100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo) 
                         curvedlineRES.transition().duration(1500).style("stroke-dashoffset", 0);
                     }
@@ -582,6 +665,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr("y2", res2y)
                         .attr("stroke-dasharray", 100)
                         .attr("stroke-dashoffset", 100)
+                        .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
                         line.transition().duration(2000).style("stroke-dashoffset", 0);
                     }}                   
@@ -736,61 +820,6 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
         
     });
-    
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// FINAL VISUALIZATION ////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-function makePieCharts(containerId) {
-    var containerDiv = $(containerId);
-    
-    // TEMPORARY
-    var tempResNames = ["ORO", "CLE", "INV", "FOL", "HID", "DNP", "BUC", "ISB", "SHA"];
-    var arc = d3.svg.arc().outerRadius(25)
-                  .innerRadius(0);
-        var chartNum = 0;
-        for (var key in tempResNames) {
-            var chartDiv = $("<div class='chart' id='chart-div-" + chartNum + "'></div>");
-            containerDiv.append(chartDiv);
-            console.log(containerDiv);
-            resNames.push(key);
-            var label = $("<h2 class='res-name' id='label-" + key + "'>" + key + "</h2>");
-            chartDiv.append(label);
-            
-            var chartID = "pie-chart-" + key;
-
-            
-            var pie = d3.layout.pie().value(function(d) { return 67; });
-            
-            var svg = d3.select("#chart-div-" + chartNum)
-            .append("svg")
-            .attr("id", chartID)
-            .attr("width", 70)
-            .attr("height", 70).append("g").attr("transform", "translate(35, 35)");
-            
-            var g = d3.selectAll("arc").data(pie).enter().append("g").attr("class", "arc");
-            
-            g.append("path").attr("d", arc)
-                .style("fill", function(d) { return "orange";})
-                .each(function(d) { this._current = d; });
-            
-            var percentLabel = $("<h3 id='pie-label" + chartNum + "'>67%</h3>");
-            chartDiv.append(percentLabel);
-
-            chartNum++;
-        }
-}
-
-function makeFinalViz() {
-//    makeMap("#final-map");
-//    makePieCharts("#final-pie");
-//    makePDSISlider("final-pdsi", "final-pdsi-text", "PDSI", "final-pdsi-slider", 0);
-//    var thresholdSlider = $("<input type='range' min='10' max='50' value='30' step='10' class='slider' id='final-threshold-slider'>");
-//    $("#final-threshold").append($("<h2>Threshold</h2>"));
-//    $("#final-threshold").append(thresholdSlider);
-//    $("#final-threshold").append($("<div class='slider-labels'><p id='label-10'>10%</p><p id='label-20'>20%</p><p id='label-30'>30%</p><p id='label-40'>40%</p><p id='label-50'>50%</p></div>"));
     
 }
 

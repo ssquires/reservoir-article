@@ -1,0 +1,177 @@
+/* PDSI Slider viz */
+#PDSI-viz {
+    width: 650px;
+    height: 180px;
+    padding-top: 20px;
+    padding-bottom: 80px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+#PDSI-viz .pdsi-slider {
+    position: absolute;
+    bottom: 60px;
+}
+
+#PDSI-viz h2 {
+    text-align: center;
+}
+
+#PDSI-viz .slider-labels {
+    position: absolute;
+    bottom: 50px;
+    height: 20px;
+    width: 100%;
+}
+
+#PDSI-viz .pdsi-label {
+    position: absolute;
+    bottom: 115px;
+    width: 100px;
+    text-align: center;
+}
+
+#label-extreme-drought {
+    left: -50px;
+}
+
+#label-mid-range {
+    left: 275px;
+}
+
+#label-extreme-wet {
+    left: 600px;
+}
+
+.slider-labels p {
+    display: inline-block;
+    position: absolute;
+}
+
+#label-neg5 {
+    left: 0;
+    margin-left: -1ch;
+}
+
+#label-neg4 {
+    left: 10%;
+    margin-left: -1ch;
+}
+
+#label-neg3 {
+    left: 20%;
+    margin-left: -1ch;
+}
+
+#label-neg2 {
+    left: 30%;
+    margin-left: -1ch;
+} 
+
+#label-neg1 {
+    left: 40%;
+    margin-left: -1ch;
+}
+
+#label-0 {
+    left: 50%;
+    margin-left: -.5ch;
+}
+
+#label-1 {
+    left: 60%;
+    margin-left: -.5ch;
+}
+
+#label-2 {
+    left: 70%;
+    margin-left: -.5ch;
+}
+
+#label-3 {
+    left: 80%;
+    margin-left: -.5ch;
+}
+
+#label-4 {
+    left: 90%;
+    margin-left: -.5ch;
+}
+
+#label-5 {
+    left: 100%;
+    margin-left: -.5ch;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 60px;
+    border-radius: 1px;   
+    background: #DDDDDD;
+    outline: none;
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin: 0px;
+    position: relative;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 70px;
+    border-radius: none; 
+    background: black;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.slider-indicator {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 70px;
+    border-radius: none; 
+    background: black;
+    position: absolute;
+    left: 80%;
+    top: -5px;
+    z-index: 1;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+}
+
+.pdsi-slider {
+    background: linear-gradient(to right, #D17D00 0%, #D17D00 5%, #FFA620 15%, #FFD496 25%, #eee 35%, #eee 65%, #A4DAFF 75%, #4C9BD1 85%, #095385 95%, #095385 100%);
+}
+
+#dependency-viz {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: auto;
+    padding-top: 50px;
+}
+
+#dependency-slider-viz {
+    width: 650px;
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+#dependency-slider-viz h2 {
+    text-align: center;
+}

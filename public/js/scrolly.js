@@ -15,7 +15,7 @@ $(document).ready(function() {
              "HID": ["DNP"],
              "ISB": ["DNP"]
               },connectedResMouseover,connectedResMouseout, "4.1");
-    makeFinalViz();
+    makeReservoirFillGraphic();
     handleScrolling();
     
     /* Every time the window is scrolled ... */

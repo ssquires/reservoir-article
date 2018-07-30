@@ -18,7 +18,6 @@ $(document).ready(function() {
              "HID": ["DNP"],
              "ISB": ["DNP"]
               },connectedResMouseover,connectedResMouseout, "4.1");
-    handleScrolling();
     /* Every time the window is scrolled ... */
     $(window).scroll(handleScrolling);
 });
@@ -97,8 +96,6 @@ function handleScrolling() {
         clusterRed();
     } else if (pos_stat_2 < stat_visible_border) {
         oneResRed();
-    } else {
-        noneRed();
     }
 
 }
@@ -166,13 +163,13 @@ function makeBuchananChart() {
 }
 
 function oneResRed() {
-    if (statVizReady) {
+    if ($("#INV-stat")) {
         d3.select("#INV-stat").transition().duration(500).style("fill", "red").style("stroke", "red");
     }
 }
 
 function clusterRed() {
-    if (statVizReady) {
+    if ($("#ORO-INV") && $("#INV-FOL") && $("#SHA-INV")) {
         $("#INV-stat").attr("style", "fill: red;");
         $("#FOL-stat").attr("style", "fill: red;");
         $("#SHA-stat").attr("style", "fill: red;");
@@ -180,19 +177,6 @@ function clusterRed() {
 
         d3.select("#ORO-INV").transition().duration(500).style("stroke", "red");
         d3.select("#INV-FOL").transition().duration(500).style("stroke", "red");
-        d3.select("#SHA-INV").transition().duration(500).style("stroke", "red");
-    }
-}
-
-function noneRed() {
-    if (statVizReady) {
-       $("#INV-stat").attr("style", "fill: white;");
-        $("#FOL-stat").attr("style", "fill: white;");
-        $("#SHA-stat").attr("style", "fill: white;");
-        $("#ORO-stat").attr("style", "fill: white;");
-
-        d3.select("#ORO-INV").transition().duration(500).style("stroke", "white");
-        d3.select("#INV-FOL").transition().duration(500).style("stroke", "white");
-        d3.select("#SHA-INV").transition().duration(500).style("stroke", "white");
+        d3.select("#SHA-INV").transition().duration(500).style("stroke", "red"); 
     }
 }

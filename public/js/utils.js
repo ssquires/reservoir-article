@@ -2,7 +2,6 @@ var historicalData;
 var resNames = [];
 var arc;
 var gauges = {};
-var statVizReady = false;
 
 
 function makeWaterBuckets(containerDivID, countX, countY, amountPerBucket, width, height, marginBottom) {
@@ -633,10 +632,9 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('stroke',"white")
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", -100)
+                        .attr("stroke-dashoffset", 0)
                         .attr("id", lineId)
-                        .attr("class", connectedRes + " " + connectedTo);  
-                        curvedlineRES.transition().duration(1700).style("stroke-dashoffset", 0);
+                        .attr("class", connectedRes + " " + connectedTo);
  
                     }
                     
@@ -649,10 +647,9 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr('stroke',"white")
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", -100)
+                        .attr("stroke-dashoffset", 0)
                         .attr("id", lineId)
-                        .attr("class", connectedRes + " " + connectedTo) 
-                        curvedlineRES.transition().duration(1500).style("stroke-dashoffset", 0);
+                        .attr("class", connectedRes + " " + connectedTo);
                     }
                    
                     // Make straight connections
@@ -665,14 +662,11 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr("x2", res2x)
                         .attr("y2", res2y)
                         .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", 100)
+                        .attr("stroke-dashoffset", 0)
                         .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
-                        line.transition().duration(2000).style("stroke-dashoffset", 0);
                     }}                   
             }
-            
-            statVizReady = true;
         });
     });
 }

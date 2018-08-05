@@ -4,3 +4,25 @@
     stroke: black;
     shape-rendering: crispEdges;
 }
+
+#seasonality-scrolly {
+    height: 160vh;
+    padding-top: 20vh;
+    position: relative;
+}
+
+.stat-info {
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+}
+
+.absolute-160 {
+    position: absolute;
+    top: 100vh;
+}
+
+#seasonality-graphic {
+    background-color: white;
+    padding-bottom: 20vh;
+    width: 100%;
+}

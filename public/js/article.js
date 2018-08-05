@@ -74,6 +74,29 @@ function handleScrolling() {
         updateWaterBuckets(5000, 25, 10, 10);
     }
     
+    var season_top = $('#seasonality-scrolly').position().top;
+    var pos_season_2 = $('#buch-2').position().top;
+    
+    if (w_pos < season_top) {
+        $("#seasonality-graphic").removeClass('fixed');
+        $("#seasonality-graphic").removeClass('absolute-160');
+        $("#seasonality-graphic").addClass('absolute');
+    } else if (w_pos < season_top + $('#seasonality-scrolly').height() - $(window).height()) {
+        $("#seasonality-graphic").removeClass('absolute');
+        $("#seasonality-graphic").removeClass('absolute-160');
+        $("#seasonality-graphic").addClass('fixed');
+    } else {
+        $("#seasonality-graphic").removeClass('fixed');
+        $("#seasonality-graphic").addClass('absolute-160');
+    }
+    
+    var buchanan_border = w_pos - season_top + $( window ).height() * 0.2;
+    if (pos_season_2 < buchanan_border) {
+        advanceBuchananChart();
+    } else {
+        rewindBuchananChart();
+    }
+    
     var stat_top = $('#statistical-scrolly').position().top;
     var pos_stat_2 = $("#stat-2").position().top;
     var pos_stat_3 = $("#stat-3").position().top;
@@ -159,7 +182,15 @@ function makeBuchananChart() {
     };
     makeLineChart("#seasonality-graphic", "historical_data.json", config, function (progress) { curtain = progress["curtain"];
     stopXCoord = progress["stopDateXCoord"]; pauseXCoord = progress["pauseDateXCoord"]; 
-    curtain.transition().duration(3000).ease("linear").attr("x", stopXCoord);});
+    curtain.transition().duration(3000).ease("linear").attr("x", pauseXCoord);});
+}
+
+function rewindBuchananChart() {
+    curtain.transition().duration(1000).ease("linear").attr("x", pauseXCoord);
+}
+
+function advanceBuchananChart() {
+    curtain.transition().duration(1000).ease("linear").attr("x", stopXCoord);
 }
 
 function oneResRed() {

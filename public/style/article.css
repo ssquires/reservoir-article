@@ -45,7 +45,7 @@ text {
     height: 100vh;
     min-height: 200px;
     padding: 0;
-    background-image: url("dogSaveUs.jpg");
+    background-image: url("drought.jpeg");
     background-size: cover;
     opacity: 1;
     position: relative;
@@ -56,7 +56,7 @@ text {
     position: absolute;
     bottom: 5vh;
     left: 50px;
-    color: black;
+    color: white;
     width: 75%;
     max-width: 1000px;
 }

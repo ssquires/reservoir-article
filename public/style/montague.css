@@ -90,7 +90,15 @@
 }
 
 #montague-wrapup {
-    margin-top: -20vh;
+    margin-top: -15vh;
     position: relative;
     z-index: 10;
+}
+
+#buckets {
+    height: 100%;
+    position: relative;
+    width: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
 }

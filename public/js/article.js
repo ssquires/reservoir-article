@@ -24,18 +24,92 @@ $(document).ready(function() {
 
 
 function handleScrolling() {
+    scrollMontague();
+    scrollBuchanan();
+    scrollStats();
+//    if (w_pos < top) {
+//        $('#slide1-graphic').removeClass('fixed');
+//        $('#slide1-graphic').removeClass('absolute-bottom');
+//        $('#slide1-graphic').addClass('absolute');
+//    } else if (w_pos < pos_last_frame) {
+//        $('#slide1-graphic').removeClass('absolute');
+//        $('#slide1-graphic').removeClass('absolute-bottom');
+//        $('#slide1-graphic').addClass('fixed');
+//    } else {
+//        $('#slide1-graphic').removeClass('absolute');
+//        $('#slide1-graphic').removeClass('fixed');
+//        $('#slide1-graphic').addClass('absolute-bottom');
+//    }
+    
+//    var visible_border = w_pos - top + $( window ).height() * 0.2;
+    
+//    if (pos_5 < visible_border) {
+//        updateWaterBuckets(16, 25, 10, 20);
+//    } else if (pos_4 < visible_border) {
+//        updateWaterBuckets(240, 25, 10, 20);
+//    } else if (pos_4 < visible_border) {
+//        console.log("4");
+//        updateWaterBuckets(800, 25, 10, 20);
+//    } else if (pos_3 < visible_border) {
+//        updateWaterBuckets(800, 25, 10, 20);
+//    } else if (pos_2 < visible_border) {
+//        updateWaterBuckets(2200, 25, 10, 20);
+//    } else {
+//        updateWaterBuckets(5000, 25, 10, 10);
+//    }
+//    
+//    var season_top = $('#seasonality-scrolly').position().top;
+//    var pos_season_2 = $('#buch-2').position().top;
+//    
+//    if (w_pos < season_top) {
+//        $("#seasonality-graphic").removeClass('fixed');
+//        $("#seasonality-graphic").removeClass('absolute-160');
+//        $("#seasonality-graphic").addClass('absolute');
+//    } else if (w_pos < season_top + $('#seasonality-scrolly').height() - $(window).height()) {
+//        $("#seasonality-graphic").removeClass('absolute');
+//        $("#seasonality-graphic").removeClass('absolute-160');
+//        $("#seasonality-graphic").addClass('fixed');
+//    } else {
+//        $("#seasonality-graphic").removeClass('fixed');
+//        $("#seasonality-graphic").addClass('absolute-160');
+//    }
+//    
+//    var buchanan_border = w_pos - season_top + $( window ).height() * 0.2;
+//    if (pos_season_2 < buchanan_border) {
+//        advanceBuchananChart();
+//    } else {
+//        rewindBuchananChart();
+//    }
+//    
+//    var stat_top = $('#statistical-scrolly').position().top;
+//    var pos_stat_2 = $("#stat-2").position().top;
+//    var pos_stat_3 = $("#stat-3").position().top;
+//    
+//    if (w_pos < stat_top) {
+//        $("#connected-res-viz").removeClass('fixed');
+//        $("#connected-res-viz").removeClass('absolute-160');
+//        $("#connected-res-viz").addClass('absolute');
+//    } else if (w_pos < stat_top + $('#statistical-scrolly').height() - $(window).height()) {
+//        $("#connected-res-viz").removeClass('absolute');
+//        $("#connected-res-viz").removeClass('absolute-160');
+//        $("#connected-res-viz").addClass('fixed');
+//    } else {
+//        $("#connected-res-viz").removeClass('fixed');
+//        $("#connected-res-viz").addClass('absolute-160');
+//    }
+//    
+//    var stat_visible_border = w_pos - stat_top + $( window ).height() * 0.2;
+//    if (pos_stat_3 < stat_visible_border) {
+//        clusterRed();
+//    } else if (pos_stat_2 < stat_visible_border) {
+//        oneResRed();
+//    }
+
+}
+var state = "abs";
+
+function scrollMontague() {
     var w_pos = $(window).scrollTop();
-    var top = $('#montague-viz').position().top;
-    var pos_1_2 = $('#montague-viz').position().top + $('#montague-viz').outerHeight() / 7;
-    var pos_1_3 = $('#montague-viz').position().top + 2 * $('#montague-viz').outerHeight() / 7;
-    var pos_1_4 = $('#montague-viz').position().top + 3 * $('#montague-viz').outerHeight() / 7;
-    var pos_1_5 = $('#montague-viz').position().top + 4 * $('#montague-viz').outerHeight() / 7;
-    var pos_1_6 = $('#montague-viz').position().top + 5 * $('#montague-viz').outerHeight() / 7;
-    var pos_1_7 = $('#montague-viz').position().top + 6 * $('#montague-viz').outerHeight() / 7;
-    var bottom = $('#montague-viz').position().top + $('#montague-viz').outerHeight();
-    
-    var pos_last_frame = $('#montague-viz').position().top + 2 * $('#montague-viz').outerHeight() / 3;
-    
     var viz_pos = $('#slide1-graphic').position().top;
     var pos_2 = $('#slide-1-2').position().top;
     var pos_3 = $('#slide-1-3').position().top;
@@ -43,22 +117,30 @@ function handleScrolling() {
     var pos_5 = $('#slide-1-5').position().top;
     var pos_6 = $('#slide-1-6').position().top;
     
-    if (w_pos < top) {
+    var viz_pos = $("#montague-div").position().top + viz_pos - 0.4 * $(window).height();
+    var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
+    console.log(bottom_pos);
+    console.log(w_pos);
+    if (w_pos <= viz_pos && state != "absb") {
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').removeClass('absolute-bottom');
         $('#slide1-graphic').addClass('absolute');
-    } else if (w_pos < pos_last_frame) {
+        console.log("abs")
+        state = "abs";
+    } else if (w_pos < bottom_pos) {
         $('#slide1-graphic').removeClass('absolute');
         $('#slide1-graphic').removeClass('absolute-bottom');
         $('#slide1-graphic').addClass('fixed');
-    } else {
-        $('#slide1-graphic').removeClass('absolute');
+        state = "fixed";
+        console.log("fix")
+    } else if (state != "abs"){
         $('#slide1-graphic').removeClass('fixed');
+        $('#slide1-graphic').removeClass('absolute');
         $('#slide1-graphic').addClass('absolute-bottom');
+        state = "absb";
     }
     
-    var visible_border = w_pos - top + $( window ).height() * 0.2;
-    
+    var visible_border = w_pos - $("#montague-div").position().top + $( window ).height() * 0.2;
     if (pos_5 < visible_border) {
         updateWaterBuckets(16, 25, 10, 20);
     } else if (pos_4 < visible_border) {
@@ -73,21 +155,27 @@ function handleScrolling() {
     } else {
         updateWaterBuckets(5000, 25, 10, 10);
     }
-    
+ 
+}
+
+function scrollBuchanan() {
+    var w_pos = $(window).scrollTop();
     var season_top = $('#seasonality-scrolly').position().top;
     var pos_season_2 = $('#buch-2').position().top;
+    var season_bottom = $("#seasonality-scrolly").position().top + $("#seasonality-scrolly").outerHeight(true) - $(window).height();
     
     if (w_pos < season_top) {
         $("#seasonality-graphic").removeClass('fixed');
-        $("#seasonality-graphic").removeClass('absolute-160');
+        $("#seasonality-graphic").removeClass('absolute-bottom');
         $("#seasonality-graphic").addClass('absolute');
-    } else if (w_pos < season_top + $('#seasonality-scrolly').height() - $(window).height()) {
+    } else if (w_pos < season_bottom) {
         $("#seasonality-graphic").removeClass('absolute');
-        $("#seasonality-graphic").removeClass('absolute-160');
+        $("#seasonality-graphic").removeClass('absolute-bottom');
         $("#seasonality-graphic").addClass('fixed');
     } else {
         $("#seasonality-graphic").removeClass('fixed');
-        $("#seasonality-graphic").addClass('absolute-160');
+         $("#seasonality-graphic").removeClass('absolute');
+        $("#seasonality-graphic").addClass('absolute-bottom');
     }
     
     var buchanan_border = w_pos - season_top + $( window ).height() * 0.2;
@@ -96,22 +184,27 @@ function handleScrolling() {
     } else {
         rewindBuchananChart();
     }
-    
+}
+
+function scrollStats() {
+    var w_pos = $(window).scrollTop();
     var stat_top = $('#statistical-scrolly').position().top;
     var pos_stat_2 = $("#stat-2").position().top;
     var pos_stat_3 = $("#stat-3").position().top;
+    var stat_bottom = $("#statistical-scrolly").position().top + $("#statistical-scrolly").outerHeight(true) - $(window).height();
     
     if (w_pos < stat_top) {
         $("#connected-res-viz").removeClass('fixed');
-        $("#connected-res-viz").removeClass('absolute-160');
+        $("#connected-res-viz").removeClass('absolute-bottom');
         $("#connected-res-viz").addClass('absolute');
-    } else if (w_pos < stat_top + $('#statistical-scrolly').height() - $(window).height()) {
+    } else if (w_pos < stat_bottom) {
         $("#connected-res-viz").removeClass('absolute');
-        $("#connected-res-viz").removeClass('absolute-160');
+        $("#connected-res-viz").removeClass('absolute-bottom');
         $("#connected-res-viz").addClass('fixed');
     } else {
         $("#connected-res-viz").removeClass('fixed');
-        $("#connected-res-viz").addClass('absolute-160');
+        $("#connected-res-viz").removeClass('absolute');
+        $("#connected-res-viz").addClass('absolute-bottom');
     }
     
     var stat_visible_border = w_pos - stat_top + $( window ).height() * 0.2;
@@ -120,7 +213,6 @@ function handleScrolling() {
     } else if (pos_stat_2 < stat_visible_border) {
         oneResRed();
     }
-
 }
 
 function hideSlides() {

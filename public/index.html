@@ -34,13 +34,13 @@
     <div id="PDSI-viz" class="viz">
         <h2>The PDSI Scale</h2>
         <div id="label-extreme-drought" class="pdsi-label">
-            <p>Extreme drought</p>
+            <p id="p-extreme-drought">Extreme drought</p>
         </div>
         <div id="label-mid-range" class="pdsi-label">
-            <p>Normal conditions</p>
+            <p id="p-mid-range">Normal conditions</p>
         </div>
         <div id="label-extreme-wet" class="pdsi-label">
-            <p>Extremely wet spell</p>
+            <p id="p-extreme-wet">Extreme wet spell</p>
         </div>
     </div>
     
@@ -49,9 +49,10 @@
     <p>&emsp;&emsp;The visualization below demonstrates the historical response of representative California reservoirs to a range of drought conditions. Try dragging the timeline slider to wet spells (blue regions) and dry spells (orange regions) to see how the reservoirs responded.</p>
     
     <!--  Historical reservoir levels viz  -->
-    <div id="reservoirs-matter-viz">
+    <div id="reservoirs-matter-container">
+        <div id="reservoirs-matter-viz">
+        </div>
     </div>
-    
     <p>&emsp;&emsp;Reservoirs constantly undergo significant fluctuations in fill level. Every day, water managers decide how much water to release, and must find a balance between meeting current demand and planning for the future. To do this, they must consider timescales ranging from daily human use to multi-year climate trends. This is already a complex task, and an unexpected drought can make reservoir exhaustion difficult to avoid. When a reservoir runs out of water, communities that depend on its supply experience immediate and serious consequences.</p>
     
     <!--  Reservoir inputs and outputs viz  -->
@@ -59,24 +60,24 @@
         <div id="reservoir-filling-div">
         </div>
         <svg class="overlay-svg" id="res-fill-overlay">
-            <text class="label" x="75" y="20">Runoff</text>
-            <image x="60" y="25" width="80" height="80" xlink:href="runoff.svg"/>
-            <text class="label" x="205" y="20">Precipitation</text>
-            <image x="210" y="25" width="80" height="80" xlink:href="precipitation.svg"/> 
-            <text class="label" x="365" y="20">Snowpack</text>
-            <image x="360" y="25" width="80" height="80" xlink:href="snowpack.svg"/>
-            <line class="connect-line input-line" id="input-line-1" x1="250" y1="105" x2="250" y2="155"/>
-            <line class="connect-line input-line" id="input-line-2" x1="120" y1="100" x2="210" y2="165"/>
-            <line class="connect-line input-line" id="input-line-3" x1="380" y1="100" x2="290" y2="165"/>
-            <text class="label" x="55" y="400">Urban Use</text>
-            <image x="60" y="305" width="80" height="80" xlink:href="urbanUse.svg"/>
-            <text class="label" x="205" y="400">Hydropower</text>
-            <image x="210" y="305" width="80" height="80" xlink:href="hydropower.svg"/>
-            <text class="label" x="360" y="400">Agriculture</text>
-            <image x="360" y="305" width="80" height="80" xlink:href="agriculture.svg"/>
-            <line class="connect-line output-line" id="output-line-1" x1="250" y1="255" x2="250" y2="305"/>
-            <line class="connect-line output-line" id="output-line-2" x1="210" y1="245" x2="120" y2="310"/>
-            <line class="connect-line output-line" id="output-line-3" x1="290" y1="245" x2="380" y2="310"/>
+            <text class="label" x="25" y="20">Runoff</text>
+            <image x="10" y="25" width="80" height="80" xlink:href="runoff.svg"/>
+            <text class="label" x="155" y="20">Precipitation</text>
+            <image x="160" y="25" width="80" height="80" xlink:href="precipitation.svg"/> 
+            <text class="label" x="315" y="20">Snowpack</text>
+            <image x="310" y="25" width="80" height="80" xlink:href="snowpack.svg"/>
+            <line class="connect-line input-line" id="input-line-1" x1="200" y1="105" x2="200" y2="155"/>
+            <line class="connect-line input-line" id="input-line-2" x1="70" y1="100" x2="160" y2="165"/>
+            <line class="connect-line input-line" id="input-line-3" x1="330" y1="100" x2="240" y2="165"/>
+            <text class="label" x="5" y="400">Urban Use</text>
+            <image x="10" y="305" width="80" height="80" xlink:href="urbanUse.svg"/>
+            <text class="label" x="155" y="400">Hydropower</text>
+            <image x="160" y="305" width="80" height="80" xlink:href="hydropower.svg"/>
+            <text class="label" x="310" y="400">Agriculture</text>
+            <image x="310" y="305" width="80" height="80" xlink:href="agriculture.svg"/>
+            <line class="connect-line output-line" id="output-line-1" x1="200" y1="255" x2="200" y2="305"/>
+            <line class="connect-line output-line" id="output-line-2" x1="160" y1="245" x2="70" y2="310"/>
+            <line class="connect-line output-line" id="output-line-3" x1="240" y1="245" x2="330" y2="310"/>
         </svg>
     </div>
 </div>
@@ -90,27 +91,24 @@
 <div class="article-main">
     <p>&emsp;&emsp;In August 2014, the water level in Northern California’s Lake Shastina reservoir dropped to critical levels. This resulted in serious water restrictions in the nearby town of Montague, affecting its 1,500 residents. Due to a shortage of water, each household in Montague was limited to 5,000 gallons of water a month, above which they would face a fine.</p>
     <!--  Montague draining water viz  -->
-    <div id="montague-viz" class="panel viz-panel viz">
-        <div id="slide1-inner" class="relative">
-        <div id="slide1-text" class="relative">
-        <div id="slide-1" class="slide1-info">
-            <p>&emsp;&emsp;Because of the water shortage, each household in Montague was limited to 5,000 gallons of water a month. Families using more than this amount faced fines.</p>
-            <p>&emsp;&emsp;The average household size in Montague in the 2010 census was 2.5. As it turns out, 5,000 gallons of water doesn't get the average family very far.</p>
-        </div>
-        <p id="slide-1-2" class="slide1-info">&emsp;&emsp;If each family member takes a 10-minute shower every day, the average household will use 2,800 gallons of water in a month.</p>
-        <p id="slide-1-3" class="slide1-info">&emsp;&emsp;If each person uses running water for 5 minutes every day, that's another 1,400 gallons per month.</p>
-        <p id="slide-1-4" class="slide1-info">&emsp;&emsp;Flushing the toilet twice per day per person takes another 560 gallons of water.</p>
-        <p id="slide-1-5" class="slide1-info">&emsp;&emsp;Just one load of dishes and one load of laundry per week will use 224 gallons of water.</p>
-        <div id="slide-1-6" class="slide1-info">
-            <p>&emsp;&emsp;Even using water conservatively, the average household could easily consume 5,000 gallons in a month. A family of three or more would almost surely exceed the limit.</p>
-        </div>
-        </div>
-        <div id="slide1-graphic" class="absolute">
+    <div id="montague-div">
+    
+    <p>&emsp;&emsp;Because of the water shortage, each household in Montague was limited to 5,000 gallons of water a month. Families using more than this amount faced fines. The average household size in Montague in the 2010 census was 2.5. As it turns out, 5,000 gallons of water doesn't get the average family very far.</p>
+    <div id="slide1-graphic">
             
-        </div>
-        </div>
     </div>
-    <p>&emsp;&emsp;The story of Montague demonstrates that communities face consequences when a reservoir reaches critically low levels. If it were possible to predict a reservoir’s water level months in advance, we could potentially mitigate the risk of reservoir exhaustion. Unfortunately, predicting future water levels is more difficult than it sounds. Take, for example, data from the Buchanan Reservoir.</p>
+        
+    <hr>
+    <p class="slide1-info" id="intro-paragraph">INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH INTRO PARAGRAPH .</p>
+    <p id="slide-1-2" class="slide1-info">If each family member takes a 10-minute shower every day, the average household will use 2,800 gallons of water in a month.</p>
+    <p id="slide-1-3" class="slide1-info">If each person uses running water for 5 minutes every day, that's another 1,400 gallons per month.</p>
+    <p id="slide-1-4" class="slide1-info">Flushing the toilet twice per day per person takes another 560 gallons of water.</p>
+    <p id="slide-1-5" class="slide1-info">Just one load of dishes and one load of laundry per week will use 224 gallons of water.</p>
+    <div id="slide-1-6" class="slide1-info">
+        <p>Even using water conservatively, the average household could easily consume 5,000 gallons in a month. A family of three or more would almost surely exceed the limit.</p>
+    </div>
+    </div>   
+    <p id="montague-wrapup">&emsp;&emsp;The story of Montague demonstrates that communities face consequences when a reservoir reaches critically low levels. If it were possible to predict a reservoir’s water level months in advance, we could potentially mitigate the risk of reservoir exhaustion. Unfortunately, predicting future water levels is more difficult than it sounds. Take, for example, data from the Buchanan Reservoir.</p>
 </div>
 <div id="predicting-res-levels-title" class="mini-title">
     <div class="opacity-screen-2"></div>
@@ -123,13 +121,15 @@
     
     <!--  Buchanan Reservoir Viz  -->
     <div id="seasonality-scrolly">
-        <p id="buch-1" class="stat-info">&emsp;&emsp;In May 2013, the fill season was over, and the managers of the Buchanan Reservoir had to make prediction about water availability in the coming months.</p>
-        <p id="buch-2" class="stat-info">&emsp;&emsp;Even though the water managers were likely using the best tools available to them, they were unable to prevent exhaustion of the Buchanan Reservoir. Better predictive tools may have extended the lifetime of the water supply.</p>
         <div id="seasonality-graphic" class="viz">
 
         </div>
+        <p id="buch-1" class="stat-info">&emsp;&emsp;In May 2013, the fill season was over, and the managers of the Buchanan Reservoir had to make prediction about water availability in the coming months.</p>
+        
+        <p id="buch-2" class="stat-info">&emsp;&emsp;Even though the water managers were likely using the best tools available to them, they were unable to prevent exhaustion of the Buchanan Reservoir. Better predictive tools may have extended the lifetime of the water supply.</p>
+        
     </div>
-    <p>&emsp;&emsp;To that end, a team of Caltech researchers lead graduate student Armeen Taeb developed a novel statistical model to tackle the problem of predicting water levels. They used a technique called graphical modeling to combine statewide reservoir and climate data to make predictions that outperformed other techniques based on modeling individual reservoirs in isolation.</p>
+    <p id="buch-wrapup">&emsp;&emsp;To that end, a team of Caltech researchers lead graduate student Armeen Taeb developed a novel statistical model to tackle the problem of predicting water levels. They used a technique called graphical modeling to combine statewide reservoir and climate data to make predictions that outperformed other techniques based on modeling individual reservoirs in isolation.</p>
     <p>&emsp;&emsp;Their work found that PDSI is the single most predictive external factor. PDSI on its own is a powerful tool for predicting risk of reservoir exhaustion.</p>
     
     <!--  Reservoir Level and PDSI Slider Viz  -->
@@ -143,21 +143,24 @@
     <p>&emsp;&emsp;This, however, does not tell the whole story. It turns out that reservoirs are "connected"-- that is, there is a high correlation between the water levels of some pairs of reservoirs. Sometimes this is for obvious reasons (such as a physically connection) but sometimes there are statistical correlations (for example, from similar geography and water management).  Taeb and his colleagues found that accounting for this connectivity is essential for making accurate predictions of the reservoir system as a whole.</p>
     
     <!--  3-Reservoir Connectivity Viz  -->
-    <div id="connectivity-viz" class="viz">
+    <div id="connectivity-div">
+        <svg id="connectivity-viz" class="viz" width="400" height="400">
+            <svg id="connectivity-overlay" class="overlay-svg">
+                <line class="connect-line" id="connect-line-1" x1="200" y1="20" x2="200" y2="80"/>
+                <line class="connect-line" id="connect-line-2" x1="170" y1="180" x2="120" y2="240"/>
+                <line class="connect-line" id="connect-line-3" x1="230" y1="180" x2="280" y2="240"/>
+
+                <line class="connect-line" id="output-line-b" x1="120" y1="350" x2="120" y2="380"/>
+                <line class="connect-line" id="output-line-c" x1="280" y1="350" x2="280" y2="380"/>
+            </svg>
+        </svg>
         <div id="connected-res-a" class="connected-res-container">
         </div>
-        <div id="connected-res-b-c" class="connected-res-container">
+        <div id="connected-res-b" class="connected-res-container">
         </div>
-        <svg id="connectivity-overlay" class="overlay-svg">
-            <line class="connect-line" id="connect-line-1" x1="250" y1="20" x2="250" y2="80"/>
-            <line class="connect-line" id="connect-line-2" x1="220" y1="180" x2="170" y2="240"/>
-            <line class="connect-line" id="connect-line-3" x1="280" y1="180" x2="330" y2="240"/>
-            
-            <line class="connect-line" id="output-line-b" x1="170" y1="350" x2="170" y2="380"/>
-            <line class="connect-line" id="output-line-c" x1="330" y1="350" x2="330" y2="380"/>
-        </svg>
+        <div id="connected-res-c" class="connected-res-container">
+        </div>
     </div>
-    
     <div id="statistical-scrolly">
         <p id="stat-1" class="stat-info">&emsp;&emsp;Researchers at Caltech & JPL used a method known as Graphical Modeling to determine reservoir interdependencies and characterize the influence of external factors such as PDSI.</p>
         <p id="stat-2" class="stat-info">&emsp;&emsp;It is now possible to predict both how the individual reservoirs respond to drought, and how the effect is propograted based on reservoir interconnectivity.  In mild drought conditions, only a few reservoirs are at risk of exhaustion.</p>
@@ -168,7 +171,7 @@
         </div>
         
     </div>
-    <p>&emsp;&emsp;Drought will always be an issue for California, and will only be exacerbated by a growing population and the imminent consequences of climate change. While we cannot control the weather, we can control how we react to it. If California can combine smart conservation measures with a more resilient water infrastructure, it may be possible to manage the negative impacts of drought so that we never have to face the worst-case scenario of total reservoir exhaustion.</p>
+    <p id="wrapup">&emsp;&emsp;Drought will always be an issue for California, and will only be exacerbated by a growing population and the imminent consequences of climate change. While we cannot control the weather, we can control how we react to it. If California can combine smart conservation measures with a more resilient water infrastructure, it may be possible to manage the negative impacts of drought so that we never have to face the worst-case scenario of total reservoir exhaustion.</p>
 
     <p>&emsp;&emsp;By using accurate statistical models of water systems, policy makers can design statewide strategies that will prevent California from suffering severe water rationing and restrictions. This work from Caltech and JPL shows that scientific research and public policy can go hand in hand to build a more resilient California.</p>
 </div>

@@ -1,6 +1,6 @@
 /* PDSI Slider viz */
 #PDSI-viz {
-    width: 650px;
+    width: 100%;
     height: 180px;
     padding-top: 20px;
     padding-bottom: 80px;
@@ -33,15 +33,22 @@
 }
 
 #label-extreme-drought {
-    left: -50px;
+    left: 0;
+    transform: translate(-50%, 0);
 }
 
 #label-mid-range {
-    left: 275px;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 #label-extreme-wet {
-    left: 600px;
+    left: 100%;
+    transform: translate(-50%, 0);
+}
+
+#p-extreme-drought, #p-mid-range, #p-extreme-wet {
+    text-align: center;
 }
 
 .slider-labels p {
@@ -164,7 +171,6 @@
 }
 
 #dependency-slider-viz {
-    width: 650px;
     display: block;
     margin: auto;
     padding-top: 20px;

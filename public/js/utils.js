@@ -7,8 +7,7 @@ var gauges = {};
 function makeWaterBuckets(containerDivID, countX, countY, amountPerBucket, width, height, marginBottom) {
     // SVG Canvas
     var svg = d3.select(containerDivID).append("svg")
-                                     .attr("width", width)
-                                     .attr("height", height + marginBottom)
+                                     .attr("viewBox", "0 0 " + width + " " + height)
                                      .attr("id", "buckets");
     
     // Calculations
@@ -221,9 +220,9 @@ function makeMultipleFillGauge() {
     var svgA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
     $("#connected-res-a").append(svgA);
     var svgB = $("<svg class='gaugeSVG' id='gauge-B' width='100' height='100'></svg>");
-    $("#connected-res-b-c").append(svgB);
+    $("#connected-res-b").append(svgB);
     var svgC = $("<svg class='gaugeSVG' id='gauge-C' width='100' height='100'></svg>");
-    $("#connected-res-b-c").append(svgC);
+    $("#connected-res-c").append(svgC);
     
     var gaugeA = makeFillGauge("gauge-A", 10);
     var gaugeB = makeFillGauge("gauge-B", 37);
@@ -428,9 +427,9 @@ function makeMap(containerDivID) {
     d3.json("ca_counties.geojson", function(err, data) {
         if (err) return console.error(err);
 
-        var width = 220, height = 300;
+        var width = 250, height = 300;
         // SVG Canvas
-        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('width', '200px') ;
+        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '-10 20 ' + width + ' ' + height).attr('width', '220px') ;
                                                        
         // Calculated Scale for Map Overlay
         var scale = 1215;
@@ -520,7 +519,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
 
         var width = 650, height = 450;
         // SVG Canvas
-        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('width', '500px').attr('id', 'ca-map');
+        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('id', 'ca-map');
                                                        
         // Calculated Scale for Map Overlay
         var scale = 1715;
@@ -713,10 +712,11 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
     var margin = {top: 45, right: 60, bottom: 75, left: 80};
     
     var width = 500, height = 200;
+    var totalWidth = width + margin.left + margin.right;
+    var totalHeight = height + margin.top + margin.bottom;
     var svg = d3.select(containerDivID)
                 .append('svg')
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
+                    .attr("viewBox", "0 0 " + totalWidth + " " + totalHeight)
                     .attr("id", "line-graph")
                 .append("g")
                     .attr("transform", 

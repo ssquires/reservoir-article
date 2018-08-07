@@ -6,8 +6,7 @@
 }
 
 #seasonality-scrolly {
-    height: 160vh;
-    padding-top: 20vh;
+    padding-bottom: 60vh;
     position: relative;
 }
 
@@ -24,5 +23,17 @@
 #seasonality-graphic {
     background-color: white;
     padding-bottom: 20vh;
-    width: 100%;
+    height: 40vh;
+    text-align: center;
+    margin-left: 0;
+}
+
+#buch-1 {
+    padding-top: 40vh;
+}
+
+#buch-wrapup {
+    margin-top: -20vh;
+    position: relative;
+    z-index: 10;
 }

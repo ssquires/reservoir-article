@@ -37,3 +37,11 @@
     position: relative;
     z-index: 10;
 }
+
+#line-graph {
+    height: 100%;
+    position: relative;
+    width: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+}

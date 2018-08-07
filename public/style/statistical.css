@@ -12,6 +12,8 @@
     background: white;
     height: 40vh;
     padding-bottom: 20vh;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 #stat-1 {
@@ -25,5 +27,7 @@
 }
 
 #ca-map {
-    height: 40vh;
+    height: 100%;
+    position: relative;
+    width: auto;
 }

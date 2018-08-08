@@ -100,6 +100,10 @@ svg {
     font-size: 40px;
 }
 
+.mini-title-div p {
+    text-align: center;
+}
+
 /* Main Article */
 .article-main {
     padding-top: 100px;
@@ -132,11 +136,16 @@ svg {
         width: 80%;
     }
     
-    h1 {
+    h1, .mini-title-div h1 {
         font-size: 30px;
     }
     
     p {
         font-size: 14px;
+    }
+    
+    .mini-title-div {
+        padding-left: 10%;
+        padding-right: 10%;
     }
 }

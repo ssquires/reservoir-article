@@ -137,7 +137,7 @@ function updatePDSILabel(v, textId) {
 
 function makeFillGaugeForPDSISlider() {
     
-     var d = $("<svg class='gaugeSVG' id='dependency-gauge' width='150' height='150'></svg>");
+     var d = $("<svg class='gaugeSVG' id='dependency-gauge' width='100' height='100'></svg>");
      $("#dependency-viz").append(d);
     
     
@@ -155,8 +155,8 @@ function makeFillGaugeForPDSISlider() {
 }
 
 function makeReservoirFillGraphic() {
-    var gaugeSVG = $("<svg class='gaugeSVG' id='res-gauge' width='100' height='100'></svg>");
-    $("#reservoir-filling-div").append(gaugeSVG);
+//    var gaugeSVG = $("<svg class='gaugeSVG' id='res-gauge' width='100' height='100'></svg>");
+//    $("#reservoir-filling-div").append(gaugeSVG);
     
     var config = liquidFillGaugeDefaultSettings();
     config.circleThickness = 0.05;
@@ -176,8 +176,7 @@ function makeReservoirFillGraphic() {
     config.waveCount = 2;
     config.valueCountUp = false;
     
-    var resGauge = makeFillGauge("res-gauge", 50, config);
-    console.log(resGauge);
+    var resGauge = makeFillGauge("reservoir-filling", 50, config);
     var lineColor = "orange";
     setTimeout(function updateResControl() {
         $("#input-line-1").css("stroke-dashoffset", 0);
@@ -217,16 +216,11 @@ function makeReservoirFillGraphic() {
 }
 
 function makeMultipleFillGauge() {
-    var svgA = $("<svg class='gaugeSVG' id='gauge-A' width='100' height='100'></svg>");
-    $("#connected-res-a").append(svgA);
-    var svgB = $("<svg class='gaugeSVG' id='gauge-B' width='100' height='100'></svg>");
-    $("#connected-res-b").append(svgB);
-    var svgC = $("<svg class='gaugeSVG' id='gauge-C' width='100' height='100'></svg>");
-    $("#connected-res-c").append(svgC);
     
-    var gaugeA = makeFillGauge("gauge-A", 10);
-    var gaugeB = makeFillGauge("gauge-B", 37);
-    var gaugeC = makeFillGauge("gauge-C", 22);
+    
+    var gaugeA = makeFillGauge("connected-res-a", 10);
+    var gaugeB = makeFillGauge("connected-res-b", 37);
+    var gaugeC = makeFillGauge("connected-res-c", 22);
     
     var waterColor = "orange";
     setTimeout(function updateFillGauges() {
@@ -295,16 +289,24 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
                 break;
             }
 
-            var chartDiv = $("<div class='chart'></div>");
-            containerDiv.append(chartDiv);
+            var xCoord = (chartNum % 3) * 100;
+            var yCoord = 25;
+            if (chartNum > 2 && chartNum < 6) {
+                yCoord = 150;
+            } else if (chartNum >= 6) {
+                yCoord = 275;
+            }
+            var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125'></svg>");
+            containerDiv.append(chartSvg);
             resNames.push(key);
-            var label = $("<h2 class='res-name' id='label-" + key + "'>" + key + "</h2>");
-            chartDiv.append(label);
+            var label = $("<svg><text x='30' y='20' fill='black' class='res-name' id='label-" + key + "'>" + key + "</text></svg>");
+            
             
             var chartID = "chart-" + key;
             // Create a new div for the chart
-            var d = $("<svg class='chartSVG' id='" + chartID + "' width='" + width + "' height='" + height + "' onclick='gauge5.update(NewValue());'></svg>");
-            chartDiv.append(d);
+            var d = $("<svg class='chartSVG' id='" + chartID + "' y='25'></svg>");
+            chartSvg.append(d);
+            chartSvg.append(label);
             d.mouseover(function(e) {
                 var resName = e.target.id.split("-")[1];
                 $("#" + resName).attr("style", "fill: orange; stroke: orange;");
@@ -347,19 +349,24 @@ function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
     
 }
 
+
+var numSliderDivs = 0;
+
 function makeColorCodeDivs(dataFile, sliderId) {
     var slider = $("#" + sliderId);
     slider.css("position", "relative");
     var sliderWidth = slider.width();
     var sliderHeight = slider.height();
     d3.json(dataFile, function(err, data) {
+        numSliderDivs = data.length;
         var divWidth = sliderWidth / data.length;
         var divX = 0;
+        var n = 1;
         for (var dataPoint of data) {
             var date = dataPoint.date;
             var pdsi = dataPoint.PDSI;
             var color = getPDSIColor(pdsi);
-            var div = $("<div></div>");
+            var div = $("<div id='slider-div-" + n + "'></div>");
             div.css("width", divWidth);
             div.css("height", sliderHeight);
             div.css("position", "absolute");
@@ -370,8 +377,21 @@ function makeColorCodeDivs(dataFile, sliderId) {
             div.css("pointer-events", "none");
             slider.append(div);
             divX += divWidth;
+            n++;
         }
     });
+}
+
+function resizeColorCodeDivs() {
+    var sliderWidth = $("#slider-inner").width();
+    var divWidth = sliderWidth / numSliderDivs;
+    var divX = 0;
+    for (var i = 1; i <= numSliderDivs; i++) {
+        var currDiv = $("#slider-div-" + i);
+        currDiv.css("left", divX);
+        currDiv.css("width", divWidth);
+        divX += divWidth;
+    }
 }
 
 function getPDSIColor(pdsi) {
@@ -427,9 +447,9 @@ function makeMap(containerDivID) {
     d3.json("ca_counties.geojson", function(err, data) {
         if (err) return console.error(err);
 
-        var width = 250, height = 300;
+        var width = 280, height = 300;
         // SVG Canvas
-        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '-10 20 ' + width + ' ' + height).attr('width', '220px') ;
+        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '-10 -15 ' + width + ' ' + height);
                                                        
         // Calculated Scale for Map Overlay
         var scale = 1215;
@@ -573,34 +593,34 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     .attr("stroke-opacity",0.6)
                     .attr("stroke-dasharray", "6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,5,600")
                     .attr("stroke-dashoffset", -600)
-                    .attr("x2", 19/32*width)
+                    .attr("x2", 15/32*width)
                     .attr("y2", 100)
                  line.transition().duration(5000).style("stroke-dashoffset", 0);       
             
             // Fade in text
             var dependenciesRes = svg.append("text")
-                .attr("x", 19/32*width+8)
+                .attr("x", 15/32*width+8)
                 .attr("y", 90)
                 .attr("class", "res-dependencies label")
                 .text("Drought Index (PDSI)")
             dependenciesRes.transition().duration(6000).style("fill", "black");
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 19/32*width+8)
+                .attr("x", 15/32*width+8)
                 .attr("y", 90+25)
                 .attr("class", "res-dependencies label")
                 .text("Snowpack")
             dependenciesRes.transition().duration(6000).style("fill", "black");    
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 19/32*width+8)
+                .attr("x", 15/32*width+8)
                 .attr("y", 90+25*2)
                 .attr("class", "res-dependencies label")
                 .text("Agricultural demand")               
             dependenciesRes.transition().duration(6000).style("fill", "black");    
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 19/32*width+8)
+                .attr("x", 15/32*width+8)
                 .attr("y", 90+25*3)
                 .attr("class", "res-dependencies label")
                 .text("etc.")                

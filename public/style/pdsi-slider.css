@@ -2,8 +2,7 @@
 #PDSI-viz {
     width: 100%;
     height: 180px;
-    padding-top: 20px;
-    padding-bottom: 80px;
+    padding-bottom: 10px;
     display: block;
     margin: auto;
     position: relative;
@@ -11,7 +10,7 @@
 
 #PDSI-viz .pdsi-slider {
     position: absolute;
-    bottom: 60px;
+    top: 100px;
 }
 
 #PDSI-viz h2 {
@@ -20,7 +19,7 @@
 
 #PDSI-viz .slider-labels {
     position: absolute;
-    bottom: 50px;
+    top: 150px;
     height: 20px;
     width: 100%;
 }
@@ -34,21 +33,25 @@
 
 #label-extreme-drought {
     left: 0;
-    transform: translate(-50%, 0);
+    top: 30px;
+    transform: translate(-25%, 0);
 }
 
 #label-mid-range {
     left: 50%;
+    top: 30px;
     transform: translate(-50%, 0);
 }
 
 #label-extreme-wet {
     left: 100%;
-    transform: translate(-50%, 0);
+    top: 30px;
+    transform: translate(-75%, 0);
 }
 
 #p-extreme-drought, #p-mid-range, #p-extreme-wet {
     text-align: center;
+    max-width: 8em;
 }
 
 .slider-labels p {
@@ -163,19 +166,17 @@
 }
 
 #dependency-viz {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     display: block;
     margin: auto;
-    padding-top: 50px;
 }
 
 #dependency-slider-viz {
     display: block;
     margin: auto;
-    padding-top: 20px;
     position: relative;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
 }
 
 #dependency-slider-viz h2 {

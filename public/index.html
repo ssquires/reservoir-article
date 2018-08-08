@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0, width=device-width">
 <title>A Mathematical Route to Fighting Drought</title>
 <link rel='stylesheet' href='style/article.css'>
 <link rel='stylesheet' href='style/pdsi-slider.css'>
@@ -57,9 +58,8 @@
     
     <!--  Reservoir inputs and outputs viz  -->
     <div id="reservoir-filling-graphic">
-        <div id="reservoir-filling-div">
-        </div>
-        <svg class="overlay-svg" id="res-fill-overlay">
+        
+        <svg class="overlay-svg" id="res-fill-overlay" viewBox="0 0 400 410">
             <text class="label" x="25" y="20">Runoff</text>
             <image x="10" y="25" width="80" height="80" xlink:href="runoff.svg"/>
             <text class="label" x="155" y="20">Precipitation</text>
@@ -78,6 +78,8 @@
             <line class="connect-line output-line" id="output-line-1" x1="200" y1="255" x2="200" y2="305"/>
             <line class="connect-line output-line" id="output-line-2" x1="160" y1="245" x2="70" y2="310"/>
             <line class="connect-line output-line" id="output-line-3" x1="240" y1="245" x2="330" y2="310"/>
+            <svg id="reservoir-filling" width="100" height="100" x="150" y="155">
+            </svg>
         </svg>
     </div>
 </div>
@@ -95,7 +97,8 @@
     
     <p>&emsp;&emsp;Because of the water shortage, each household in Montague was limited to 5,000 gallons of water a month. Families using more than this amount faced fines. The average household size in Montague in the 2010 census was 2.5. As it turns out, 5,000 gallons of water doesn't get the average family very far.</p>
     <div id="slide1-graphic">
-            
+        <div id="buckets-wrapper">
+        </div>    
     </div>
         
     <hr>
@@ -122,7 +125,9 @@
     <!--  Buchanan Reservoir Viz  -->
     <div id="seasonality-scrolly">
         <div id="seasonality-graphic" class="viz">
-
+            <div id="buchanan-wrapper">
+            
+            </div>
         </div>
         <p id="buch-1" class="stat-info">&emsp;&emsp;In May 2013, the fill season was over, and the managers of the Buchanan Reservoir had to make prediction about water availability in the coming months.</p>
         
@@ -144,7 +149,7 @@
     
     <!--  3-Reservoir Connectivity Viz  -->
     <div id="connectivity-div">
-        <svg id="connectivity-viz" class="viz" width="400" height="400">
+        <svg id="connectivity-viz" class="viz" viewBox="0 0 400 400">
             <svg id="connectivity-overlay" class="overlay-svg">
                 <line class="connect-line" id="connect-line-1" x1="200" y1="20" x2="200" y2="80"/>
                 <line class="connect-line" id="connect-line-2" x1="170" y1="180" x2="120" y2="240"/>
@@ -153,14 +158,16 @@
                 <line class="connect-line" id="output-line-b" x1="120" y1="350" x2="120" y2="380"/>
                 <line class="connect-line" id="output-line-c" x1="280" y1="350" x2="280" y2="380"/>
             </svg>
+            <svg id="connected-res-a" class="connected-res-container" x="150" y="80">
+            </svg>
+            <svg id="connected-res-b" class="connected-res-container" x="70" y="245">
+            </svg>
+            <svg id="connected-res-c" class="connected-res-container" x="230" y="245">
+            </svg>
         </svg>
-        <div id="connected-res-a" class="connected-res-container">
-        </div>
-        <div id="connected-res-b" class="connected-res-container">
-        </div>
-        <div id="connected-res-c" class="connected-res-container">
-        </div>
+        
     </div>
+    <hr>
     <div id="statistical-scrolly">
         <p id="stat-1" class="stat-info">&emsp;&emsp;Researchers at Caltech & JPL used a method known as Graphical Modeling to determine reservoir interdependencies and characterize the influence of external factors such as PDSI.</p>
         <p id="stat-2" class="stat-info">&emsp;&emsp;It is now possible to predict both how the individual reservoirs respond to drought, and how the effect is propograted based on reservoir interconnectivity.  In mild drought conditions, only a few reservoirs are at risk of exhaustion.</p>
@@ -168,6 +175,8 @@
 
         <!-- Statistical Model Map Viz   -->
         <div id="connected-res-viz" class="viz">
+            <div id="stat-wrapper">
+            </div>
         </div>
         
     </div>

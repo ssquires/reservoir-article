@@ -10,7 +10,7 @@ $(document).ready(function() {
     makeFillGaugeForPDSISlider();
     makeMultipleFillGauge();
     
-    makeConnectivityMap("#connected-res-viz", ["INV", "SHA", "FOL","ORO","DNP","ISB","HID"], 
+    makeConnectivityMap("#stat-wrapper", ["INV", "SHA", "FOL","ORO","DNP","ISB","HID"], 
             {"SHA": ["ORO", "INV"],
              "ORO": ["INV"],
              "INV": ["FOL"],
@@ -22,89 +22,15 @@ $(document).ready(function() {
     $(window).scroll(handleScrolling);
 });
 
+$( window ).resize(function() {
+    resizeColorCodeDivs();
+});
+
 
 function handleScrolling() {
     scrollMontague();
     scrollBuchanan();
     scrollStats();
-//    if (w_pos < top) {
-//        $('#slide1-graphic').removeClass('fixed');
-//        $('#slide1-graphic').removeClass('absolute-bottom');
-//        $('#slide1-graphic').addClass('absolute');
-//    } else if (w_pos < pos_last_frame) {
-//        $('#slide1-graphic').removeClass('absolute');
-//        $('#slide1-graphic').removeClass('absolute-bottom');
-//        $('#slide1-graphic').addClass('fixed');
-//    } else {
-//        $('#slide1-graphic').removeClass('absolute');
-//        $('#slide1-graphic').removeClass('fixed');
-//        $('#slide1-graphic').addClass('absolute-bottom');
-//    }
-    
-//    var visible_border = w_pos - top + $( window ).height() * 0.2;
-    
-//    if (pos_5 < visible_border) {
-//        updateWaterBuckets(16, 25, 10, 20);
-//    } else if (pos_4 < visible_border) {
-//        updateWaterBuckets(240, 25, 10, 20);
-//    } else if (pos_4 < visible_border) {
-//        console.log("4");
-//        updateWaterBuckets(800, 25, 10, 20);
-//    } else if (pos_3 < visible_border) {
-//        updateWaterBuckets(800, 25, 10, 20);
-//    } else if (pos_2 < visible_border) {
-//        updateWaterBuckets(2200, 25, 10, 20);
-//    } else {
-//        updateWaterBuckets(5000, 25, 10, 10);
-//    }
-//    
-//    var season_top = $('#seasonality-scrolly').position().top;
-//    var pos_season_2 = $('#buch-2').position().top;
-//    
-//    if (w_pos < season_top) {
-//        $("#seasonality-graphic").removeClass('fixed');
-//        $("#seasonality-graphic").removeClass('absolute-160');
-//        $("#seasonality-graphic").addClass('absolute');
-//    } else if (w_pos < season_top + $('#seasonality-scrolly').height() - $(window).height()) {
-//        $("#seasonality-graphic").removeClass('absolute');
-//        $("#seasonality-graphic").removeClass('absolute-160');
-//        $("#seasonality-graphic").addClass('fixed');
-//    } else {
-//        $("#seasonality-graphic").removeClass('fixed');
-//        $("#seasonality-graphic").addClass('absolute-160');
-//    }
-//    
-//    var buchanan_border = w_pos - season_top + $( window ).height() * 0.2;
-//    if (pos_season_2 < buchanan_border) {
-//        advanceBuchananChart();
-//    } else {
-//        rewindBuchananChart();
-//    }
-//    
-//    var stat_top = $('#statistical-scrolly').position().top;
-//    var pos_stat_2 = $("#stat-2").position().top;
-//    var pos_stat_3 = $("#stat-3").position().top;
-//    
-//    if (w_pos < stat_top) {
-//        $("#connected-res-viz").removeClass('fixed');
-//        $("#connected-res-viz").removeClass('absolute-160');
-//        $("#connected-res-viz").addClass('absolute');
-//    } else if (w_pos < stat_top + $('#statistical-scrolly').height() - $(window).height()) {
-//        $("#connected-res-viz").removeClass('absolute');
-//        $("#connected-res-viz").removeClass('absolute-160');
-//        $("#connected-res-viz").addClass('fixed');
-//    } else {
-//        $("#connected-res-viz").removeClass('fixed');
-//        $("#connected-res-viz").addClass('absolute-160');
-//    }
-//    
-//    var stat_visible_border = w_pos - stat_top + $( window ).height() * 0.2;
-//    if (pos_stat_3 < stat_visible_border) {
-//        clusterRed();
-//    } else if (pos_stat_2 < stat_visible_border) {
-//        oneResRed();
-//    }
-
 }
 var state = "abs";
 
@@ -231,18 +157,18 @@ function showSlide(s) {
 function createMontagueViz() {
     if (!waterBuckets) {
         waterBuckets = true;
-        makeWaterBuckets("#slide1-graphic", 25, 10, 20, 600, 300, 50);
+        makeWaterBuckets("#buckets-wrapper", 25, 10, 20, 600, 300, 50);
     }
 }
 
 function makeHistoricalReservoirViz() {
-    var vizContainer = $("<div id='vizContainer'></div>");
-    var gaugesDiv = $("<div id='gauges'></div>");
-    var mapDiv = $("<div id='map' class='map'></div>");
+    var vizContainer = $("<svg id='vizContainer' viewBox='0 0 600 450'></svg>");
+    var gaugesSvg = $("<svg id='gauges' viewBox='0 0 300 375' x='300' y='0' width='300'></svg>");
+    var mapSvg = $("<svg id='map' class='map' x='0' y='0' width='300'></svg>");
     var sliderDiv = $("<div id='slider'></div>");
     var sliderInnerDiv = $("<div id='slider-inner'></div>");
     var clickHereDiv = $("<div id='click-here-div'></div>");
-    clickHereDiv.append($("<text class='label'>Drag slider</text>"));
+    clickHereDiv.append($("<p>Drag slider</p>"));
     clickHereDiv.append($("<img src='down_arrow.png' height='100%'>"));
     sliderInnerDiv.css("position", "relative");
     sliderDiv.append(sliderInnerDiv);
@@ -251,11 +177,12 @@ function makeHistoricalReservoirViz() {
     sliderDiv.append(startLabel);
     sliderDiv.append(endLabel);
     $("#reservoirs-matter-viz").append(vizContainer);
-    vizContainer.append(mapDiv);
-    vizContainer.append(gaugesDiv);
+    vizContainer.append(mapSvg);
+    vizContainer.append(gaugesSvg);
     $("#reservoirs-matter-viz").append(sliderDiv);
-    $("#reservoirs-matter-viz").append(clickHereDiv);
-    makeFillGauges("historical_data.json", 70, 70, 12, gaugesDiv, "#map");
+//    $("#reservoirs-matter-viz").append(clickHereDiv);
+    sliderDiv.append(clickHereDiv);
+    makeFillGauges("historical_data.json", 70, 70, 12, gaugesSvg, "#map");
     makeSlider("historical_data.json", sliderInnerDiv, "slider-inner", true);
 }
 
@@ -272,7 +199,7 @@ function makeBuchananChart() {
         pauseDate: "November 2012",
         stopDate: "November 2016"
     };
-    makeLineChart("#seasonality-graphic", "historical_data.json", config, function (progress) { curtain = progress["curtain"];
+    makeLineChart("#buchanan-wrapper", "historical_data.json", config, function (progress) { curtain = progress["curtain"];
     stopXCoord = progress["stopDateXCoord"]; pauseXCoord = progress["pauseDateXCoord"]; 
     curtain.transition().duration(3000).ease("linear").attr("x", pauseXCoord);});
 }

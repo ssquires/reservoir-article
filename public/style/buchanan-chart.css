@@ -22,8 +22,6 @@
 
 #seasonality-graphic {
     background-color: white;
-    padding-bottom: 20vh;
-    height: 40vh;
     text-align: center;
     margin-left: 0;
 }
@@ -39,9 +37,15 @@
 }
 
 #line-graph {
-    height: 100%;
+    width: 100%;
     position: relative;
     width: auto;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+#buchanan-wrapper {
+    height: 40vh;
+    padding-bottom: 20vh;
+    width: 100%;
 }

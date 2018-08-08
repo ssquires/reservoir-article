@@ -1,35 +1,15 @@
 #connectivity-viz {
     position: relative;
     margin: auto;
-    width: 400px;
-    height: 400px;
+    width: 100%;
 }
 
 .connected-res-container {
     text-align: center;
     margin: 0;
     padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-#connected-res-a {
-    position: absolute;
-    top: 80px;
-    left: 150px;
-}
-
-#connected-res-b {
-    position: absolute;
-    top: 245px;
-    left: 70px;
-}
-
-#connected-res-c {
-    position: absolute;
-    top: 245px;
-    left: 230px;
+    width: 100px;
+    height: 100px;
 }
 
 #connectivity-overlay {
@@ -39,8 +19,7 @@
 
 #connectivity-div {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 100%;
     margin: auto;
     text-align: center;
 }

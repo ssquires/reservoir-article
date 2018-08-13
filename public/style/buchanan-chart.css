@@ -36,6 +36,30 @@
     z-index: 10;
 }
 
+@media (min-aspect-ratio: 1/1) {
+    #buch-wrapup {
+        margin-top: -5vh;
+    }
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #buch-wrapup {
+        margin-top: 10vh;
+    }
+}
+
+@media (min-aspect-ratio: 5/2) {
+    #buch-wrapup {
+        margin-top: 20vh;
+    }
+}
+
+@media (min-aspect-ratio: 3/1) {
+    #buch-wrapup {
+        margin-top: 50vh;
+    }
+}
+
 #line-graph {
     width: 100%;
     position: relative;

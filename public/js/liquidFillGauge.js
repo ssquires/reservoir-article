@@ -105,6 +105,8 @@ function loadLiquidFillGauge(elementId, value, config) {
         .range([fillCircleMargin+fillCircleRadius*2,(fillCircleMargin+textPixels*0.7)])
         .domain([0,1]);
 
+    locationX = 0;
+    locationY = 0;
     // Center the gauge within the parent SVG.
     var gaugeGroup = gauge.append("g")
         .attr('transform','translate('+locationX+','+locationY+')');

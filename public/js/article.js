@@ -31,6 +31,7 @@ $(document).ready(function() {
 $( window ).resize(function() {
     resizeColorCodeDivs();
     adjustViewport();
+    $(content).css('height', $(window).height() - $(nav).height());
 });
 
 function adjustViewport() {

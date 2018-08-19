@@ -574,7 +574,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             .enter().append('circle')
             .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
             .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
-            .attr('r', '7px')
+            .attr('r', '6px')
             .attr('fill', '#FFF')
             .attr('id', function(d) { return d.Name + "-stat" })
             .attr('class', 'res')

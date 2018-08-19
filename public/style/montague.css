@@ -29,7 +29,7 @@
 
 .fixed {
     position: fixed;
-    bottom: 0vh;
+    top: 40vh;
     width: 50%;
     margin: auto;
 }

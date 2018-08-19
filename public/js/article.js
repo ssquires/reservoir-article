@@ -2,10 +2,8 @@ var waterBuckets = false;
 
 $(document).ready(function() {
     // fix viewport on mobile
-    var viewportHeight = $(".title").outerHeight();
-    $(".title").css({height: viewportHeight});
-    $(".mini-title").css({paddingTop: viewportHeight * .07,
-                          paddingBottom: viewportHeight * .37});
+    adjustViewport();
+    
     
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
@@ -30,7 +28,16 @@ $(document).ready(function() {
 
 $( window ).resize(function() {
     resizeColorCodeDivs();
+    adjustViewport();
 });
+
+function adjustViewport() {
+    console.log("adjusting viewport");
+    var viewportHeight = $(window).outerHeight();
+    $(".title").css({height: viewportHeight});
+    $(".mini-title").css({paddingTop: viewportHeight * .07,
+                          height: viewportHeight * .6});
+}
 
 
 function handleScrolling() {
@@ -51,20 +58,16 @@ function scrollMontague() {
     
     var viz_pos = $("#montague-div").position().top + viz_pos - 0.4 * $(window).height();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
-    console.log(bottom_pos);
-    console.log(w_pos);
     if (w_pos <= viz_pos && state != "absb") {
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').removeClass('absolute-bottom');
         $('#slide1-graphic').addClass('absolute');
-        console.log("abs")
         state = "abs";
     } else if (w_pos < bottom_pos) {
         $('#slide1-graphic').removeClass('absolute');
         $('#slide1-graphic').removeClass('absolute-bottom');
         $('#slide1-graphic').addClass('fixed');
         state = "fixed";
-        console.log("fix")
     } else if (state != "abs"){
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').removeClass('absolute');
@@ -78,7 +81,6 @@ function scrollMontague() {
     } else if (pos_4 < visible_border) {
         updateWaterBuckets(240, 25, 10, 20);
     } else if (pos_4 < visible_border) {
-        console.log("4");
         updateWaterBuckets(800, 25, 10, 20);
     } else if (pos_3 < visible_border) {
         updateWaterBuckets(800, 25, 10, 20);

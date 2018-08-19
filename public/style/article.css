@@ -79,8 +79,8 @@ svg {
 
 .mini-title {
     padding-top: 7vh;
-    padding-bottom: 37vh;
-    min-height: 200px;
+    height: 60vh;
+    min-height: 300px;
     background-size: cover;
     opacity: 1;
     position: relative;

@@ -68,6 +68,7 @@ function scrollMontague() {
     if ($(window).width() <= 500) {
         vizWidth = "80%"
     }
+    $("#buckets-wrapper").css({height: .4 * $(window).height(), paddingBottom: .2 * $(window).height()});
     if (w_pos <= viz_pos && state != "absb") {
 //        $('#slide1-graphic').removeClass('fixed');
 //        $('#slide1-graphic').removeClass('absolute-bottom');

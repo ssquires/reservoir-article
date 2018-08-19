@@ -1,6 +1,10 @@
 var waterBuckets = false;
 
 $(document).ready(function() {
+    // fix viewport on mobile
+    var viewportHeight = $(".title").outerHeight();
+    $(".title").css({height: viewportHeight});
+    
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
     makeReservoirFillGraphic();

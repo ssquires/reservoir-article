@@ -57,8 +57,11 @@ function scrollMontague() {
     var pos_5 = $('#slide-1-5').position().top;
     var pos_6 = $('#slide-1-6').position().top;
     
+    // debug
+    $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window height is: " + $(window).height());
+    
     var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(".title").outerHeight();
-    var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(".title").outerHeight();
+    var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     if (w_pos <= viz_pos && state != "absb") {
         $('#slide1-graphic').removeClass('fixed');
         $('#slide1-graphic').removeClass('absolute-bottom');

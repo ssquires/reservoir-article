@@ -3,7 +3,9 @@ var waterBuckets = false;
 $(document).ready(function() {
     // fix viewport on mobile
     adjustViewport();
-    
+    var viewportHeight = $(".title").outerHeight();
+    $(".title").css({height: viewportHeight});
+    $(".mini-title").css({height: viewportHeight * .67});
     
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
@@ -33,7 +35,7 @@ $( window ).resize(function() {
 
 function adjustViewport() {
     console.log("adjusting viewport");
-    var viewportHeight = $(window).outerHeight();
+    var viewportHeight = $("window").outerHeight();
     $(".title").css({height: viewportHeight});
     $(".mini-title").css({height: viewportHeight * .67});
 }

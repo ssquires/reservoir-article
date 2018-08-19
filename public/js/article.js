@@ -50,14 +50,14 @@ var state = "abs";
 
 function scrollMontague() {
     var w_pos = $(window).scrollTop();
-    var viz_pos = $('#slide1-graphic').position().top;
+    var slide1_pos = $('#slide1-graphic').position().top;
     var pos_2 = $('#slide-1-2').position().top;
     var pos_3 = $('#slide-1-3').position().top;
     var pos_4 = $('#slide-1-4').position().top;
     var pos_5 = $('#slide-1-5').position().top;
     var pos_6 = $('#slide-1-6').position().top;
     
-    var viz_pos = $("#montague-div").position().top + viz_pos - 0.4 * $(window).height();
+    var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(window).innerHeight();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     if (w_pos <= viz_pos && state != "absb") {
         $('#slide1-graphic').removeClass('fixed');

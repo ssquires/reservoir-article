@@ -57,25 +57,30 @@ function scrollMontague() {
     var pos_5 = $('#slide-1-5').position().top;
     var pos_6 = $('#slide-1-6').position().top;
     
+
+    
     // debug
     $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window outer height is: " + $(window).outerHeight());
     
     var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(".title").outerHeight();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     if (w_pos <= viz_pos && state != "absb") {
-        $('#slide1-graphic').removeClass('fixed');
-        $('#slide1-graphic').removeClass('absolute-bottom');
-        $('#slide1-graphic').addClass('absolute');
+//        $('#slide1-graphic').removeClass('fixed');
+//        $('#slide1-graphic').removeClass('absolute-bottom');
+//        $('#slide1-graphic').addClass('absolute');
+        $("#slide1-graphic").css({position: "absolute", top: .4 * $(window).height(), bottom: "auto", width: "100%"});
         state = "abs";
     } else if (w_pos < bottom_pos) {
-        $('#slide1-graphic').removeClass('absolute');
-        $('#slide1-graphic').removeClass('absolute-bottom');
-        $('#slide1-graphic').addClass('fixed');
+//        $('#slide1-graphic').removeClass('absolute');
+//        $('#slide1-graphic').removeClass('absolute-bottom');
+//        $('#slide1-graphic').addClass('fixed');
+        $("#slide1-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: "50%"});
         state = "fixed";
     } else if (state != "abs"){
-        $('#slide1-graphic').removeClass('fixed');
-        $('#slide1-graphic').removeClass('absolute');
-        $('#slide1-graphic').addClass('absolute-bottom');
+//        $('#slide1-graphic').removeClass('fixed');
+//        $('#slide1-graphic').removeClass('absolute');
+//        $('#slide1-graphic').addClass('absolute-bottom');
+        $("#slide1-graphic").css({position: "absolute", bottom: 0, top: "auto", width: "100%"});
         state = "absb";
     }
     

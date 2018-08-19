@@ -229,7 +229,6 @@ function oneResRed() {
         $("#SHA-stat").attr("style", "fill: white;");
         $("#ORO-stat").attr("style", "fill: white;");
         
-        d3.select("#INV-stat").transition().duration(300).style("fill", "red").style("stroke", "red");
         d3.select("#ORO-INV").transition().duration(200).style("stroke", "white");
         d3.select("#INV-FOL").transition().duration(200).style("stroke", "white");
         d3.select("#SHA-INV").transition().duration(200).style("stroke", "white"); 

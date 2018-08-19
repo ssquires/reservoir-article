@@ -58,7 +58,7 @@ function scrollMontague() {
     var pos_6 = $('#slide-1-6').position().top;
     
     // debug
-    $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window height is: " + $(window).height());
+    $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window outer height is: " + $(window).outerHeight());
     
     var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(".title").outerHeight();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();

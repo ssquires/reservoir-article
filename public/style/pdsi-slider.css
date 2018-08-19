@@ -131,7 +131,8 @@
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 5px;
+    width: 8px;
+    border-radius: 4px;
     height: 70px;
     border-radius: none; 
     background: black;

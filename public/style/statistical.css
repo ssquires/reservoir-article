@@ -54,7 +54,13 @@
 
 #stat-wrapper {
     margin: auto;
-    width: 80%;
+    width: 100%;
     height: 40vh;
     padding-bottom: 20vh;
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #stat-wrapper {
+        width: 80%;
+    }
 }

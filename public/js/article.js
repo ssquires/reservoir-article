@@ -70,21 +70,12 @@ function scrollMontague() {
     }
     $("#buckets-wrapper").css({height: .4 * $(window).height(), paddingBottom: .2 * $(window).height()});
     if (w_pos <= viz_pos && state != "absb") {
-//        $('#slide1-graphic').removeClass('fixed');
-//        $('#slide1-graphic').removeClass('absolute-bottom');
-//        $('#slide1-graphic').addClass('absolute');
         $("#slide1-graphic").css({position: "absolute", top: .4 * $(window).height(), bottom: "auto", width: "100%"});
         state = "abs";
     } else if (w_pos < bottom_pos) {
-//        $('#slide1-graphic').removeClass('absolute');
-//        $('#slide1-graphic').removeClass('absolute-bottom');
-//        $('#slide1-graphic').addClass('fixed');
         $("#slide1-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: vizWidth});
         state = "fixed";
     } else if (state != "abs"){
-//        $('#slide1-graphic').removeClass('fixed');
-//        $('#slide1-graphic').removeClass('absolute');
-//        $('#slide1-graphic').addClass('absolute-bottom');
         $("#slide1-graphic").css({position: "absolute", bottom: 0, top: "auto", width: "100%"});
         state = "absb";
     }
@@ -112,18 +103,17 @@ function scrollBuchanan() {
     var pos_season_2 = $('#buch-2').position().top;
     var season_bottom = $("#seasonality-scrolly").position().top + $("#seasonality-scrolly").outerHeight(true) - $(window).height();
     
+    
+    var vizWidth = "50%";
+    if ($(window).width() <= 500) {
+        vizWidth = "80%"
+    }
     if (w_pos < season_top) {
-        $("#seasonality-graphic").removeClass('fixed');
-        $("#seasonality-graphic").removeClass('absolute-bottom');
-        $("#seasonality-graphic").addClass('absolute');
+        $("#seasonality-graphic").css({position: "absolute", top: .4 * $(window).height(), bottom: "auto", width: "100%"});
     } else if (w_pos < season_bottom) {
-        $("#seasonality-graphic").removeClass('absolute');
-        $("#seasonality-graphic").removeClass('absolute-bottom');
-        $("#seasonality-graphic").addClass('fixed');
+        $("#seasonality-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: vizWidth});
     } else {
-        $("#seasonality-graphic").removeClass('fixed');
-         $("#seasonality-graphic").removeClass('absolute');
-        $("#seasonality-graphic").addClass('absolute-bottom');
+        $("#seasonality-graphic").css({position: "absolute", bottom: 0, top: "auto", width: "100%"});
     }
     
     var buchanan_border = w_pos - season_top + $( window ).height() * 0.2;

@@ -1,5 +1,10 @@
+html {
+    width: 100%;
+}
+
 body {
     margin: 0;
+    width: 100%;
 }
 
 h1 {
@@ -18,11 +23,19 @@ h3 {
 
 p {
     font-family: Open Sans;
-    font-size: 18px;
+    font-size: 16px;
+    text-align: justify;
 }
 
 text {
     font-family: Nova Mono, monospace;
+    font-size: 18px;
+}
+
+svg {
+    display: block;
+    margin: 0;
+    width: 100%;
 }
 
 .label {
@@ -45,18 +58,19 @@ text {
     height: 100vh;
     min-height: 200px;
     padding: 0;
-    background-image: url("dogSaveUs.jpg");
+    background-image: url("drought.jpeg");
     background-size: cover;
     opacity: 1;
     position: relative;
     z-index: -2;
+    width: 100%;
 }
 
 .title-div {
     position: absolute;
     bottom: 5vh;
     left: 50px;
-    color: black;
+    color: white;
     width: 75%;
     max-width: 1000px;
 }
@@ -64,9 +78,8 @@ text {
 /* Mini Title Card */
 
 .mini-title {
-    padding-top: 7vh;
-    padding-bottom: 37vh;
-    min-height: 200px;
+    height: 67vh;
+    min-height: 300px;
     background-size: cover;
     opacity: 1;
     position: relative;
@@ -74,11 +87,13 @@ text {
 }
 
 .mini-title-div {
-    display: block;
+    position: relative;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 50px;
     height: 33vh;
-    margin: auto;
     color: white;
-    max-width: 500px;
     text-align: center;
 }
 
@@ -86,21 +101,24 @@ text {
     font-size: 40px;
 }
 
+.mini-title-div p {
+    text-align: center;
+}
+
 /* Main Article */
 .article-main {
     padding-top: 100px;
     padding-bottom: 100px;
-    width: 80%;
-    max-width: 700px;
+    width: 50%;
     margin: auto;
 }
 
 
+
+
 /* Visualizations */
 .viz {
-    width: 650px;
     display: block;
-    margin: auto;
 }
 
 /* Montague title */
@@ -112,4 +130,18 @@ text {
 #predicting-res-levels-title {
     background-image: url("https://images.unsplash.com/photo-1464377075287-4c011c458f04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2c598e35aea0526baba4d3912ac7ccf6&auto=format&fit=crop&w=1650&q=80");
     background-position: top;
+}
+
+@media screen and (max-width: 500px) {
+    .article-main {
+        width: 80%;
+    }
+    
+    h1, .mini-title-div h1 {
+        font-size: 30px;
+    }
+    
+    p {
+        font-size: 14px;
+    }
 }

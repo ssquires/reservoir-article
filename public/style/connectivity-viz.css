@@ -1,20 +1,25 @@
 #connectivity-viz {
     position: relative;
-    width: 500px;
     margin: auto;
+    width: 100%;
 }
 
 .connected-res-container {
     text-align: center;
     margin: 0;
     padding: 0;
+    width: 100px;
+    height: 100px;
 }
 
-.connected-res-container svg {
-    margin: 0;
-    padding: 30px;
+#connectivity-overlay {
+    width: 100%;
+    height: 100%;
 }
 
-#connected-res-a {
-    margin-top: 50px;
+#connectivity-div {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    text-align: center;
 }

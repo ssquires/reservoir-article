@@ -1,0 +1,66 @@
+#statistical-scrolly {
+    position: relative;
+    padding-bottom: 60vh;
+}
+
+.stat-info {
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+}
+
+#connected-res-viz {
+    background: white;
+}
+
+#stat-1 {
+    padding-top: 40vh;
+}
+
+#wrapup {
+    position: relative;
+    margin-top: -15vh;
+    z-index: 10;
+}
+
+@media (min-aspect-ratio: 1/1) {
+    #wrapup {
+        margin-top: 0;
+    }
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #wrapup {
+        margin-top: 20vh;
+    }
+}
+
+@media (min-aspect-ratio: 5/2) {
+    #wrapup {
+        margin-top: 30vh;
+    }
+}
+
+@media (min-aspect-ratio: 3/1) {
+    #wrapup {
+        margin-top: 60vh;
+    }
+}
+
+#ca-map {
+    width: 100%;
+    position: relative;
+    width: auto;
+}
+
+#stat-wrapper {
+    margin: auto;
+    width: 100%;
+    height: 40vh;
+    padding-bottom: 20vh;
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #stat-wrapper {
+        width: 80%;
+    }
+}

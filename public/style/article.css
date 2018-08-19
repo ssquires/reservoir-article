@@ -78,8 +78,7 @@ svg {
 /* Mini Title Card */
 
 .mini-title {
-    padding-top: 7vh;
-    height: 60vh;
+    height: 67vh;
     min-height: 300px;
     background-size: cover;
     opacity: 1;
@@ -88,11 +87,13 @@ svg {
 }
 
 .mini-title-div {
-    display: block;
+    position: relative;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 50px;
     height: 33vh;
-    margin: auto;
     color: white;
-    max-width: 500px;
     text-align: center;
 }
 
@@ -142,10 +143,5 @@ svg {
     
     p {
         font-size: 14px;
-    }
-    
-    .mini-title-div {
-        padding-left: 10%;
-        padding-right: 10%;
     }
 }

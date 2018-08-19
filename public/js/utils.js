@@ -542,11 +542,11 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
         var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('id', 'ca-map');
                                                        
         // Calculated Scale for Map Overlay
-        var scale = 1715;
+        var scale = 2000;
 
         // Map
         var projection = d3.geo.mercator()
-                .center([-114.0, 37.5])
+                .center([-117.0, 37.5])
                 .scale(scale)
                 .translate([width/2, height/2]);
 
@@ -574,7 +574,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             .enter().append('circle')
             .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
             .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
-            .attr('r', '7px')
+            .attr('r', '6px')
             .attr('fill', '#FFF')
             .attr('id', function(d) { return d.Name + "-stat" })
             .attr('class', 'res')
@@ -587,46 +587,46 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                 var resy = $("#" + d + "-stat").attr("cy");
                 var line = svg.append("line")
                     .style("stroke-width", 4)
-                    .style("stroke", "black")
+                    .style("stroke", "orange")
                     .attr("x1", resx)
                     .attr("y1", resy)
-                    /*.attr("stroke-opacity",0.6)*/
-                    .attr("stroke-dasharray", "6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,5,600")
-                    .attr("stroke-dashoffset", -600)
-                    .attr("x2", 15/32*width)
+                    .attr("class", "connect-line")
+                    .attr("x2", 18/32*width)
                     .attr("y2", 100)
                  line.transition().duration(5000).style("stroke-dashoffset", 0);       
             
+                 
+                   
+                })
+            
             // Fade in text
             var dependenciesRes = svg.append("text")
-                .attr("x", 15/32*width+8)
+                .attr("x", 18/32*width+8)
                 .attr("y", 90)
                 .attr("class", "res-dependencies label")
+                .style("font-size", "24px")
                 .text("Drought Index (PDSI)")
-            dependenciesRes.transition().duration(6000).style("fill", "black");
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 15/32*width+8)
+                .attr("x", 18/32*width+8)
                 .attr("y", 90+25)
                 .attr("class", "res-dependencies label")
-                .text("Snowpack")
-            dependenciesRes.transition().duration(6000).style("fill", "black");    
+                .style("font-size", "24px")
+                .text("Snowpack")   
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 15/32*width+8)
+                .attr("x", 18/32*width+8)
                 .attr("y", 90+25*2)
                 .attr("class", "res-dependencies label")
-                .text("Agricultural demand")               
-            dependenciesRes.transition().duration(6000).style("fill", "black");    
+                .style("font-size", "24px")
+                .text("Agricultural demand")  
                 
             var dependenciesRes = svg.append("text")
-                .attr("x", 15/32*width+8)
+                .attr("x", 18/32*width+8)
                 .attr("y", 90+25*3)
                 .attr("class", "res-dependencies label")
-                .text("etc.")                
-           dependenciesRes.transition().duration(6000).style("fill", "black");    
-                   
-                })   
+                .style("font-size", "24px")
+                .text("etc.")   
             
             // Draw reservoir connections and animate their appearance
             for (var connectedRes in connections) {
@@ -646,12 +646,10 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     // Make curved connection line
                     if (connectedRes == "ISB") {
                         var curvedlineRES = svg.append('path')
-                        .attr('d','M'+resx+' '+resy+' C 180 235, 170 235, '+res2x+' '+res2y)
+                        .attr('d','M'+resx+' '+resy+' C 260 250, 250 235, '+res2x+' '+res2y)
                         .attr('stroke-width', 5)
                         .attr('stroke',"white")
-                        .attr('fill','transparent')
-                        .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", 0)
+                        .attr('fill', 'transparent')
                         .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
  
@@ -659,14 +657,12 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     
                     // Make curved connection line
                     else if (connectedRes == "HID") {
-
+                        
                         var curvedlineRES = svg.append('path')
-                        .attr('d','M'+resx+' '+resy+' C 135 232, 135 227, '+res2x+' '+res2y)
+                        .attr('d','M'+resx+' '+resy+' C 215 230, 215 245, '+res2x+' '+res2y)
                         .attr('stroke-width', 5)
                         .attr('stroke',"white")
                         .attr('fill','transparent')
-                        .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", 0)
                         .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
                     }
@@ -680,8 +676,6 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                         .attr("y1", resy)
                         .attr("x2", res2x)
                         .attr("y2", res2y)
-                        .attr("stroke-dasharray", 100)
-                        .attr("stroke-dashoffset", 0)
                         .attr("id", lineId)
                         .attr("class", connectedRes + " " + connectedTo);
                     }}                   

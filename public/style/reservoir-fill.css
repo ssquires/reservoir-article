@@ -5,6 +5,23 @@
     position: relative;
 }
 
+@media (min-aspect-ratio: 1/1) {
+    #reservoir-filling-graphic {
+        width: 80%;
+    }
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #reservoir-filling-graphic {
+        width: 65%;
+    }
+}
+@media (min-aspect-ratio: 3/1) {
+    #reservoir-filling-graphic {
+        width: 50%;
+    }
+}
+
 #reservoir-filling-div {
     padding-top: 205px;
 }

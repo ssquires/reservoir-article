@@ -40,6 +40,8 @@ svg {
 
 .label {
     font-family: Lato, sans-serif;
+    font-weight: normal;
+    stroke-width: 0;
 }
 
 .opacity-screen-2 {

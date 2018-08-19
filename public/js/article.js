@@ -64,6 +64,10 @@ function scrollMontague() {
     
     var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(".title").outerHeight();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
+    var vizWidth = "50%";
+    if ($(window).width() <= 500) {
+        vizWith = "80%"
+    }
     if (w_pos <= viz_pos && state != "absb") {
 //        $('#slide1-graphic').removeClass('fixed');
 //        $('#slide1-graphic').removeClass('absolute-bottom');
@@ -74,7 +78,7 @@ function scrollMontague() {
 //        $('#slide1-graphic').removeClass('absolute');
 //        $('#slide1-graphic').removeClass('absolute-bottom');
 //        $('#slide1-graphic').addClass('fixed');
-        $("#slide1-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: "50%"});
+        $("#slide1-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: vizWidth});
         state = "fixed";
     } else if (state != "abs"){
 //        $('#slide1-graphic').removeClass('fixed');

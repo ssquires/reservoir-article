@@ -53,7 +53,8 @@
 }
 
 #stat-wrapper {
-    width: 100%;
+    margin: auto;
+    width: 80%;
     height: 40vh;
     padding-bottom: 20vh;
 }

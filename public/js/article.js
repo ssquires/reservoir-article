@@ -62,7 +62,7 @@ function scrollMontague() {
     // debug
     $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window outer height is: " + $(window).outerHeight());
     
-    var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(".title").outerHeight();
+    var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(window).height();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     var vizWidth = "50%";
     if ($(window).width() <= 500) {

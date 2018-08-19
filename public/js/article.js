@@ -34,7 +34,6 @@ $( window ).resize(function() {
 });
 
 function adjustViewport() {
-    console.log("adjusting viewport");
     var viewportHeight = $("window").outerHeight();
     $(".title").css({height: viewportHeight});
     $(".mini-title").css({height: viewportHeight * .67});
@@ -55,18 +54,14 @@ function scrollMontague() {
     var pos_3 = $('#slide-1-3').position().top;
     var pos_4 = $('#slide-1-4').position().top;
     var pos_5 = $('#slide-1-5').position().top;
-    var pos_6 = $('#slide-1-6').position().top;
-    
-
-    
-    // debug
-    $("#intro-paragraph").text("Scroll top is: " + w_pos + ".\n Window outer height is: " + $(window).outerHeight());
     
     var viz_pos = $("#montague-div").position().top + slide1_pos - 0.4 * $(window).height();
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     var vizWidth = "50%";
     if ($(window).width() <= 500) {
         vizWidth = "80%"
+    } else if ($(window).width() <= 800) {
+        vizWidth = "65%"
     }
     $("#buckets-wrapper").css({height: .4 * $(window).height(), paddingBottom: .2 * $(window).height()});
     if (w_pos <= viz_pos && state != "absb") {
@@ -107,6 +102,8 @@ function scrollBuchanan() {
     var vizWidth = "50%";
     if ($(window).width() <= 500) {
         vizWidth = "80%"
+    } else if ($(window).width() <= 800) {
+        vizWidth = "65%"
     }
     if (w_pos < season_top) {
         $("#seasonality-graphic").css({position: "absolute", top: .4 * $(window).height(), bottom: "auto", width: "100%"});
@@ -159,7 +156,6 @@ function hideSlides() {
     $('#slide-1-3').css('opacity', 0);
     $('#slide-1-4').css('opacity', 0);
     $('#slide-1-5').css('opacity', 0);
-    $('#slide-1-6').css('opacity', 0);
 }
 
 function showSlide(s) {

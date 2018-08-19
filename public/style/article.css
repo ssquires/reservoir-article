@@ -132,6 +132,12 @@ svg {
     background-position: top;
 }
 
+@media screen and (max-width: 800px) {
+    .article-main {
+        width: 65%;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .article-main {
         width: 80%;

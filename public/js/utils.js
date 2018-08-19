@@ -574,7 +574,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
             .enter().append('circle')
             .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
             .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
-            .attr('r', '5px')
+            .attr('r', '7px')
             .attr('fill', '#FFF')
             .attr('id', function(d) { return d.Name + "-stat" })
             .attr('class', 'res')
@@ -586,11 +586,11 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                 var resx = $("#" + d + "-stat").attr("cx");
                 var resy = $("#" + d + "-stat").attr("cy");
                 var line = svg.append("line")
-                    .style("stroke-width", 3)
+                    .style("stroke-width", 4)
                     .style("stroke", "black")
                     .attr("x1", resx)
                     .attr("y1", resy)
-                    .attr("stroke-opacity",0.6)
+                    /*.attr("stroke-opacity",0.6)*/
                     .attr("stroke-dasharray", "6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,5,600")
                     .attr("stroke-dashoffset", -600)
                     .attr("x2", 15/32*width)
@@ -647,7 +647,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     if (connectedRes == "ISB") {
                         var curvedlineRES = svg.append('path')
                         .attr('d','M'+resx+' '+resy+' C 180 235, 170 235, '+res2x+' '+res2y)
-                        .attr('stroke-width', 4)
+                        .attr('stroke-width', 5)
                         .attr('stroke',"white")
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
@@ -662,7 +662,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
 
                         var curvedlineRES = svg.append('path')
                         .attr('d','M'+resx+' '+resy+' C 135 232, 135 227, '+res2x+' '+res2y)
-                        .attr('stroke-width', 4)
+                        .attr('stroke-width', 5)
                         .attr('stroke',"white")
                         .attr('fill','transparent')
                         .attr("stroke-dasharray", 100)
@@ -674,7 +674,7 @@ function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFu
                     // Make straight connections
                     else {
                         var line = svg.append("line")
-                        .style("stroke-width", 4)
+                        .style("stroke-width", 5)
                         .style("stroke", "white")
                         .attr("x1", resx)
                         .attr("y1", resy)

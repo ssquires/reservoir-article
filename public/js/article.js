@@ -4,6 +4,8 @@ $(document).ready(function() {
     // fix viewport on mobile
     var viewportHeight = $(".title").outerHeight();
     $(".title").css({height: viewportHeight});
+    $(".mini-title").css({paddingTop: viewportHeight * .07,
+                          paddingBottom: viewportHeight * .37});
     
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();

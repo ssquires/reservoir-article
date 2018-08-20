@@ -23,3 +23,20 @@
     margin: auto;
     text-align: center;
 }
+
+@media (min-aspect-ratio: 1/1) {
+    #connectivity-viz {
+        width: 80%;
+    }
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #connectivity-viz {
+        width: 65%;
+    }
+}
+@media (min-aspect-ratio: 3/1) {
+    #connectivity-viz {
+        width: 50%;
+    }
+}

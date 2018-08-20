@@ -748,7 +748,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
                            (height + 55) + ")")
       .style("text-anchor", "middle")
       .attr("class", "label")
-      .style("font-size", 18)
+      .style("font-size", 20)
       .text("Date");
 
     var yAxis = d3.svg.axis().scale(y)
@@ -761,7 +761,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .attr("class", "label")
-      .style("font-size", 18)
+      .style("font-size", 20)
       .text("Percent Full");
     
     var parseDate = d3.time.format("%B %Y").parse
@@ -790,7 +790,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
             var path = svg.append("path").attr("class", "line")
                 .attr("fill", "none")
                 .attr("stroke", resColor)
-                .attr("stroke-width", 3)
+                .attr("stroke-width", 4)
                 .attr("d", line(data));
         }
         

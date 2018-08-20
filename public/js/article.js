@@ -238,13 +238,13 @@ function oneResRed() {
 function clusterRed() {
     if ($("#ORO-INV") && $("#INV-FOL") && $("#SHA-INV")) {
         $("#INV-stat").attr("style", "fill: red;");
-        d3.select("#ORO-stat").transition().duration(200).style("fill", "red");
-        d3.select("#FOL-stat").transition().duration(200).style("fill", "red");
-        d3.select("#SHA-stat").transition().duration(200).style("fill", "red");
+        d3.select("#ORO-stat").transition().duration(100).style("fill", "red");
+        d3.select("#FOL-stat").transition().duration(100).style("fill", "red");
+        d3.select("#SHA-stat").transition().duration(100).style("fill", "red");
         
-        d3.select("#ORO-INV").transition().duration(700).style("stroke", "red");
-        d3.select("#INV-FOL").transition().duration(700).style("stroke", "red");
-        d3.select("#SHA-INV").transition().duration(700).style("stroke", "red");
+        d3.select("#ORO-INV").transition().duration(450).style("stroke", "red");
+        d3.select("#INV-FOL").transition().duration(450).style("stroke", "red");
+        d3.select("#SHA-INV").transition().duration(450).style("stroke", "red");
     }
 }
 

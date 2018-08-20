@@ -12,7 +12,7 @@
 
 .slide1-info {
     margin-top: 10vh;
-    margin-bottom: 25vh;
+    margin-bottom: 40vh;
     text-align: center;
 }
 
@@ -32,6 +32,12 @@
     top: 40vh;
     width: 50%;
     margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+    .fixed {
+        width: 65%;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -124,4 +130,8 @@
     width: 100%;
     position: relative;
     width: auto;
+}
+
+.bucket {
+    transition: fill 0.5s;
 }

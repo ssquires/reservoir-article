@@ -59,8 +59,19 @@
     padding-bottom: 20vh;
 }
 
-@media (min-aspect-ratio: 2/1) {
+@media (min-aspect-ratio: 1/1) {
     #stat-wrapper {
         width: 80%;
+    }
+}
+
+@media (min-aspect-ratio: 2/1) {
+    #stat-wrapper {
+        width: 65%;
+    }
+}
+@media (min-aspect-ratio: 3/1) {
+    #stat-wrapper {
+        width: 50%;
     }
 }

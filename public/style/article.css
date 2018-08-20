@@ -40,6 +40,8 @@ svg {
 
 .label {
     font-family: Lato, sans-serif;
+    font-weight: normal;
+    stroke-width: 0;
 }
 
 .opacity-screen-2 {
@@ -130,6 +132,12 @@ svg {
 #predicting-res-levels-title {
     background-image: url("https://images.unsplash.com/photo-1464377075287-4c011c458f04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2c598e35aea0526baba4d3912ac7ccf6&auto=format&fit=crop&w=1650&q=80");
     background-position: top;
+}
+
+@media screen and (max-width: 800px) {
+    .article-main {
+        width: 65%;
+    }
 }
 
 @media screen and (max-width: 500px) {

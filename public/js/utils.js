@@ -67,7 +67,7 @@ function updateWaterBuckets(newVolume, countX, countY, amountPerBucket) {
     var bucketsToRemove = Math.round(removedVolume / amountPerBucket);
     
     for (var b = 1; b <= bucketsToRemove; b++) {
-        $("#bucket" + b).attr("fill", "#DDD");
+        $("#bucket" + b).attr("fill", "#CCC");
     }
     for (var b = bucketsToRemove + 1; b < countX * countY; b++) {
         $("#bucket" + b).attr("fill", "#0D7AC4");
@@ -795,7 +795,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         }
         
         var curtain = svg.append("rect")
-            .attr("fill", "#FFF")
+            .attr("fill", "#F5F5F5")
             .attr("stroke", "none")
             .attr("width", width + margin.right)
             .attr("height", height)
@@ -808,7 +808,7 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
         var legend = svg.append("rect")
             .attr("width", margin.right)
             .attr("height", resNames.length * 17 + 5)
-            .attr("fill", "#FFF")
+            .attr("fill", "#F5F5F5")
             .attr("x", width - 10)
             .attr("y", (height - resNames.length * 17 + 5) / 2);
         

@@ -18,7 +18,7 @@
 
 #slide1-graphic {
     z-index: 2;
-    background-color: white;
+    background-color: #F5F5F5;
 }
 
 #montague-viz {
@@ -27,35 +27,84 @@
     position: relative;
 }
 
+#montague-inner {
+    position: relative;
+    width: 50%;
+    margin: auto;
+    height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    #montague-inner {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #montague-inner {
+        width: 65%;
+    }
+}
+
+
+.wrapup-div {
+    background-color: #FFF;
+    width: 100%;
+    padding-left: 50%;
+    margin-left: -50%;
+    padding-top: 50px;
+    padding-right: 50%;
+    z-index: 10;
+    position: relative;
+}
+
 .fixed {
     position: fixed;
     top: 40vh;
     width: 50%;
-    margin: auto;
+    left: 25%;
 }
 
 @media screen and (max-width: 800px) {
     .fixed {
         width: 65%;
+        left: 17.5%;
     }
 }
 
 @media screen and (max-width: 500px) {
     .fixed {
         width: 80%;
+        left: 10%;
     }
 }
 
 .absolute {
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
     position: absolute;
     top: 40vh;
 }
 
 .absolute-bottom {
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
     position: absolute;
     bottom: 0px;
+}
+
+@media screen and (max-width: 800px) {
+    .absolute, .absolute-bottom {
+        width: 65%;
+        margin-left: 17.5%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .absolute, .absolute-bottom {
+        width: 80%;
+        margin-left: 10%;
+    }
 }
 
 .relative-600 {
@@ -86,6 +135,27 @@
 #montague-div {
     position: relative;
     padding-bottom: 60vh;
+    
+}
+
+.scrolly-div {
+    background-color: #F5F5F5;
+    width: 200%;
+    margin-left: -50%;
+}
+
+@media screen and (max-width: 800px) {
+    .scrolly-div {
+        width: 154%;
+        margin-left: -27%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .scrolly-div {
+        width: 125%;
+        margin-left: -12.5%;
+    }
 }
 
 #slide-1-6 {
@@ -93,11 +163,17 @@
 }
 
 #intro-paragraph {
-    margin-top: 40vh;
+    padding-bottom: 50px;
+}
+
+.first-montague-paragraph {
+    padding-top: 40vh;
+    margin-top: 0;
 }
 
 #montague-wrapup {
     margin-top: -15vh;
+    padding-top: 15vh;
     position: relative;
     z-index: 10;
 }

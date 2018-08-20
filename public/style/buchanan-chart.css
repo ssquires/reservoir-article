@@ -8,6 +8,26 @@
 #seasonality-scrolly {
     padding-bottom: 60vh;
     position: relative;
+    background-color: #F5F5F5;
+}
+
+#seasonality-inner {
+    position: relative;
+    width: 50%;
+    margin: auto;
+    height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    #seasonality-inner {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #seasonality-inner {
+        width: 65%;
+    }
 }
 
 .stat-info {
@@ -21,9 +41,10 @@
 }
 
 #seasonality-graphic {
-    background-color: white;
+    background-color: #F5F5F5;
     text-align: center;
     margin-left: 0;
+    z-index: 10;
 }
 
 #buch-1 {
@@ -32,6 +53,7 @@
 
 #buch-wrapup {
     margin-top: -15vh;
+    padding-top: 15vh;
     position: relative;
     z-index: 10;
 }

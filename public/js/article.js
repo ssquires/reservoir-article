@@ -52,19 +52,19 @@ function scrollMontague() {
     var bottom_pos = $("#montague-div").position().top + $("#montague-div").outerHeight(true) - $(window).height();
     var vizWidth = "50%";
     var leftMargin = "25%";
-    if ($(window).width() <= 500) {
+    var vizWidthFixed = "50%";
+    var leftMarginFixed = "25%";
+    if ($(window).width() <= 800) {
         vizWidth = "80%";
         leftMargin = "10%";
-    } else if ($(window).width() <= 800) {
-        vizWidth = "65%";
-        leftMargin = "17.5%";
-    }
+    } 
     
     $("#buckets-wrapper").css({height: .4 * $(window).height(), paddingBottom: .2 * $(window).height()});
     if (w_pos <= viz_pos && state != "absb") {
         $("#slide1-graphic").css({position: "absolute", top: .4 * $(window).height(), bottom: "auto", width: vizWidth, left: leftMargin});
         state = "abs";
     } else if (w_pos < bottom_pos) {
+        console.log(vizWidth);
         $("#slide1-graphic").css({position: "fixed", top: .4 * $(window).height(), bottom: "auto", width: vizWidth, left: leftMargin});
         state = "fixed";
     } else if (state != "abs"){

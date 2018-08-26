@@ -3,6 +3,7 @@
     width: 100%;
     margin: auto;
     position: relative;
+    padding-bottom: 100px;
 }
 
 @media (min-aspect-ratio: 1/1) {

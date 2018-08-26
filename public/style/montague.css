@@ -49,11 +49,6 @@
 
 .wrapup-div {
     background-color: #FFF;
-    width: 100%;
-    padding-left: 50%;
-    margin-left: -50%;
-    padding-top: 50px;
-    padding-right: 50%;
     z-index: 10;
     position: relative;
 }
@@ -140,21 +135,14 @@
 
 .scrolly-div {
     background-color: #F5F5F5;
-    width: 200%;
-    margin-left: -50%;
+    width: 100%;
+    margin-left: 0;
 }
 
 @media screen and (max-width: 800px) {
     .scrolly-div {
-        width: 154%;
-        margin-left: -27%;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .scrolly-div {
-        width: 125%;
-        margin-left: -12.5%;
+        width: 100%;
+        margin-left: 0%;
     }
 }
 

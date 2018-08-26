@@ -210,7 +210,7 @@ function updatePDSILabel(v, textId) {
 
 function makeFillGaugeForPDSISlider() {
     
-     var d = $("<svg class='gaugeSVG' id='dependency-gauge' width='100' height='100'></svg>");
+     var d = $("<svg class='gaugeSVG' id='dependency-gauge' width='100' height='100' style='width: 100px; height: 100px;'></svg>");
      $("#dependency-viz").append(d);
     
     
@@ -366,7 +366,7 @@ function makeFillGauges(resData, width, height, maxCharts, containerDivID) {
             } else if (chartNum >= 6) {
                 yCoord = 275;
             }
-            var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125'></svg>");
+            var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125' style='width: 90px; height: 90px;'></svg>");
             $(containerDivID).append(chartSvg);
             var label = $("<svg><text x='30' y='20' fill='black' class='res-name' id='label-" + key + "'>" + key + "</text></svg>");
             

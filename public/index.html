@@ -3,6 +3,8 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, width=device-width">
 <title>A Mathematical Route to Fighting Drought</title>
+
+<noscript>
 <link rel='stylesheet' href='style/article.css'>
 <link rel='stylesheet' href='style/pdsi-slider.css'>
 <link rel='stylesheet' href='style/historical-reservoirs.css'>
@@ -12,15 +14,28 @@
 <link rel='stylesheet' href='style/connectivity-viz.css'>
 <link rel='stylesheet' href='style/connected-res.css'>
 <link rel='stylesheet' href='style/statistical.css'>
-<link href="https://fonts.googleapis.com/css?family=Raleway:200|Open+Sans|Lato|Nova+Mono" rel="stylesheet">
+</noscript>
 </head>
     
-<body>
-<div class="title">
+<body style="margin: 0;">
+<div class="title" style="height: 100vh;
+    min-height: 200px;
+    padding: 0;
+    background-image: url('style/drought.jpeg');
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    z-index: -2;
+    width: 100%;">
     <div class="opacity-screen-2"></div>
-    <div class="title-div">
-        <h1>A Mathematical Route to Fighting Drought</h1>
-        <h3>The recent California drought put many communities at critical risk of running out of water. Researchers at Caltech and JPL have developed powerful new statistical tools to predict reservoir levels and mitigate the impact of drought on California's water supply.
+    <div class="title-div" style="position: absolute;
+    bottom: 5vh;
+    left: 50px;
+    color: white;
+    width: 75%;
+    max-width: 1000px;">
+        <h1 style="font-family: Lato, sans-serif;">A Mathematical Route to Fighting Drought</h1>
+        <h3 style="font-family: Lato, sans-serif;">The recent California drought put many communities at critical risk of running out of water. Researchers at Caltech and JPL have developed powerful new statistical tools to predict reservoir levels and mitigate the impact of drought on California's water supply.
         </h3>
     </div>
 </div>
@@ -43,20 +58,20 @@
         
         <svg class="overlay-svg" id="res-fill-overlay" viewBox="0 0 400 410">
             <text class="label" x="25" y="20">Runoff</text>
-            <image x="10" y="25" width="80" height="80" xlink:href="runoff.svg"/>
+            <image x="10" y="25" width="80" height="80" xlink:href="runoff.svg" class="lazy"/>
             <text class="label" x="155" y="20">Precipitation</text>
-            <image x="160" y="25" width="80" height="80" xlink:href="precipitation.svg"/> 
+            <image x="160" y="25" width="80" height="80" xlink:href="precipitation.svg" class="lazy"/> 
             <text class="label" x="315" y="20">Snowpack</text>
-            <image x="310" y="25" width="80" height="80" xlink:href="snowpack.svg"/>
+            <image x="310" y="25" width="80" height="80" xlink:href="snowpack.svg" class="lazy"/>
             <line class="connect-line input-line" id="input-line-1" x1="200" y1="105" x2="200" y2="155"/>
             <line class="connect-line input-line" id="input-line-2" x1="70" y1="100" x2="160" y2="165"/>
             <line class="connect-line input-line" id="input-line-3" x1="330" y1="100" x2="240" y2="165"/>
             <text class="label" x="5" y="400">Urban Use</text>
-            <image x="10" y="305" width="80" height="80" xlink:href="urbanUse.svg"/>
+            <image x="10" y="305" width="80" height="80" xlink:href="urbanUse.svg" class="lazy"/>
             <text class="label" x="155" y="400">Hydropower</text>
-            <image x="160" y="305" width="80" height="80" xlink:href="hydropower.svg"/>
+            <image x="160" y="305" width="80" height="80" xlink:href="hydropower.svg" class="lazy"/>
             <text class="label" x="310" y="400">Agriculture</text>
-            <image x="310" y="305" width="80" height="80" xlink:href="agriculture.svg"/>
+            <image x="310" y="305" width="80" height="80" xlink:href="agriculture.svg" class="lazy"/>
             <line class="connect-line output-line" id="output-line-1" x1="200" y1="255" x2="200" y2="305"/>
             <line class="connect-line output-line" id="output-line-2" x1="160" y1="245" x2="70" y2="310"/>
             <line class="connect-line output-line" id="output-line-3" x1="240" y1="245" x2="330" y2="310"/>
@@ -65,7 +80,7 @@
         </svg>
     </div>
 </div>
-<div id="montague-title" class="mini-title">
+<div id="montague-title" class="mini-title lazy" data-src="style/montague.jpeg">
     <div class="opacity-screen-2"></div>
     <div class="mini-title-div">
         <h1>Running Out in a Drought</h1>
@@ -112,7 +127,7 @@
     <p id="buch-wrapup">&emsp;&emsp;To that end, a team of Caltech researchers led by graduate student Armeen Taeb developed a novel statistical model to tackle the problem of predicting water levels. They used a technique called graphical modeling to combine statewide reservoir and climate data to make predictions that outperformed other techniques based on modeling individual reservoirs in isolation.</p>
   </div>  
 </div>
-    <div id="predicting-res-levels-title" class="mini-title">
+    <div id="predicting-res-levels-title" class="mini-title lazy" data-src="style/predictingResLevels.jpeg">
     <div class="opacity-screen-2"></div>
     <div class="mini-title-div">
         <h1>Predicting Reservoir Levels</h1>
@@ -195,12 +210,45 @@
     <p>&emsp;&emsp;By using accurate statistical models of water systems, policy makers can design statewide strategies that will prevent California from suffering severe water rationing and restrictions. This work from Caltech and JPL shows that scientific research and public policy can go hand in hand to build a more resilient California.</p>
     </div>
 </div>
-
-
-
+    
+<!--  Load additional CSS files  -->
+<script type="text/javascript">
+    
+    function loadCSSFile(filename) {
+        var ss = document.createElement('link');
+        ss.rel = 'stylesheet';
+        ss.href = filename;
+        ss.type = 'text/css';
+        var noScript = document.getElementsByTagName('noscript')[0];
+        noScript.parentNode.insertBefore(ss, noScript);
+    }
+    loadCSSFile('style/article.css');
+    loadCSSFile('style/pdsi-slider.css');
+    loadCSSFile('style/historical-reservoirs.css');
+    loadCSSFile('style/reservoir-fill.css');
+    loadCSSFile('style/montague.css');
+    loadCSSFile('style/buchanan-chart.css');
+    loadCSSFile('style/connectivity-viz.css');
+    loadCSSFile('style/connected-res.css');
+    loadCSSFile('style/statistical.css');
+</script>
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato|Open+Sans' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); 
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.lazy-master/jquery.lazy.min.js"></script>
 <script src="js/article.js"></script>
-<script src='//d3js.org/d3.v3.min.js' charset='utf-8'></script>
+<script src='js/d3.v3.min.js' charset='utf-8'></script>
 <script src="js/liquidFillGauge.js"></script>
 <script src="js/utils.js"></script>
     

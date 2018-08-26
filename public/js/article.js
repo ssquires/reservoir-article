@@ -6,7 +6,7 @@ $(document).ready(function() {
     var viewportHeight = $(".title").outerHeight();
     $(".title").css({height: viewportHeight});
     $(".mini-title").css({height: viewportHeight * .67});
-    
+    $(".lazy").Lazy();
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
     makeReservoirFillGraphic();
@@ -186,7 +186,7 @@ function makeHistoricalReservoirViz() {
     var sliderInnerDiv = $("<div id='slider-inner'></div>");
     var clickHereDiv = $("<div id='click-here-div'></div>");
     clickHereDiv.append($("<p>Drag slider</p>"));
-    clickHereDiv.append($("<img src='down_arrow.png' height='100%'>"));
+    clickHereDiv.append($("<img src='down_arrow.png' height='100%' class='lazy'>"));
     sliderInnerDiv.css("position", "relative");
     sliderDiv.append(sliderInnerDiv);
     var startLabel = $("<p id='start-label'>2003</p>");

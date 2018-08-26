@@ -1,7 +1,84 @@
 var historicalData;
-var resNames = [];
+var resNames = ["ORO", "CLE", "INV", "FOL", "HID", "DNP", "BUC", "ISB", "SHA"];
 var arc;
 var gauges = {};
+
+// Loads geo data for California and draws both maps on the page.
+function drawMaps() {
+    d3.json("california.json", function(err, data) {
+        makeMap("#map", "historical-map", data);
+        makeMap("#stat-wrapper", "stat-map", data);
+        drawReservoirs();
+    });
+}
+
+// Loads geo data for reservoirs and draws them on the maps.
+function drawReservoirs() {
+    d3.json("reservoir_data.json", function(err, data) {
+        // Draw reservoirs on historical California map
+        
+        placeReservoirs(data, "#historical-map", ["ORO", "CLE", "INV", "FOL", "HID", "DNP", "BUC", "ISB", "SHA"]);
+        
+        // Draw reservoirs + connections on connectivity California map
+        placeReservoirs(data, "#stat-map", 
+                        ["DNP", "FOL", "HID", "INV", "ISB", "ORO", "SHA"],
+                        {"SHA": ["ORO", "INV"], 
+                         "INV": ["ORO", "FOL"], 
+                         "FOL": ["DNP"], 
+                         "DNP": ["HID", "ISB"]}, "-stat");
+    });
+    
+}
+
+var stopXCoord;
+var pauseXCoord;
+var curtain;
+
+
+// Loads historical data for reservoir levels and makes relevant graphics.
+function loadHistoricalData() {
+    d3.json("historical_data.json", function(err, data) {
+        // Make fill guages for reservoir history viz
+        makeFillGauges(data, 70, 70, 12, "#gauges");
+        
+        // Make slider for reservoir history viz
+        makeSlider(data, "#slider-inner-div", "slider-inner");
+        
+        // Make color coded slider overlays for reservoir history viz
+        makeColorCodeDivs(data, "#slider-inner-div");
+        
+        // Make line chart for Buchanan reservoir
+        var config = {
+            resNames: ["BUC"],
+            resColors: ["#0DC1F2"],
+            beginDate: "January 2003",
+            endDate: "November 2016",
+            pauseDate: "November 2012",
+            stopDate: "November 2016"
+        };
+        
+        makeLineChart("#buchanan-wrapper", data, config, 
+            function (progress) { 
+                curtain = progress["curtain"];
+                stopXCoord = progress["stopDateXCoord"]; 
+                pauseXCoord = progress["pauseDateXCoord"]; curtain.transition().duration(3000).ease("linear").attr("x", pauseXCoord);
+        });
+    });
+}
+
+function rewindBuchananChart() {
+    var curtain = d3.select("#curtain");
+    if (curtain) {
+        curtain.transition().duration(1000).ease("linear").attr("x", pauseXCoord);
+    }
+}
+
+function advanceBuchananChart() {
+    var curtain = d3.select("#curtain");
+    if (curtain) {
+        curtain.transition().duration(1000).ease("linear").attr("x", stopXCoord);
+    }
+}
 
 
 function makeWaterBuckets(containerDivID, countX, countY, amountPerBucket, width, height, marginBottom) {
@@ -14,10 +91,6 @@ function makeWaterBuckets(containerDivID, countX, countY, amountPerBucket, width
     var bucketSpace = Math.min(width / countX, height / countY);
     var margin = bucketSpace / 8;
     var bucketSize = bucketSpace - 2 * margin;
-    console.log(x);
-    console.log(margin);
-    console.log(width);
-    console.log(bucketSpace);
     var bucketNum = 1;
     for (var y = 0; y < countY; y += 1) {
         for (var x = 0; x < countX; x += 1) {
@@ -269,10 +342,7 @@ function makeMultipleFillGauge() {
     
 }
 
-function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDivID) {
-    // Read in data from file
-    d3.json(dataFile, function(err, resData) {
-        if (err) return console.error(err);
+function makeFillGauges(resData, width, height, maxCharts, containerDivID) {
         historicalData = resData;
         
         // Create fill gauges
@@ -297,8 +367,7 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
                 yCoord = 275;
             }
             var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125'></svg>");
-            containerDiv.append(chartSvg);
-            resNames.push(key);
+            $(containerDivID).append(chartSvg);
             var label = $("<svg><text x='30' y='20' fill='black' class='res-name' id='label-" + key + "'>" + key + "</text></svg>");
             
             
@@ -326,64 +395,53 @@ function makeFillGauges(dataFile, width, height, maxCharts, containerDiv, mapDiv
 
             chartNum++;
         }
-        if (mapDivID) {
-            makeMap(mapDivID);
-        }
-    });
 }
 
-function makeSlider(dataFile, containerDiv, sliderId, colorCode) {
+function makeSlider(resData, containerDivID, sliderId) {
     var dateLabel = $("<h3 id='date'>January 2003</h3>");
     // Create date range slider
-    d3.json(dataFile, function(err, resData) {
-        var sliderMax = resData.length - 1;
-        var s = $("<input id='slidey' type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value);$(\"#click-here-div\").css(\"opacity\", 0);' onchange='console.log(this.value);updateData(this.value);' list='drought-markers'>");
-        var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
-        $("#slider").append(dateLabel);
-        containerDiv.append(s);
-        containerDiv.append(list);
-        if (colorCode) {
-            makeColorCodeDivs(dataFile, sliderId);
-        }
-    });
-    
+    var sliderMax = resData.length - 1;
+    var s = $("<input id='slidey' type='range' min='0' max='" + sliderMax + "' value='0' class='slider' oninput='updateData(this.value);$(\"#click-here-div\").css(\"opacity\", 0);' onchange='updateData(this.value);' list='drought-markers'>");
+    var list = $("<datalist id='drought-markers'><option>67</option><option>139</option></datalist>")
+    $("#slider").append(dateLabel);
+    $(containerDivID).append(s);
+    $(containerDivID).append(list);
 }
 
 
 var numSliderDivs = 0;
 
-function makeColorCodeDivs(dataFile, sliderId) {
-    var slider = $("#" + sliderId);
+function makeColorCodeDivs(data, sliderId) {
+    var slider = $(sliderId);
     slider.css("position", "relative");
     var sliderWidth = slider.width();
     var sliderHeight = slider.height();
-    d3.json(dataFile, function(err, data) {
-        numSliderDivs = data.length;
-        var divWidth = sliderWidth / data.length;
-        var divX = 0;
-        var n = 1;
-        for (var dataPoint of data) {
-            var date = dataPoint.date;
-            var pdsi = dataPoint.PDSI;
-            var color = getPDSIColor(pdsi);
-            var div = $("<div id='slider-div-" + n + "'></div>");
-            div.css("width", divWidth);
-            div.css("height", sliderHeight);
-            div.css("position", "absolute");
-            div.css("background-color", color);
-            div.css("left", divX);
-            div.css("top", 0);
-            div.css("z-index", 0);
-            div.css("pointer-events", "none");
-            slider.append(div);
-            divX += divWidth;
-            n++;
-        }
-    });
+    
+    numSliderDivs = data.length;
+    var divWidth = sliderWidth / data.length;
+    var divX = 0;
+    var n = 1;
+    for (var dataPoint of data) {
+        var date = dataPoint.date;
+        var pdsi = dataPoint.PDSI;
+        var color = getPDSIColor(pdsi);
+        var div = $("<div id='slider-div-" + n + "'></div>");
+        div.css("width", divWidth);
+        div.css("height", sliderHeight);
+        div.css("position", "absolute");
+        div.css("background-color", color);
+        div.css("left", divX);
+        div.css("top", 0);
+        div.css("z-index", 0);
+        div.css("pointer-events", "none");
+        slider.append(div);
+        divX += divWidth;
+        n++;
+    }
 }
 
 function resizeColorCodeDivs() {
-    var sliderWidth = $("#slider-inner").width();
+    var sliderWidth = $("#slider-inner-div").width();
     var divWidth = sliderWidth / numSliderDivs;
     var divX = 0;
     for (var i = 1; i <= numSliderDivs; i++) {
@@ -437,34 +495,34 @@ function arcTween(a) {
 }
 
 
-
+var width = 300, height = 300;
+// Calculated Scale for Map Overlay
+var scale = 1215;
+var projection = d3.geo.mercator()
+                .center([-119.3, 37.6])
+                .scale(scale)
+                .translate([width/2, height/2]);
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////// DATA READING AND MAP DRAWING /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-function makeMap(containerDivID) {
-    d3.json("ca_counties.geojson", function(err, data) {
-        if (err) return console.error(err);
+function makeMap(containerDivID, innerMapID, data) {
 
-        var width = 280, height = 300;
+        
         // SVG Canvas
-        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '-10 -15 ' + width + ' ' + height);
+        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '-10 -15 ' + width + ' ' + height).attr('id', innerMapID);
                                                        
-        // Calculated Scale for Map Overlay
-        var scale = 1215;
+        
 
         // Map
-        var projection = d3.geo.mercator()
-                .center([-119.3, 37.6])
-                .scale(scale)
-                .translate([width/2, height/2]);
+        
 
         // Path Generator to draw regions on map
         var path = d3.geo.path().projection(projection);
 
         // Get features from JSON
-        var features = data.features;
+        var features = data;
         // Create SVG paths to draw zip code boundaries
         svg.selectAll('.ca')
             .data(features)
@@ -472,27 +530,107 @@ function makeMap(containerDivID) {
             .attr('d', path)
             .attr("stroke", "#0D7AC4")
             .attr("fill", "#0D7AC4")
-            .attr("stroke-width", "1")
-            .attr("id", "ca-map");
-        
-        d3.json("reservoir_data.json", function(err, data) {
-            svg.selectAll('.res')
-            .data(data.filter(function(resObj) {
-                return resNames.includes(resObj.Name);
-            }))
-            .enter().append('circle')
-            .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
-            .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
-            .attr('r', '3px')
-            .attr('fill', '#FFF')
-            .attr('stroke', '#FFF')
-            .attr('id', function(d) { return d.Name })
-            .attr('class', 'res')
-            .on("mouseover", reservoirMouseover)
-            .on("mouseout", reservoirMouseout);
-            
-        });
+            .attr("stroke-width", "1");
+}
+
+function placeReservoirs(data, mapId, validResList, connections, idAddOn) {
+    if (!idAddOn) idAddOn = "";
+    
+    var resInfo = data.filter(function(resObj) {
+        return validResList.includes(resObj.Name);
     });
+    var resCoords = {};
+    for (var res of resInfo) {
+        resCoords[res.Name] = projection([res.Longitude, res.Latitude]);
+    }
+    
+    if (connections) {
+        for (var key in connections) {
+            var resx = resCoords[key][0];
+            var resy = resCoords[key][1];
+            for (var connectedRes of connections[key]) {
+                var res2x = resCoords[connectedRes][0];
+                var res2y = resCoords[connectedRes][1];
+                var lineId = key + "-" + connectedRes;
+                if (key != "DNP") {
+                    d3.select(mapId).append("line")
+                        .style("stroke-width", 3)
+                        .style("stroke", "white")
+                        .attr("x1", resx)
+                        .attr("y1", resy)
+                        .attr("x2", res2x)
+                        .attr("y2", res2y)
+                        .attr("id", lineId)
+                        .attr("class", key + " " + connectedRes);
+                } else {
+                    if (connectedRes == "HID") {
+                        d3.select(mapId).append('path')
+                        .attr('d','M'+resx+' '+resy+' C 130 150, 130 160, '+res2x+' '+res2y)
+                        .attr('stroke-width', 3)
+                        .attr('stroke',"white")
+                        .attr('fill','transparent')
+                        .attr("id", lineId)
+                        .attr("class", key + " " + connectedRes);
+                    } else {
+                        d3.select(mapId).append('path')
+                        .attr('d','M'+resx+' '+resy+' C 110 170, 130 200, '+res2x+' '+res2y)
+                        .attr('stroke-width', 3)
+                        .attr('stroke',"white")
+                        .attr('fill', 'transparent')
+                        .attr("id", lineId)
+                        .attr("class", key + " " + connectedRes);
+                    }
+                }
+            }
+            
+        }
+        
+        // Make labels for external inputs
+        var externalInputs = ["Drought Index (PDSI),", 
+                              "Agricultural Demand,",
+                              "Snowpack, etc."];
+        for (var i = 0; i < externalInputs.length; i++) {
+            d3.select(mapId).append("text")
+                .attr("x", 178)
+                .attr("y", 70 + i * 16)
+                .attr("class", "res-dependencies label")
+                .style("font-size", "12px")
+                .text(externalInputs[i]);
+        }
+        
+        // Make connecting lines for external inputs
+        for (var res in resCoords) {
+            d3.select(mapId).append("line")
+                .attr("x1", 175)
+                .attr("y1", 85)
+                .attr("x2", resCoords[res][0])
+                .attr("y2", resCoords[res][1])
+                .attr("stroke", "orange")
+                .attr("stroke-dasharray", "3 3")
+                .attr("stroke-width", "2");
+        }
+        
+
+    }
+    
+    d3.select(mapId).selectAll('.res')
+        .data(data.filter(function(resObj) {
+            return validResList.includes(resObj.Name);
+        }))
+        .enter().append('circle')
+        .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
+        .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
+        .attr('r', '3px')
+        .attr('fill', '#FFF')
+        .attr('stroke', 'none')
+        .attr('id', function(d) {
+            if (idAddOn) {
+            return d.Name + idAddOn;
+            }
+            return d.Name;})
+        .attr('class', 'res' + idAddOn)
+        .on("mouseover", reservoirMouseover)
+        .on("mouseout", reservoirMouseout);
 }
 
 var tooltip = d3.select("body")
@@ -531,158 +669,6 @@ function reservoirMouseout(d) {
     $("#" + d.Name).attr("style", "fill: #FFF; stroke: #FFF;");
 }
 
-//////////////////////////////////////////////////////////////////////////////////Reservoir Interconnectivity and Dependency Map/////////////
-
-function makeConnectivityMap(containerDivID, resToShow, connections, mouseoverFunc, mouseoutFunc, slidenum) {
-    d3.json("ca_counties.geojson", function(err, data) {
-        if (err) return console.error(err);
-
-        var width = 650, height = 450;
-        // SVG Canvas
-        var svg = d3.select(containerDivID).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height).attr('id', 'ca-map');
-                                                       
-        // Calculated Scale for Map Overlay
-        var scale = 2000;
-
-        // Map
-        var projection = d3.geo.mercator()
-                .center([-117.0, 37.5])
-                .scale(scale)
-                .translate([width/2, height/2]);
-
-        // Path Generator to draw regions on map
-        var path = d3.geo.path().projection(projection);
-
-        // Get features from JSON
-        var features = data.features;
-        // Create SVG paths to draw zip code boundaries
-        svg.selectAll('.ca')
-            .data(features)
-            .enter().append('path')
-            .attr('d', path)
-            .attr("stroke", "#0D7AC4")
-            .attr("fill", "#0D7AC4")
-            .attr("stroke-width", "1")
-            .attr("id", "ca-map");
-        
-        // Draw reservoirs on map
-        d3.json("reservoir_data.json", function(err, data) {
-            svg.selectAll('.res')
-            .data(data.filter(function(resObj) {
-                return resToShow.includes(resObj.Name);
-            }))
-            .enter().append('circle')
-            .attr('cx', function (d) { return projection([d.Longitude, d.Latitude])[0]})
-            .attr('cy', function (d) { return projection([d.Longitude, d.Latitude])[1]})
-            .attr('r', '6px')
-            .attr('fill', '#FFF')
-            .attr('id', function(d) { return d.Name + "-stat" })
-            .attr('class', 'res')
-            .on("mouseover", mouseoverFunc)
-            .on("mouseout", mouseoutFunc);
-            
-            // Draw dashed lines and animate their appearance
-            resToShow.forEach(function(d) {
-                var resx = $("#" + d + "-stat").attr("cx");
-                var resy = $("#" + d + "-stat").attr("cy");
-                var line = svg.append("line")
-                    .style("stroke-width", 4)
-                    .style("stroke", "orange")
-                    .attr("x1", resx)
-                    .attr("y1", resy)
-                    .attr("class", "connect-line")
-                    .attr("x2", 18/32*width)
-                    .attr("y2", 100)
-                 line.transition().duration(5000).style("stroke-dashoffset", 0);       
-            
-                 
-                   
-                })
-            
-            // Fade in text
-            var dependenciesRes = svg.append("text")
-                .attr("x", 18/32*width+8)
-                .attr("y", 90)
-                .attr("class", "res-dependencies label")
-                .style("font-size", "24px")
-                .text("Drought Index (PDSI)")
-                
-            var dependenciesRes = svg.append("text")
-                .attr("x", 18/32*width+8)
-                .attr("y", 90+25)
-                .attr("class", "res-dependencies label")
-                .style("font-size", "24px")
-                .text("Snowpack")   
-                
-            var dependenciesRes = svg.append("text")
-                .attr("x", 18/32*width+8)
-                .attr("y", 90+25*2)
-                .attr("class", "res-dependencies label")
-                .style("font-size", "24px")
-                .text("Agricultural demand")  
-                
-            var dependenciesRes = svg.append("text")
-                .attr("x", 18/32*width+8)
-                .attr("y", 90+25*3)
-                .attr("class", "res-dependencies label")
-                .style("font-size", "24px")
-                .text("etc.")   
-            
-            // Draw reservoir connections and animate their appearance
-            for (var connectedRes in connections) {
-                console.log("The reservoir " + connectedRes + " is connected to " + connections[connectedRes]);
-                var resx = $("#" + connectedRes + "-stat").attr("cx");
-                var resy = $("#" + connectedRes + "-stat").attr("cy");
-                var lineResNames = svg.append("text")
-                    .attr("font-size", 14)
-                    .attr("x", resx)
-                    .attr("y", resy)
-                for (var connectedTo of connections[connectedRes]) {
-                    var res2x = $("#" + connectedTo + "-stat").attr("cx");
-                    var res2y = $("#" + connectedTo + "-stat").attr("cy");
-                    
-                    var lineId = connectedRes + "-" + connectedTo;
-                    
-                    // Make curved connection line
-                    if (connectedRes == "ISB") {
-                        var curvedlineRES = svg.append('path')
-                        .attr('d','M'+resx+' '+resy+' C 260 250, 250 235, '+res2x+' '+res2y)
-                        .attr('stroke-width', 5)
-                        .attr('stroke',"white")
-                        .attr('fill', 'transparent')
-                        .attr("id", lineId)
-                        .attr("class", connectedRes + " " + connectedTo);
- 
-                    }
-                    
-                    // Make curved connection line
-                    else if (connectedRes == "HID") {
-                        
-                        var curvedlineRES = svg.append('path')
-                        .attr('d','M'+resx+' '+resy+' C 215 230, 215 245, '+res2x+' '+res2y)
-                        .attr('stroke-width', 5)
-                        .attr('stroke',"white")
-                        .attr('fill','transparent')
-                        .attr("id", lineId)
-                        .attr("class", connectedRes + " " + connectedTo);
-                    }
-                   
-                    // Make straight connections
-                    else {
-                        var line = svg.append("line")
-                        .style("stroke-width", 5)
-                        .style("stroke", "white")
-                        .attr("x1", resx)
-                        .attr("y1", resy)
-                        .attr("x2", res2x)
-                        .attr("y2", res2y)
-                        .attr("id", lineId)
-                        .attr("class", connectedRes + " " + connectedTo);
-                    }}                   
-            }
-        });
-    });
-}
 
 // Show reservoir name on mouseover
 function connectedResMouseover(d) {
@@ -714,7 +700,7 @@ function defaultLineChartConfig() {
     }
 }
 
-function makeLineChart(containerDivID, dataFile, config, callback) {
+function makeLineChart(containerDivID, data, config, callback) {
     
     var resNames = config.resNames,
         resColors = config.resColors,
@@ -766,71 +752,68 @@ function makeLineChart(containerDivID, dataFile, config, callback) {
     
     var parseDate = d3.time.format("%B %Y").parse
     
-    d3.json(dataFile, function(err, data) {
-        if (err) return console.error(err);
-        for (var i = data.length - 1; i >= 0; i--) {
-            var dataDate = parseDate(data[i]["date"]);
-            if (dataDate < parseDate(beginDate) || dataDate > parseDate(endDate)) {
-                data.splice(i, 1);
-            }
+
+    for (var i = data.length - 1; i >= 0; i--) {
+        var dataDate = parseDate(data[i]["date"]);
+        if (dataDate < parseDate(beginDate) || dataDate > parseDate(endDate)) {
+            data.splice(i, 1);
         }
-        x.domain([parseDate(beginDate), parseDate(endDate)]);
-        y.domain([0, 100]);
-        
-        var pauseDateXCoord = x(parseDate(pauseDate));
-        var stopDateXCoord = x(parseDate(stopDate));
-        
-        var totalLength;
-        for (var i = 0; i < resNames.length; i++) {
-            var resName = resNames[i];
-            var resColor = resColors[i];
-            var line = d3.svg.line()
-                .x(function(d) { return x(parseDate(d["date"])) })
-                .y(function(d) { return y(d[resName][0]["percent"])});
-            var path = svg.append("path").attr("class", "line")
-                .attr("fill", "none")
-                .attr("stroke", resColor)
-                .attr("stroke-width", 4)
-                .attr("d", line(data));
-        }
-        
-        var curtain = svg.append("rect")
-            .attr("fill", "#F5F5F5")
-            .attr("stroke", "none")
-            .attr("width", width + margin.right)
-            .attr("height", height)
-            .attr("x", 0);
-        
-        svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
-        
-        svg.append("g").attr("class", "y axis").call(yAxis);
-        
-        var legend = svg.append("rect")
-            .attr("width", margin.right)
-            .attr("height", resNames.length * 17 + 5)
-            .attr("fill", "#F5F5F5")
-            .attr("x", width - 10)
-            .attr("y", (height - resNames.length * 17 + 5) / 2);
-        
-        for (var i = 0; i < resNames.length; i++) {
-            var square = svg.append("rect")
-                .attr("width", 12)
-                .attr("height", 12)
-                .attr("fill", resColors[i])
-                .attr("x", width)
-                .attr("y", (height - resNames.length * 17 + 5) / 2 + i * 17 + 5);
-            var label = svg.append("text")
-                .text(resNames[i])
-                .attr("x", width + 15)
-                .attr("y", (height - resNames.length * 17 + 5) / 2 + i * 17 + 15)
-                .attr("font-size", 12)
-                .attr("class", "label")
-        }
-        
-        callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
-        
-    });
-    
+    }
+    x.domain([parseDate(beginDate), parseDate(endDate)]);
+    y.domain([0, 100]);
+
+    var pauseDateXCoord = x(parseDate(pauseDate));
+    var stopDateXCoord = x(parseDate(stopDate));
+
+    var totalLength;
+    for (var i = 0; i < resNames.length; i++) {
+        var resName = resNames[i];
+        var resColor = resColors[i];
+        var line = d3.svg.line()
+            .x(function(d) { return x(parseDate(d["date"])) })
+            .y(function(d) { return y(d[resName][0]["percent"])});
+        var path = svg.append("path").attr("class", "line")
+            .attr("fill", "none")
+            .attr("stroke", resColor)
+            .attr("stroke-width", 4)
+            .attr("d", line(data));
+    }
+
+    var curtain = svg.append("rect")
+        .attr("fill", "#F5F5F5")
+        .attr("stroke", "none")
+        .attr("width", width + margin.right)
+        .attr("height", height)
+        .attr("x", 0)
+        .attr("id", "curtain");
+
+    svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+
+    svg.append("g").attr("class", "y axis").call(yAxis);
+
+    var legend = svg.append("rect")
+        .attr("width", margin.right)
+        .attr("height", resNames.length * 17 + 5)
+        .attr("fill", "#F5F5F5")
+        .attr("x", width - 10)
+        .attr("y", (height - resNames.length * 17 + 5) / 2);
+
+    for (var i = 0; i < resNames.length; i++) {
+        var square = svg.append("rect")
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", resColors[i])
+            .attr("x", width)
+            .attr("y", (height - resNames.length * 17 + 5) / 2 + i * 17 + 5);
+        var label = svg.append("text")
+            .text(resNames[i])
+            .attr("x", width + 15)
+            .attr("y", (height - resNames.length * 17 + 5) / 2 + i * 17 + 15)
+            .attr("font-size", 12)
+            .attr("class", "label")
+    }
+
+    callback({"curtain": curtain, "stopDateXCoord": stopDateXCoord, "pauseDateXCoord": pauseDateXCoord});
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -45,8 +45,6 @@ function loadLiquidFillGauge(elementId, value, config) {
             .range([0,config.waveHeight,0])
             .domain([0,50,100]);
     } else {
-        console.log(d3);
-        console.log(d3.scale);
         waveHeightScale = d3.scale.linear()
             .range([config.waveHeight,config.waveHeight])
             .domain([0,100]);

@@ -1,4 +1,4 @@
-{
+[{
  "_id": "california",
  "type": "Feature",
  "properties": {
@@ -5947,4 +5947,4 @@
   ],
   "type": "MultiPolygon"
  }
-}
+}]

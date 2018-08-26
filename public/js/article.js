@@ -7,23 +7,16 @@ $(document).ready(function() {
     $(".title").css({height: viewportHeight});
     $(".mini-title").css({height: viewportHeight * .67});
     $(".lazy").Lazy();
+    drawMaps();
+    loadHistoricalData();
     makePDSIGraphic("PDSI-viz");
     makeHistoricalReservoirViz();
     makeReservoirFillGraphic();
     createMontagueViz();
-    makeBuchananChart();
     makePDSISlider("dependency-slider-viz", "dependency-label", "PDSI", "dependency-slider", 3, true, "pdsi-indicator");
     makeFillGaugeForPDSISlider();
     makeMultipleFillGauge();
-    
-    makeConnectivityMap("#stat-wrapper", ["INV", "SHA", "FOL","ORO","DNP","ISB","HID"], 
-            {"SHA": ["ORO", "INV"],
-             "ORO": ["INV"],
-             "INV": ["FOL"],
-             "FOL": ["DNP"],
-             "HID": ["DNP"],
-             "ISB": ["DNP"]
-              },connectedResMouseover,connectedResMouseout, "4.1");
+
     /* Every time the window is scrolled ... */
     $(window).scroll(handleScrolling);
 });
@@ -183,7 +176,7 @@ function makeHistoricalReservoirViz() {
     var gaugesSvg = $("<svg id='gauges' viewBox='0 0 300 375' x='300' y='0' width='300'></svg>");
     var mapSvg = $("<svg id='map' class='map' x='0' y='0' width='300'></svg>");
     var sliderDiv = $("<div id='slider'></div>");
-    var sliderInnerDiv = $("<div id='slider-inner'></div>");
+    var sliderInnerDiv = $("<div id='slider-inner-div'></div>");
     var clickHereDiv = $("<div id='click-here-div'></div>");
     clickHereDiv.append($("<p>Drag slider</p>"));
     clickHereDiv.append($("<img src='down_arrow.png' height='100%' class='lazy'>"));
@@ -199,44 +192,18 @@ function makeHistoricalReservoirViz() {
     $("#reservoirs-matter-viz").append(sliderDiv);
 //    $("#reservoirs-matter-viz").append(clickHereDiv);
     sliderDiv.append(clickHereDiv);
-    makeFillGauges("historical_data.json", 70, 70, 12, gaugesSvg, "#map");
-    makeSlider("historical_data.json", sliderInnerDiv, "slider-inner", true);
-}
-
-var stopXCoord;
-var pauseXCoord;
-var curtain;
-
-function makeBuchananChart() {
-    var config = {
-        resNames: ["BUC"],
-        resColors: ["#0DC1F2"],
-        beginDate: "January 2003",
-        endDate: "November 2016",
-        pauseDate: "November 2012",
-        stopDate: "November 2016"
-    };
-    makeLineChart("#buchanan-wrapper", "historical_data.json", config, function (progress) { curtain = progress["curtain"];
-    stopXCoord = progress["stopDateXCoord"]; pauseXCoord = progress["pauseDateXCoord"]; 
-    curtain.transition().duration(3000).ease("linear").attr("x", pauseXCoord);});
-}
-
-function rewindBuchananChart() {
-    curtain.transition().duration(1000).ease("linear").attr("x", pauseXCoord);
-}
-
-function advanceBuchananChart() {
-    curtain.transition().duration(1000).ease("linear").attr("x", stopXCoord);
+//    makeFillGauges("historical_data.json", 70, 70, 12, gaugesSvg, "#map");
+//    makeSlider("historical_data.json", sliderInnerDiv, "slider-inner", true);
 }
 
 function oneResRed() {
     if ($("#INV-stat")) {
-        $("#INV-stat").attr("style", "fill: red;");
-        $("#FOL-stat").attr("style", "fill: white;");
-        $("#SHA-stat").attr("style", "fill: white;");
-        $("#ORO-stat").attr("style", "fill: white;");
+        d3.select("#ORO-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#FOL-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#SHA-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#INV-stat").transition().duration(200).style("fill", "rgb(255, 0, 0)");
         
-        d3.select("#ORO-INV").transition().duration(200).style("stroke", "white");
+        d3.select("#INV-ORO").transition().duration(200).style("stroke", "white");
         d3.select("#INV-FOL").transition().duration(200).style("stroke", "white");
         d3.select("#SHA-INV").transition().duration(200).style("stroke", "white"); 
     }
@@ -245,25 +212,25 @@ function oneResRed() {
 function clusterRed() {
     if ($("#ORO-INV") && $("#INV-FOL") && $("#SHA-INV")) {
         $("#INV-stat").attr("style", "fill: red;");
-        d3.select("#ORO-stat").transition().duration(100).style("fill", "red");
-        d3.select("#FOL-stat").transition().duration(100).style("fill", "red");
-        d3.select("#SHA-stat").transition().duration(100).style("fill", "red");
+        d3.select("#ORO-stat").transition().duration(200).style("fill", "rgb(255, 0, 0)");
+        d3.select("#FOL-stat").transition().duration(200).style("fill", "rgb(255, 0, 0)");
+        d3.select("#SHA-stat").transition().duration(200).style("fill", "rgb(255, 0, 0)");
         
-        d3.select("#ORO-INV").transition().duration(450).style("stroke", "red");
-        d3.select("#INV-FOL").transition().duration(450).style("stroke", "red");
-        d3.select("#SHA-INV").transition().duration(450).style("stroke", "red");
+        d3.select("#INV-ORO").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
+        d3.select("#INV-FOL").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
+        d3.select("#SHA-INV").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
     }
 }
 
 function noResRed() {
-    if ($("#ORO-INV") && $("#INV-FOL") && $("#SHA-INV")) {
-        $("#INV-stat").attr("style", "fill: white;");
-        $("#FOL-stat").attr("style", "fill: white;");
-        $("#SHA-stat").attr("style", "fill: white;");
-        $("#ORO-stat").attr("style", "fill: white;");
+    if ($("#INV-ORO") && $("#INV-FOL") && $("#SHA-INV")) {
+        d3.select("#ORO-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#FOL-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#SHA-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
+        d3.select("#INV-stat").transition().duration(200).style("fill", "rgb(255, 255, 255)");
 
-        d3.select("#ORO-INV").style("stroke", "white");
-        d3.select("#INV-FOL").style("stroke", "white");
-        d3.select("#SHA-INV").style("stroke", "white");        
+        d3.select("#INV-ORO").transition().duration(200).style("stroke", "rgb(255, 255, 255)");
+        d3.select("#INV-FOL").transition().duration(200).style("stroke", "rgb(255, 255, 255)");
+        d3.select("#SHA-INV").transition().duration(200).style("stroke", "rgb(255, 255, 255)");       
     }
 }

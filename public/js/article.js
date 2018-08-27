@@ -5,7 +5,7 @@ $(document).ready(function() {
     adjustViewport();
     var viewportHeight = $(".title").outerHeight();
     $(".title").css({height: viewportHeight});
-    $(".mini-title").css({height: viewportHeight * .67});
+    $(".mini-title").css({height: viewportHeight * .8});
     $(".lazy").Lazy();
     drawMaps();
     loadHistoricalData();

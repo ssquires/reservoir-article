@@ -6,6 +6,8 @@
     display: block;
     margin: auto;
     position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 #PDSI-viz .pdsi-slider {
@@ -171,6 +173,7 @@
     height: 100px;
     display: block;
     margin: auto;
+    margin-top: 50px;
 }
 
 #dependency-slider-viz {

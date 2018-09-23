@@ -205,7 +205,8 @@ function oneResRed() {
         
         d3.select("#INV-ORO").transition().duration(200).style("stroke", "white");
         d3.select("#INV-FOL").transition().duration(200).style("stroke", "white");
-        d3.select("#SHA-INV").transition().duration(200).style("stroke", "white"); 
+        d3.select("#SHA-INV").transition().duration(200).style("stroke", "white");
+        d3.select("#SHA-ORO").transition().duration(200).style("stroke", "white");
     }
 }
 
@@ -219,6 +220,7 @@ function clusterRed() {
         d3.select("#INV-ORO").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
         d3.select("#INV-FOL").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
         d3.select("#SHA-INV").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
+        d3.select("#SHA-ORO").transition().duration(200).style("stroke", "rgb(255, 0, 0)");
     }
 }
 
@@ -231,6 +233,7 @@ function noResRed() {
 
         d3.select("#INV-ORO").transition().duration(200).style("stroke", "rgb(255, 255, 255)");
         d3.select("#INV-FOL").transition().duration(200).style("stroke", "rgb(255, 255, 255)");
-        d3.select("#SHA-INV").transition().duration(200).style("stroke", "rgb(255, 255, 255)");       
+        d3.select("#SHA-INV").transition().duration(200).style("stroke", "rgb(255, 255, 255)"); 
+        d3.select("#SHA-ORO").transition().duration(200).style("stroke", "rgb(255, 255, 255)");
     }
 }

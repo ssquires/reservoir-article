@@ -1,5 +1,14 @@
 var historicalData;
 var resNames = ["ORO", "CLE", "INV", "FOL", "HID", "DNP", "BUC", "ISB", "SHA"];
+var resTranslations = {"ORO": "Lake Oroville",
+                       "CLE": "Trinity Lake",
+                       "INV": "Indian Valley Res.",
+                       "FOL": "Folsom Lake",
+                       "HID": "Hensley Lake",
+                       "DNP": "Don Pedro Res.",
+                       "BUC": "Eastman Lake",
+                       "ISB": "Lake Isabella",
+                       "SHA": "Lake Shasta"};
 var arc;
 var gauges = {};
 
@@ -366,9 +375,9 @@ function makeFillGauges(resData, width, height, maxCharts, containerDivID) {
             } else if (chartNum >= 6) {
                 yCoord = 275;
             }
-            var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125' style='width: 90px; height: 90px;'></svg>");
+            var chartSvg = $("<svg class='chart' viewBox='0 0 100 125' x='" + xCoord + "' y='" + yCoord + "' width='100' height='125' style='width: 90px; height: 90px; overflow: visible;'></svg>");
             $(containerDivID).append(chartSvg);
-            var label = $("<svg><text x='30' y='20' fill='black' class='res-name' id='label-" + key + "'>" + key + "</text></svg>");
+            var label = $("<svg style='overflow: visible; width: 90px;'><text text-anchor='middle' x='45' y='20' height='100' fill='black' class='res-name' id='label-" + key + "'>" + resTranslations[key] + "</text></svg>");
             
             
             var chartID = "chart-" + key;
